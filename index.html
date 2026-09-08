@@ -175,6 +175,10 @@ var DAYS = [
   {
     tab: "Tue", date: "Sep 8", emoji: "🦊", title: "Fable Tuesday",
     reward: { label: "\ud83c\udfac Reward: Weird But True - Sharks! (Nat Geo Kids)", url: "https://youtu.be/moIrGJh56Sg" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Map Detective (2 min):</b></p><ul>" +
+      "<li>Open a world map or grab a globe. Find these 3: <b>the USA</b>, <b>the Pacific Ocean</b>, <b>the equator</b>.</li>" +
+      "<li>Detective question: is Indiana <b>north or south</b> of the equator? Point to your answer!</li>" +
+      "<li>Bonus: put your finger on a country you have never heard of and learn its name.</li></ul>" },
     watch: [
       { label: "▶️ Watch: The Ant and the Grasshopper", url: "https://youtu.be/1i6mbw6_2IU" }
     ],
@@ -194,6 +198,9 @@ var DAYS = [
   {
     tab: "Wed", date: "Sep 9", emoji: "✏️", title: "Grammar & Spelling Wednesday",
     reward: { label: "\ud83c\udfac Reward: Conjunctions Song - Junc-Func (GrammarSongs)", url: "https://youtu.be/_yarxGq1Ens" },
+    world: { emoji: "🏛️", kind: "History", html: "<p><b>This Day in History:</b> on September 9, 1850, <b>California became the 31st state</b> - right in the middle of the Gold Rush!</p><ul>" +
+      "<li>Math-history puzzle: the US has 50 states now. How many joined AFTER California? (50 - 31 = ?)</li>" +
+      "<li>Ask a grown-up: would YOU have gone digging for gold?</li></ul>" },
     watch: [
       { label: "▶️ Watch: Schoolhouse Rock - Mr. Morton (subject & predicate)", url: "https://youtu.be/JoZn12BEjyM" }
     ],
@@ -215,6 +222,10 @@ var DAYS = [
   {
     tab: "Thu", date: "Sep 10", emoji: "🌟", title: "Spelling Test Day",
     reward: { label: "\ud83c\udfac Reward: Mark Rober\u2019s Backyard Squirrel Maze", url: "https://youtu.be/hFZFjoX2cGg" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Continent Speed Round (2 min):</b></p><ul>" +
+      "<li>Name all <b>7 continents</b> out loud. Time yourself - can you beat 15 seconds?</li>" +
+      "<li>Rapid fire: which continent is the <b>biggest</b>? (Asia) Which one has wild <b>penguins</b>? (Antarctica)</li>" +
+      "<li>Bonus: which continent do YOU live on? Point to it on a map.</li></ul>" },
     watch: [
       { label: "▶️ Evening: Khan Academy Kids - free choice!", url: "https://www.khanacademykids.org/" }
     ],
@@ -233,6 +244,10 @@ var DAYS = [
   {
     tab: "Fri", date: "Sep 11", emoji: "🌲", title: "Tree Detective Friday",
     reward: { label: "\ud83c\udfac Reward: TED-Ed - The Secret Language of Trees", url: "https://youtu.be/V4m9SefyRjg" },
+    world: { emoji: "🏛️", kind: "History", html: "<p><b>Time Traveler Line-Up:</b> put these in order, first to last:</p><ul>" +
+      "<li>🦕 Dinosaurs roam the Earth · 🏺 Pyramids are built · ✈️ First airplane flies · 🎂 You were born</li>" +
+      "<li>Answer: dinosaurs \u2192 pyramids \u2192 airplane \u2192 you!</li>" +
+      "<li>If a time machine took you to ONE of these, which would you pick? Why?</li></ul>" },
     watch: [
       { label: "▶️ Watch: Guess That Tree!", url: "https://youtu.be/qFVh2fTR2XA" }
     ],
@@ -253,6 +268,9 @@ var DAYS = [
   {
     tab: "Sat", date: "Sep 12", emoji: "🦁", title: "Habitat Saturday",
     reward: { label: "\ud83c\udfac Reward: SciShow Kids - Amazing Ways to Live in the Desert", url: "https://youtu.be/gaZKEc59g1w" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Habitat World Map:</b> match each animal to its home, then find it on a map:</p><ul>" +
+      "<li>🐪 Camel \u2192 deserts of Africa and Asia · 🐻\u200D\u2744️ Polar bear \u2192 the Arctic · 🦘 Kangaroo \u2192 Australia · 🐼 Panda \u2192 China, in Asia</li>" +
+      "<li>Which animal lives <b>farthest</b> from Indiana? Trace the trip with your finger!</li></ul>" },
     watch: [
       { label: "▶️ Watch: PBS - Habitats (2nd Grade Science)", url: "https://pbs.org/video/habitats-2nd-grade-science-c0mvpn/" }
     ],
@@ -282,7 +300,9 @@ var DAYS = [
       { q: "An oak tree loses its leaves every fall, so an oak is\u2026", opts: ["coniferous", "deciduous", "an evergreen", "a cactus"], a: 1 },
       { q: "VENATION is\u2026", opts: ["the pattern of veins in a leaf", "a leaf's color", "how tall a tree grows", "a type of seed"], a: 0 },
       { q: "A habitat gives an animal\u2026", opts: ["food, water, and shelter", "toys, beds, and TVs", "only water", "cars and roads"], a: 0 },
-      { q: "\ud83d\ude80 An ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "the edge of a leaf"], a: 0 }
+      { q: "\ud83d\ude80 An ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "the edge of a leaf"], a: 0 },
+      { q: "Which continent is the BIGGEST?", opts: ["Africa", "Asia", "Europe", "North America"], a: 1 },
+      { q: "California became the 31st US state in 1850. How many of the 50 states joined AFTER it?", opts: ["19", "31", "50", "9"], a: 0 }
     ]
   }
 ];
@@ -331,6 +351,8 @@ DAYS.forEach(function (d, i) {
     html += "</div>";
 
     html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
 
     html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
 
