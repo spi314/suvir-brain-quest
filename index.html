@@ -174,6 +174,7 @@
 var DAYS = [
   {
     tab: "Tue", date: "Sep 8", emoji: "🦊", title: "Fable Tuesday",
+    reward: { label: "\ud83c\udfac Reward: Weird But True - Sharks! (Nat Geo Kids)", url: "https://youtu.be/moIrGJh56Sg" },
     watch: [
       { label: "▶️ Watch: The Ant and the Grasshopper", url: "https://youtu.be/1i6mbw6_2IU" }
     ],
@@ -192,6 +193,7 @@ var DAYS = [
   },
   {
     tab: "Wed", date: "Sep 9", emoji: "✏️", title: "Grammar & Spelling Wednesday",
+    reward: { label: "\ud83c\udfac Reward: Conjunctions Song - Junc-Func (GrammarSongs)", url: "https://youtu.be/_yarxGq1Ens" },
     watch: [
       { label: "▶️ Watch: Schoolhouse Rock - Mr. Morton (subject & predicate)", url: "https://youtu.be/JoZn12BEjyM" }
     ],
@@ -212,6 +214,7 @@ var DAYS = [
   },
   {
     tab: "Thu", date: "Sep 10", emoji: "🌟", title: "Spelling Test Day",
+    reward: { label: "\ud83c\udfac Reward: Mark Rober\u2019s Backyard Squirrel Maze", url: "https://youtu.be/hFZFjoX2cGg" },
     watch: [
       { label: "▶️ Evening: Khan Academy Kids - free choice!", url: "https://www.khanacademykids.org/" }
     ],
@@ -229,6 +232,7 @@ var DAYS = [
   },
   {
     tab: "Fri", date: "Sep 11", emoji: "🌲", title: "Tree Detective Friday",
+    reward: { label: "\ud83c\udfac Reward: TED-Ed - The Secret Language of Trees", url: "https://youtu.be/V4m9SefyRjg" },
     watch: [
       { label: "▶️ Watch: Guess That Tree!", url: "https://youtu.be/qFVh2fTR2XA" }
     ],
@@ -248,6 +252,7 @@ var DAYS = [
   },
   {
     tab: "Sat", date: "Sep 12", emoji: "🦁", title: "Habitat Saturday",
+    reward: { label: "\ud83c\udfac Reward: SciShow Kids - Amazing Ways to Live in the Desert", url: "https://youtu.be/gaZKEc59g1w" },
     watch: [
       { label: "▶️ Watch: PBS - Habitats (2nd Grade Science)", url: "https://pbs.org/video/habitats-2nd-grade-science-c0mvpn/" }
     ],
@@ -263,6 +268,22 @@ var DAYS = [
       { q: "A polar bear's habitat is…", opts: ["the hot desert", "the rainforest", "the cold Arctic", "the ocean floor"], a: 2 },
       { q: "\ud83d\ude80 Stretch: an ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "a kind of plant"], a: 0 }
     ]
+  },
+  {
+    weekly: true, tab: "Quiz", date: "All week", emoji: "\ud83c\udfc6", title: "Weekly Brain Quest Quiz",
+    watch: [], doHtml: "", reward: { label: "", url: "" },
+    quiz: [
+      { q: "A fable is a short story that\u2026", opts: ["teaches a moral, often with animal characters", "is always a true news story", "has no ending", "is always a poem"], a: 0 },
+      { q: "The moral of The Ant and the Grasshopper is\u2026", opts: ["Play first, work later", "Prepare today for tomorrow", "Never help a friend", "Winter is the best season"], a: 1 },
+      { q: "\ud83d\ude80 A MORAL is different from a SUMMARY because\u2026", opts: ["a moral is the lesson; a summary retells what happened", "they are exactly the same", "a summary is always one word", "a moral lists the characters"], a: 0 },
+      { q: "In \"The busy bees buzzed over the flowers,\" the SIMPLE subject is\u2026", opts: ["The busy bees", "bees", "buzzed", "flowers"], a: 1 },
+      { q: "The PREDICATE of a sentence tells\u2026", opts: ["who the sentence is about", "what the subject does or is", "how to spell the words", "the punctuation mark"], a: 1 },
+      { q: "Number bonds: 8 + 5 = 8 + 2 + ?", opts: ["2", "3", "5", "1"], a: 1 },
+      { q: "An oak tree loses its leaves every fall, so an oak is\u2026", opts: ["coniferous", "deciduous", "an evergreen", "a cactus"], a: 1 },
+      { q: "VENATION is\u2026", opts: ["the pattern of veins in a leaf", "a leaf's color", "how tall a tree grows", "a type of seed"], a: 0 },
+      { q: "A habitat gives an animal\u2026", opts: ["food, water, and shelter", "toys, beds, and TVs", "only water", "cars and roads"], a: 0 },
+      { q: "\ud83d\ude80 An ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "the edge of a leaf"], a: 0 }
+    ]
   }
 ];
 
@@ -270,6 +291,19 @@ var LS = "suvir-brain-quest-v1";
 var state = { done: {}, quizBest: {}, mathBest: 0 };
 try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
 function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
 
 var tabsEl = document.getElementById("tabs");
 var root = document.getElementById("daysRoot");
@@ -283,27 +317,27 @@ DAYS.forEach(function (d, i) {
   var sec = document.createElement("section");
   sec.className = "day";
   var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
-    '<p class="day-date">' + d.tab + ", " + d.date + ', 2026</p>';
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
 
-  html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
-  d.watch.forEach(function (w) {
-    html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
-  });
-  html += "</div>";
-
-  html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
-
-  html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3><div class="quiz" data-day="' + i + '">';
-  d.quiz.forEach(function (q, qi) {
-    html += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
-    q.opts.forEach(function (o, oi) {
-      html += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
     });
     html += "</div>";
-  });
-  html += '<div class="quiz-score" id="quizScore-' + i + '"></div></div></div>';
 
-  html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
   sec.innerHTML = html;
   root.appendChild(sec);
 });
@@ -314,15 +348,38 @@ function showDay(i) {
 }
 
 function refreshProgress() {
-  var n = 0;
-  for (var i = 0; i < DAYS.length; i++) if (state.done[i]) n++;
-  document.getElementById("progressFill").style.width = (n / DAYS.length * 100) + "%";
-  document.getElementById("progressLabel").textContent = n + " of " + DAYS.length + " days done";
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
   Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
-    b.classList.toggle("done", !!state.done[bi]);
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
     var btn = root.children[bi].querySelector("[data-done]");
     if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
   });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
 }
 
 document.addEventListener("click", function (e) {
