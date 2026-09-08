@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suvir's Brain Quest - Week of Sep 8</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .timer-face { font-size: 3.4rem; font-weight: 900; text-align: center; margin: 10px 0;
+    font-variant-numeric: tabular-nums; color: #ffd54a; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Sep 8-12 · 2nd Grade · Mrs. Klezmer's class</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
+
+<div id="mathFab"><button id="openMath">⏱️ Math Facts Training (10 min daily)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>
+    <h2>⏱️ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">School goal: 45 out of 50. Practice every day and watch your score climb!</p>
+
+    <div class="card">
+      <div class="timer-face" id="timerFace">10:00</div>
+      <div class="row">
+        <button class="go" id="timerStart">Start</button>
+        <button id="timerPause">Pause</button>
+        <button id="timerReset">Reset</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash</h3>
+      <div class="seg" id="modeSeg">
+        <button data-max="20" class="on">Within 20</button>
+        <button data-max="100">Within 100</button>
+      </div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact!</div>
+      <div class="math-answer" id="mathAnswer"></div>
+      <div class="keypad">
+        <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+        <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+        <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+        <button class="del" data-k="del">⌫</button><button data-k="0">0</button>
+        <button class="enter" data-k="enter">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Sep 2026</footer>
+
+<script>
+var DAYS = [
+  {
+    tab: "Tue", date: "Sep 8", emoji: "🦊", title: "Fable Tuesday",
+    watch: [
+      { label: "▶️ Watch: The Ant and the Grasshopper", url: "https://youtu.be/3eMQDxwpKDw" }
+    ],
+    doHtml: "<p>Talk about the story together:</p><ul>" +
+      "<li><b>Retell it in 3 sentences</b> - beginning, middle, end.</li>" +
+      "<li>What is the <b>moral</b> (the lesson) of the story?</li>" +
+      "<li>Bonus: what would YOU say to the grasshopper?</li></ul>",
+    quiz: [
+      { q: "What is a fable?", opts: ["A long chapter book", "A short story that teaches a moral, often with animals", "A poem that rhymes", "A true news report"], a: 1 },
+      { q: "In The Ant and the Grasshopper, what does the ant do all summer?", opts: ["Sings and dances", "Collects and stores food", "Sleeps in the sun", "Builds a swimming pool"], a: 1 },
+      { q: "What is the moral of The Ant and the Grasshopper?", opts: ["Play first, work later", "Prepare today for tomorrow", "Never trust a grasshopper", "Winter is the best season"], a: 1 },
+      { q: "In The Lion and the Mouse, how does the mouse save the lion?", opts: ["Roars to scare the hunters", "Chews through the hunter's net", "Brings the lion food", "Hides the lion in a hole"], a: 1 }
+    ]
+  },
+  {
+    tab: "Wed", date: "Sep 9", emoji: "✏️", title: "Grammar & Spelling Wednesday",
+    watch: [
+      { label: "▶️ Watch: Schoolhouse Rock - Mr. Morton (subject & predicate)", url: "https://youtu.be/JoZn12BEjyM" }
+    ],
+    doHtml: "<p><b>Silly sentence game:</b></p><ul>" +
+      "<li>Write <b>5 silly sentences</b>, cut each in half between the subject and the predicate, then mix and match for funny combos.</li></ul>" +
+      "<p><b>Spelling (test tomorrow!):</b></p><ul>" +
+      "<li>Sort the word list by pattern and <b>say the spelling rule OUT LOUD</b>.</li>" +
+      "<li>Bonus: play teacher - fix 3 sentences using <b>proofreader's marks</b> (insert ⌃, delete, capitalize).</li></ul>",
+    quiz: [
+      { q: "The SUBJECT of a sentence tells…", opts: ["who or what the sentence is about", "only the action word", "when the sentence happened", "how the sentence ends"], a: 0 },
+      { q: "The PREDICATE tells…", opts: ["who the sentence is about", "what the subject does or is", "the spelling of the words", "the punctuation"], a: 1 },
+      { q: "\"The fluffy cat napped on the sofa.\" What is the subject?", opts: ["napped on the sofa", "the sofa", "The fluffy cat", "fluffy"], a: 2 },
+      { q: "In that same sentence, what is the predicate?", opts: ["The fluffy cat", "napped on the sofa", "the", "sofa"], a: 1 },
+      { q: "Why will the spelling test mix up the word order?", opts: ["To trick everyone", "So you use the spelling RULE, not just memory", "Because lists are boring", "No reason"], a: 1 }
+    ]
+  },
+  {
+    tab: "Thu", date: "Sep 10", emoji: "🌟", title: "Spelling Test Day",
+    watch: [
+      { label: "▶️ Evening: Khan Academy Kids - free choice!", url: "https://www.khanacademykids.org/" }
+    ],
+    doHtml: "<p><b>Morning (before the test):</b></p><ul>" +
+      "<li>Say the spelling rule once, spell 3 words out loud, take a deep breath. <b>No cramming</b> - you've got this!</li></ul>" +
+      "<p><b>Evening:</b></p><ul>" +
+      "<li>Free choice on Khan Academy Kids - you earned it!</li></ul>",
+    quiz: [
+      { q: "The best thing to do on test morning is…", opts: ["Cram 100 words fast", "Say the rule once, breathe, and go rock it", "Skip breakfast", "Worry a lot"], a: 1 },
+      { q: "True or false: the test checks if you know the spelling RULE, not the order of the list.", opts: ["True", "False"], a: 0 },
+      { q: "After the test, the best evening plan is…", opts: ["More cramming", "Relax and play free-choice learning games", "Erase everything you learned", "Stay up all night"], a: 1 }
+    ]
+  },
+  {
+    tab: "Fri", date: "Sep 11", emoji: "🌲", title: "Tree Detective Friday",
+    watch: [
+      { label: "▶️ Watch: Guess That Tree!", url: "https://youtu.be/qFVh2fTR2XA" }
+    ],
+    doHtml: "<p><b>Leaf hunt!</b></p><ul>" +
+      "<li>Collect <b>3-5 leaves</b> outside.</li>" +
+      "<li>Sort them: <b>coniferous</b> (needles/cones) vs <b>deciduous</b> (broad leaves).</li>" +
+      "<li>Check the <b>margins</b> (edges) and <b>veins</b> of each leaf, just like in class.</li></ul>",
+    quiz: [
+      { q: "Coniferous trees have…", opts: ["big flat leaves", "needles and cones", "flowers all year", "no branches"], a: 1 },
+      { q: "Deciduous trees…", opts: ["keep leaves forever", "lose their leaves in the fall", "grow only indoors", "have no leaves at all"], a: 1 },
+      { q: "Which one is coniferous?", opts: ["Oak", "Maple", "Pine", "Birch"], a: 2 },
+      { q: "The MARGIN of a leaf is…", opts: ["its edge", "its stem", "its color", "its size"], a: 0 },
+      { q: "VENATION means…", opts: ["how fast a leaf falls", "the pattern of veins in a leaf", "how green a leaf is", "how many trees are in a forest"], a: 1 }
+    ]
+  },
+  {
+    tab: "Sat", date: "Sep 12", emoji: "🦁", title: "Habitat Saturday",
+    watch: [
+      { label: "▶️ Watch: PBS - Habitats (2nd Grade Science)", url: "https://pbs.org/video/habitats-2nd-grade-science-c0mvpn/" }
+    ],
+    doHtml: "<p><b>Mini-poster project:</b></p><ul>" +
+      "<li>Pick <b>one animal</b> and draw it in its habitat.</li>" +
+      "<li>Write <b>2-3 sentences</b>: how does the habitat help it survive?</li>" +
+      "<li>Bonus: build a <b>shoebox diorama</b> of the habitat!</li></ul>",
+    quiz: [
+      { q: "A habitat is…", opts: ["a type of animal food", "the natural home where a plant or animal lives", "a zoo cage", "a kind of weather"], a: 1 },
+      { q: "What 3 things does a habitat give an animal?", opts: ["Toys, beds, TVs", "Food, water, and shelter", "Cars, roads, parks", "Only water"], a: 1 },
+      { q: "Which animal belongs in a DESERT habitat?", opts: ["Penguin", "Polar bear", "Camel", "Frog"], a: 2 },
+      { q: "A polar bear's habitat is…", opts: ["the hot desert", "the rainforest", "the cold Arctic", "the ocean floor"], a: 2 }
+    ]
+  }
+];
+
+var LS = "suvir-brain-quest-v1";
+var state = { done: {}, quizBest: {}, mathBest: 0 };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + d.tab + ", " + d.date + ', 2026</p>';
+
+  html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+  d.watch.forEach(function (w) {
+    html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+  });
+  html += "</div>";
+
+  html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+  html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3><div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    html += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      html += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    html += "</div>";
+  });
+  html += '<div class="quiz-score" id="quizScore-' + i + '"></div></div></div>';
+
+  html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  sec.innerHTML = html;
+  root.appendChild(sec);
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+
+function refreshProgress() {
+  var n = 0;
+  for (var i = 0; i < DAYS.length; i++) if (state.done[i]) n++;
+  document.getElementById("progressFill").style.width = (n / DAYS.length * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + DAYS.length + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Timer
+var T = 600, timerId = null;
+function face() {
+  var m = Math.floor(T / 60), s = T % 60;
+  document.getElementById("timerFace").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+}
+document.getElementById("timerStart").addEventListener("click", function () {
+  if (timerId) return;
+  timerId = setInterval(function () {
+    if (T > 0) { T--; face(); }
+    if (T === 0) { clearInterval(timerId); timerId = null;
+      document.getElementById("mathFb").textContent = "⏰ Time's up! Amazing work!";
+      document.getElementById("mathFb").className = "math-fb good";
+      try { beep(); } catch (e) {}
+    }
+  }, 1000);
+});
+document.getElementById("timerPause").addEventListener("click", function () { clearInterval(timerId); timerId = null; });
+document.getElementById("timerReset").addEventListener("click", function () { clearInterval(timerId); timerId = null; T = 600; face(); });
+function beep() {
+  var ctx = new (window.AudioContext || window.webkitAudioContext)();
+  [0, .25, .5].forEach(function (d) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.value = 880; g.gain.value = .15;
+    o.start(ctx.currentTime + d); o.stop(ctx.currentTime + d + .18);
+  });
+}
+
+// Fact dash
+var maxN = 20, cur = null, typed = "", mScore = 0, mTotal = 0;
+document.getElementById("modeSeg").addEventListener("click", function (e) {
+  if (e.target.tagName !== "BUTTON") return;
+  Array.prototype.forEach.call(e.currentTarget.children, function (b) { b.classList.remove("on"); });
+  e.target.classList.add("on");
+  maxN = +e.target.getAttribute("data-max");
+  cur = null; typed = "";
+  document.getElementById("mathQ").textContent = "Press New Fact!";
+  document.getElementById("mathAnswer").textContent = "";
+  document.getElementById("mathFb").textContent = "";
+});
+function newFact() {
+  var a, b, op;
+  if (Math.random() < 0.5) { op = "+"; a = ri(1, maxN); b = ri(1, maxN); if (a + b > maxN) { a = ri(1, Math.max(1, maxN - 1)); b = ri(1, maxN - a); } }
+  else { op = "-"; a = ri(2, maxN); b = ri(1, a); }
+  cur = { q: a + " " + op + " " + b + " = ?", ans: op === "+" ? a + b : a - b };
+  typed = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathAnswer").textContent = "";
+  document.getElementById("mathFb").textContent = "";
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.querySelector("#mathModal .keypad").addEventListener("click", function (e) {
+  if (e.target.tagName !== "BUTTON") return;
+  var k = e.target.getAttribute("data-k");
+  if (k === "del") typed = typed.slice(0, -1);
+  else if (k === "enter") {
+    if (!cur || typed === "") return;
+    var val = parseInt(typed, 10);
+    mTotal++;
+    var fb = document.getElementById("mathFb");
+    if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+    else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+    if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+    document.getElementById("mathScore").textContent = "Score: " + mScore + " · Best: " + state.mathBest;
+    typed = "";
+    document.getElementById("mathAnswer").textContent = "";
+    setTimeout(newFact, 900);
+    return;
+  }
+  else if (typed.length < 4) typed += k;
+  document.getElementById("mathAnswer").textContent = typed;
+});
+document.getElementById("mathScore").textContent = "Score: 0 · Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+face();
+</script>
+</body>
+</html>
