@@ -131,7 +131,7 @@
   <div class="inner">
     <button class="close" id="closeMath">✕</button>
     <h2>⏱️ Math Facts Training</h2>
-    <p style="color:#9fd0ea;margin-top:2px;">School goal: 45 out of 50. Practice every day and watch your score climb!</p>
+    <p style="color:#9fd0ea;margin-top:2px;">School goal: 45 out of 50. Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
 
     <div class="card">
       <div class="timer-face" id="timerFace">10:00</div>
@@ -145,9 +145,12 @@
     <div class="card">
       <h3>⚡ Fact Dash</h3>
       <div class="seg" id="modeSeg">
-        <button data-max="20" class="on">Within 20</button>
-        <button data-max="100">Within 100</button>
+        <button data-mode="addsub" data-max="20" class="on">+/&minus; 20</button>
+        <button data-mode="addsub" data-max="100">+/&minus; 100</button>
+        <button data-mode="mult">&times; Facts</button>
+        <button data-mode="div">&divide; Facts</button>
       </div>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
       <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
       <div class="math-q" id="mathQ">Press New Fact!</div>
       <div class="math-answer" id="mathAnswer"></div>
@@ -387,26 +390,44 @@ function beep() {
 }
 
 // Fact dash
-var maxN = 20, cur = null, typed = "", mScore = 0, mTotal = 0;
+var maxN = 20, mode = "addsub", cur = null, typed = "", mScore = 0, mTotal = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
 document.getElementById("modeSeg").addEventListener("click", function (e) {
   if (e.target.tagName !== "BUTTON") return;
   Array.prototype.forEach.call(e.currentTarget.children, function (b) { b.classList.remove("on"); });
   e.target.classList.add("on");
-  maxN = +e.target.getAttribute("data-max");
+  mode = e.target.getAttribute("data-mode") || "addsub";
+  maxN = +(e.target.getAttribute("data-max") || 20);
   cur = null; typed = "";
   document.getElementById("mathQ").textContent = "Press New Fact!";
   document.getElementById("mathAnswer").textContent = "";
   document.getElementById("mathFb").textContent = "";
 });
 function newFact() {
-  var a, b, op;
-  if (Math.random() < 0.5) { op = "+"; a = ri(1, maxN); b = ri(1, maxN); if (a + b > maxN) { a = ri(1, Math.max(1, maxN - 1)); b = ri(1, maxN - a); } }
-  else { op = "-"; a = ri(2, maxN); b = ri(1, a); }
-  cur = { q: a + " " + op + " " + b + " = ?", ans: op === "+" ? a + b : a - b };
+  var a, b, op, q, ans;
+  if (mode === "mult") { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
+  else if (mode === "div") { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
+  else {
+    if (Math.random() < 0.5) { op = "+"; a = ri(1, maxN); b = ri(1, maxN); if (a + b > maxN) { a = ri(1, Math.max(1, maxN - 1)); b = ri(1, maxN - a); } }
+    else { op = "-"; a = ri(2, maxN); b = ri(1, a); }
+    q = a + " " + op + " " + b + " = ?"; ans = op === "+" ? a + b : a - b;
+  }
+  cur = { q: q, ans: ans };
   typed = "";
   document.getElementById("mathQ").textContent = cur.q;
   document.getElementById("mathAnswer").textContent = "";
   document.getElementById("mathFb").textContent = "";
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
 }
 function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
 document.getElementById("newFact").addEventListener("click", newFact);
