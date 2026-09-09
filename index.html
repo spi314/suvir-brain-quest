@@ -97,6 +97,12 @@
   .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
   .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
   .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
   .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
   .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
     font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
@@ -143,23 +149,14 @@
     </div>
 
     <div class="card">
-      <h3>⚡ Fact Dash</h3>
-      <div class="seg" id="modeSeg">
-        <button data-mode="addsub" data-max="20" class="on">+/&minus; 20</button>
-        <button data-mode="addsub" data-max="100">+/&minus; 100</button>
-        <button data-mode="mult">&times; Facts</button>
-        <button data-mode="div">&divide; Facts</button>
-      </div>
+      <h3>⚡ Fact Dash - 100 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
       <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
       <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
-      <div class="math-q" id="mathQ">Press New Fact!</div>
-      <div class="math-answer" id="mathAnswer"></div>
-      <div class="keypad">
-        <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
-        <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
-        <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
-        <button class="del" data-k="del">⌫</button><button data-k="0">0</button>
-        <button class="enter" data-k="enter">✔</button>
+      <div class="math-q" id="mathQ">Press Start!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
       </div>
       <div class="math-fb" id="mathFb"></div>
       <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
@@ -446,7 +443,7 @@ function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
 
 // ---------- Math modal ----------
 var modal = document.getElementById("mathModal");
-document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); });
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
 document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
 
 // Timer
@@ -479,7 +476,7 @@ function beep() {
 }
 
 // Fact dash
-var maxN = 20, mode = "addsub", cur = null, typed = "", mScore = 0, mTotal = 0;
+var cur = null, mScore = 0, mCount = 0;
 var TIPS = [
   "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
   "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
@@ -490,58 +487,49 @@ var TIPS = [
   "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
   "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
 ];
-document.getElementById("modeSeg").addEventListener("click", function (e) {
-  if (e.target.tagName !== "BUTTON") return;
-  Array.prototype.forEach.call(e.currentTarget.children, function (b) { b.classList.remove("on"); });
-  e.target.classList.add("on");
-  mode = e.target.getAttribute("data-mode") || "addsub";
-  maxN = +(e.target.getAttribute("data-max") || 20);
-  cur = null; typed = "";
-  document.getElementById("mathQ").textContent = "Press New Fact!";
-  document.getElementById("mathAnswer").textContent = "";
-  document.getElementById("mathFb").textContent = "";
-});
 function newFact() {
-  var a, b, op, q, ans;
-  if (mode === "mult") { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
-  else if (mode === "div") { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
-  else {
-    if (Math.random() < 0.5) { op = "+"; a = ri(1, maxN); b = ri(1, maxN); if (a + b > maxN) { a = ri(1, Math.max(1, maxN - 1)); b = ri(1, maxN - a); } }
-    else { op = "-"; a = ri(2, maxN); b = ri(1, a); }
-    q = a + " " + op + " " + b + " = ?"; ans = op === "+" ? a + b : a - b;
-  }
+  if (mCount >= 100) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
   cur = { q: q, ans: ans };
-  typed = "";
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
   document.getElementById("mathQ").textContent = cur.q;
-  document.getElementById("mathAnswer").textContent = "";
   document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 100 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
   var tipEl = document.getElementById("mathTip");
   if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 100) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 100 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 90 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 70 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 100 for another round!";
+    document.getElementById("newFact").textContent = "Start New 100";
+  } else {
+    setTimeout(newFact, 900);
+  }
 }
 function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
 document.getElementById("newFact").addEventListener("click", newFact);
-document.querySelector("#mathModal .keypad").addEventListener("click", function (e) {
-  if (e.target.tagName !== "BUTTON") return;
-  var k = e.target.getAttribute("data-k");
-  if (k === "del") typed = typed.slice(0, -1);
-  else if (k === "enter") {
-    if (!cur || typed === "") return;
-    var val = parseInt(typed, 10);
-    mTotal++;
-    var fb = document.getElementById("mathFb");
-    if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
-    else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
-    if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
-    document.getElementById("mathScore").textContent = "Score: " + mScore + " · Best: " + state.mathBest;
-    typed = "";
-    document.getElementById("mathAnswer").textContent = "";
-    setTimeout(newFact, 900);
-    return;
-  }
-  else if (typed.length < 4) typed += k;
-  document.getElementById("mathAnswer").textContent = typed;
-});
-document.getElementById("mathScore").textContent = "Score: 0 · Best: " + state.mathBest;
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 100 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
 
 showDay(0);
 refreshProgress();
