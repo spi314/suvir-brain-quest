@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suvir's Brain Quest - Week of Sep 8</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Sep 8-12 · 2nd Grade · Mrs. Klezmer's class</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
+
+<div id="mathFab"><button id="openMath">⚡ Math Facts Training (100 facts)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>
+    <h2>⚡ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">School goal: 45 out of 50. Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.35rem;font-weight:900;color:#ffd54a;">100 facts · no timer</div>
+      <p style="color:#9fd0ea;margin:6px 0 0;">Take your time, use a smart strategy, and finish all 100.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash - 100 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact to begin!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Sep 2026</footer>
+
+<script>
+var DAYS = [
+  {
+    tab: "Tue", date: "Sep 8", emoji: "🦊", title: "Fable Tuesday",
+    read: "<p>A hungry heron stood by a pond, pretending to be friendly. \"This pond is drying up,\" he told the fish. \"Let me carry you to a bigger one.\" The fish trusted him, and one by one he carried them off - and ate them. Then a crab asked for a ride. Halfway there, the crab looked down and saw fish bones below. He clamped his claws around the heron's neck and squeezed. The heron never tricked anyone again.</p><p><b>Questions:</b></p><ul>" +
+      "<li>Why did the fish trust the heron?</li><li>The crab was suspicious. Which clue proved his suspicion right?</li><li>What is the moral of this fable?</li>" +
+      "<p><b>Word of the day - suspicious:</b> doubtful; sensing something might be wrong. Try to use it in a sentence today!</p>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) He acted friendly and warned them the pond was drying up. 2) He saw fish bones below. 3) Do not trust someone just because they sound nice - tricksters can be tricked.</p></details>",
+    word: "<p><b>Solve with a bar model or number bond - show your thinking!</b></p><ul>" +
+      "<li>The ant stores 24 seeds in the morning and 18 more in the afternoon. Then the grasshopper eats 7 seeds. How many seeds are left?</li><li>The net around the lion has 6 rows of 4 knots. The mouse chews through 9 knots to free him. How many knots are left?</li><li>The ant works 45 minutes a day for 4 days. The grasshopper works 25 minutes all week. How many more minutes did the ant work?</li>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 35 2) 15 3) 155 </p></details>",
+    reward: { label: "\ud83c\udfac Reward: Weird But True - Sharks! (Nat Geo Kids)", url: "https://youtu.be/moIrGJh56Sg" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Map Detective (2 min):</b></p><ul>" +
+      "<li>Open a world map or grab a globe. Find these 3: <b>the USA</b>, <b>the Pacific Ocean</b>, <b>the equator</b>.</li>" +
+      "<li>Detective question: is Indiana <b>north or south</b> of the equator? Point to your answer!</li>" +
+      "<li>Bonus: put your finger on a country you have never heard of and learn its name.</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: The Ant and the Grasshopper", url: "https://youtu.be/1i6mbw6_2IU" }
+    ],
+    doHtml: "<p>Talk about the story together:</p><ul>" +
+      "<li><b>Retell it in 3 sentences</b> - beginning, middle, end.</li>" +
+      "<li>What is the <b>moral</b> (the lesson) of the story?</li>" +
+      "<li>Bonus: what would YOU say to the grasshopper?</li>" +
+      "<li>&#128640; Stretch: invent your OWN fable - two animal characters, one problem, one moral. Tell it at dinner!</li></ul>",
+    quiz: [
+      { q: "What is a fable?", opts: ["A long chapter book", "A short story that teaches a moral, often with animals", "A poem that rhymes", "A true news report"], a: 1 },
+      { q: "In The Ant and the Grasshopper, what does the ant do all summer?", opts: ["Sings and dances", "Collects and stores food", "Sleeps in the sun", "Builds a swimming pool"], a: 1 },
+      { q: "What is the moral of The Ant and the Grasshopper?", opts: ["Play first, work later", "Prepare today for tomorrow", "Never trust a grasshopper", "Winter is the best season"], a: 1 },
+      { q: "In The Lion and the Mouse, how does the mouse save the lion?", opts: ["Roars to scare the hunters", "Chews through the hunter's net", "Brings the lion food", "Hides the lion in a hole"], a: 1 },
+      { q: "\ud83d\ude80 Stretch: how is a MORAL different from a SUMMARY?", opts: ["A moral is the lesson; a summary retells what happened", "They are the same thing", "A moral is always one word", "A summary teaches the lesson"], a: 0 }
+    ]
+  },
+  {
+    tab: "Wed", date: "Sep 9", emoji: "✏️", title: "Grammar & Spelling Wednesday",
+    read: "<p>Language never sits still. Every year, people invent new words. Sometimes two words crash together to make one, like \"smog\" from smoke and fog. Sometimes a company name becomes a word we use every day, like when we say \"google it.\" Dictionary makers watch how people talk and write. When millions of people use a new word, it earns a spot in the dictionary.</p><p><b>Questions:</b></p><ul>" +
+      "<li>What is this passage mostly about?</li><li>\"Smog\" was made by combining which two words?</li><li>What does \"invent\" mean in this passage?</li>" +
+      "<p><b>Word of the day - combine:</b> to join two or more things together into one. Try to use it in a sentence today!</p>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) How new words are born and earn a spot in the dictionary. 2) Smoke and fog. 3) To create something new.</p></details>",
+    word: "<p><b>Solve with a bar model or number bond - show your thinking!</b></p><ul>" +
+      "<li>Suvir writes 5 silly sentences with 8 words each. Then he erases 6 words. How many words are left?</li><li>He practices 3 pages of cursive with 12 letters on each page, plus 7 bonus letters. How many letters does he practice in all?</li><li>A dictionary page has 2 columns of 15 words. Suvir reads 19 of them. How many words are left unread?</li>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 34 2) 43 3) 11 </p></details>",
+    reward: { label: "\ud83c\udfac Reward: Conjunctions Song - Junc-Func (GrammarSongs)", url: "https://youtu.be/_yarxGq1Ens" },
+    world: { emoji: "🏛️", kind: "History", html: "<p><b>This Day in History:</b> on September 9, 1850, <b>California became the 31st state</b> - right in the middle of the Gold Rush!</p><ul>" +
+      "<li>Math-history puzzle: the US has 50 states now. How many joined AFTER California? (50 - 31 = ?)</li>" +
+      "<li>Ask a grown-up: would YOU have gone digging for gold?</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: Schoolhouse Rock - Mr. Morton (subject & predicate)", url: "https://youtu.be/JoZn12BEjyM" }
+    ],
+    doHtml: "<p><b>Silly sentence game:</b></p><ul>" +
+      "<li>Write <b>5 silly sentences</b>, cut each in half between the subject and the predicate, then mix and match for funny combos.</li></ul>" +
+      "<p><b>Spelling (test tomorrow!):</b></p><ul>" +
+      "<li>Sort the word list by pattern and <b>say the spelling rule OUT LOUD</b>.</li>" +
+      "<li>Bonus: play teacher - fix 3 sentences using <b>proofreader's marks</b> (insert ⌃, delete, capitalize).</li>" +
+      "<li>&#128640; Stretch: combine two short sentences into one with <b>and</b> or <b>because</b>, then label its subject and predicate.</li></ul>",
+    quiz: [
+      { q: "The SUBJECT of a sentence tells…", opts: ["who or what the sentence is about", "only the action word", "when the sentence happened", "how the sentence ends"], a: 0 },
+      { q: "The PREDICATE tells…", opts: ["who the sentence is about", "what the subject does or is", "the spelling of the words", "the punctuation"], a: 1 },
+      { q: "\"The fluffy cat napped on the sofa.\" What is the subject?", opts: ["napped on the sofa", "the sofa", "The fluffy cat", "fluffy"], a: 2 },
+      { q: "In that same sentence, what is the predicate?", opts: ["The fluffy cat", "napped on the sofa", "the", "sofa"], a: 1 },
+      { q: "Why will the spelling test mix up the word order?", opts: ["To trick everyone", "So you use the spelling RULE, not just memory", "Because lists are boring", "No reason"], a: 1 },
+      { q: "\ud83d\ude80 Stretch: in \"The fluffy cat napped on the sofa,\" the SIMPLE subject (the one key noun) is\u2026", opts: ["The fluffy cat", "cat", "napped", "sofa"], a: 1 }
+    ]
+  },
+  {
+    tab: "Thu", date: "Sep 10", emoji: "🌟", title: "Spelling Test Day",
+    read: "<p>Maya's hands shook as she walked to the microphone. \"Your word is horizon,\" said the judge. Maya closed her eyes. She pictured the word in her mind, just like she had practiced all week. Letter by letter, she spelled it out loud. \"That is correct,\" said the judge, and Maya's worried face broke into a giant smile.</p><p><b>Questions:</b></p><ul>" +
+      "<li>How does Maya feel at the beginning? How do you know?</li><li>What helped Maya spell the word correctly?</li><li>\"Pictured\" here means...</li>" +
+      "<p><b>Word of the day - horizon:</b> the line where the sky seems to meet the Earth. Try to use it in a sentence today!</p>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Nervous - her hands shook. 2) Picturing it in her mind, like she practiced. 3) Imagined; saw it in her mind.</p></details>",
+    word: "<p><b>Solve with a bar model or number bond - show your thinking!</b></p><ul>" +
+      "<li>The test has 20 words. Suvir gets 17 right. His friend gets 4 wrong. Who spelled more words right, and by how many?</li><li>Suvir earns 2 stars for every correct word. He got 17 right and needs 50 stars for the class prize. How many more stars does he need?</li><li>4 kids each practice 9 words, then quiz each other on 6 more words. How many words did they practice in all?</li>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Suvir, by 1 2) 16 3) 42 </p></details>",
+    reward: { label: "\ud83c\udfac Reward: Mark Rober\u2019s Backyard Squirrel Maze", url: "https://youtu.be/hFZFjoX2cGg" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Continent Speed Round (2 min):</b></p><ul>" +
+      "<li>Name all <b>7 continents</b> out loud. Time yourself - can you beat 15 seconds?</li>" +
+      "<li>Rapid fire: which continent is the <b>biggest</b>? (Asia) Which one has wild <b>penguins</b>? (Antarctica)</li>" +
+      "<li>Bonus: which continent do YOU live on? Point to it on a map.</li></ul>" },
+    watch: [
+      { label: "▶️ Evening: Khan Academy Kids - free choice!", url: "https://www.khanacademykids.org/" }
+    ],
+    doHtml: "<p><b>Morning (before the test):</b></p><ul>" +
+      "<li>Say the spelling rule once, spell 3 words out loud, take a deep breath. <b>No cramming</b> - you've got this!</li></ul>" +
+      "<p><b>Evening:</b></p><ul>" +
+      "<li>Free choice on Khan Academy Kids - you earned it!</li>" +
+      "<li>&#128640; Stretch: hunt for 3 NEW words that follow the same spelling rule - start your own challenge list!</li></ul>",
+    quiz: [
+      { q: "The best thing to do on test morning is…", opts: ["Cram 100 words fast", "Say the rule once, breathe, and go rock it", "Skip breakfast", "Worry a lot"], a: 1 },
+      { q: "True or false: the test checks if you know the spelling RULE, not the order of the list.", opts: ["True", "False"], a: 0 },
+      { q: "After the test, the best evening plan is…", opts: ["More cramming", "Relax and play free-choice learning games", "Erase everything you learned", "Stay up all night"], a: 1 },
+      { q: "\ud83d\ude80 Stretch: if you really know the spelling RULE, you can also spell\u2026", opts: ["only the 10 list words", "brand-new words you have never seen before", "nothing new", "only two-letter words"], a: 1 }
+    ]
+  },
+  {
+    tab: "Fri", date: "Sep 11", emoji: "🌲", title: "Tree Detective Friday",
+    read: "<p>Under a forest, trees are secretly talking. Their roots connect to tiny threads of fungus that weave through the soil, linking tree to tree like a giant web. Through this network, a mother tree can send sugar to her seedlings. She can even send alarm signals when insects attack, warning nearby trees to protect themselves. A forest is not just a crowd of trees - it is a community.</p><p><b>Questions:</b></p><ul>" +
+      "<li>What connects the trees underground?</li><li>Name TWO things the mother tree sends through the network.</li><li>\"Community\" at the end means...</li>" +
+      "<p><b>Word of the day - network:</b> a system of connected things that can share with each other. Try to use it in a sentence today!</p>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Tiny threads of fungus. 2) Sugar and alarm signals. 3) A group of living things that help each other.</p></details>",
+    word: "<p><b>Solve with a bar model or number bond - show your thinking!</b></p><ul>" +
+      "<li>Suvir collects 5 leaves from each of 4 trees, then gives 3 leaves to his brother. How many leaves does he have left?</li><li>A pine tree has 8 cones on each of 6 branches. A storm knocks 12 cones down. How many cones stay on the tree?</li><li>One oak drops 240 acorns and another drops 175. Squirrels bury 300 of them. How many acorns are left on the ground?</li>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 17 2) 36 3) 115 </p></details>",
+    reward: { label: "\ud83c\udfac Reward: TED-Ed - The Secret Language of Trees", url: "https://youtu.be/V4m9SefyRjg" },
+    world: { emoji: "🏛️", kind: "History", html: "<p><b>Time Traveler Line-Up:</b> put these in order, first to last:</p><ul>" +
+      "<li>🦕 Dinosaurs roam the Earth · 🏺 Pyramids are built · ✈️ First airplane flies · 🎂 You were born</li>" +
+      "<li>Answer: dinosaurs \u2192 pyramids \u2192 airplane \u2192 you!</li>" +
+      "<li>If a time machine took you to ONE of these, which would you pick? Why?</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: Guess That Tree!", url: "https://youtu.be/qFVh2fTR2XA" }
+    ],
+    doHtml: "<p><b>Leaf hunt!</b></p><ul>" +
+      "<li>Collect <b>3-5 leaves</b> outside.</li>" +
+      "<li>Sort them: <b>coniferous</b> (needles/cones) vs <b>deciduous</b> (broad leaves).</li>" +
+      "<li>Check the <b>margins</b> (edges) and <b>veins</b> of each leaf, just like in class.</li>" +
+      "<li>&#128640; Stretch: make a 2-question classification key for your leaves (Needles? yes \u2192 conifer, no \u2192 next question).</li></ul>",
+    quiz: [
+      { q: "Coniferous trees have…", opts: ["big flat leaves", "needles and cones", "flowers all year", "no branches"], a: 1 },
+      { q: "Deciduous trees…", opts: ["keep leaves forever", "lose their leaves in the fall", "grow only indoors", "have no leaves at all"], a: 1 },
+      { q: "Which one is coniferous?", opts: ["Oak", "Maple", "Pine", "Birch"], a: 2 },
+      { q: "The MARGIN of a leaf is…", opts: ["its edge", "its stem", "its color", "its size"], a: 0 },
+      { q: "VENATION means…", opts: ["how fast a leaf falls", "the pattern of veins in a leaf", "how green a leaf is", "how many trees are in a forest"], a: 1 },
+      { q: "\ud83d\ude80 Stretch: sorting leaves by margin and venation means you are using a\u2026", opts: ["classification key", "food chain", "life cycle", "weather map"], a: 0 }
+    ]
+  },
+  {
+    tab: "Sat", date: "Sep 12", emoji: "🦁", title: "Habitat Saturday",
+    read: "<p>The fennec fox lives in the Sahara, one of the hottest deserts on Earth. How does it survive? Its giant ears, each as long as its face, release body heat like tiny fans. Thick fur on its feet protects its paws from burning sand. And it hunts at night, sleeping all day in a cool burrow underground. Every part of this little fox is built for desert life.</p><p><b>Questions:</b></p><ul>" +
+      "<li>Name TWO ways the fennec fox stays cool.</li><li>Why does fur on its feet help?</li><li>\"Burrow\" means...</li>" +
+      "<p><b>Word of the day - burrow:</b> a hole or tunnel an animal digs to live in. Try to use it in a sentence today!</p>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Giant ears release heat; it hunts at night and sleeps in a cool burrow. 2) It protects its paws from burning sand. 3) A hole dug in the ground to live in.</p></details>",
+    word: "<p><b>Solve with a bar model or number bond - show your thinking!</b></p><ul>" +
+      "<li>A camel drinks 30 gallons of water on Saturday and 25 on Sunday. 9 gallons splash out of the trough. How much did it actually drink?</li><li>3 penguins each catch 7 fish. A sneaky seal steals 5 fish. How many fish do the penguins have left?</li><li>A desert gets 2 inches of rain each month for 3 months, then 1 inch evaporates in the sun. How many inches are left in the ground?</li>" +
+      "<details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 46 2) 16 3) 5 </p></details>",
+    reward: { label: "\ud83c\udfac Reward: SciShow Kids - Amazing Ways to Live in the Desert", url: "https://youtu.be/gaZKEc59g1w" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Habitat World Map:</b> match each animal to its home, then find it on a map:</p><ul>" +
+      "<li>🐪 Camel \u2192 deserts of Africa and Asia · 🐻\u200D\u2744️ Polar bear \u2192 the Arctic · 🦘 Kangaroo \u2192 Australia · 🐼 Panda \u2192 China, in Asia</li>" +
+      "<li>Which animal lives <b>farthest</b> from Indiana? Trace the trip with your finger!</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: PBS - Habitats (2nd Grade Science)", url: "https://pbs.org/video/habitats-2nd-grade-science-c0mvpn/" }
+    ],
+    doHtml: "<p><b>Mini-poster project:</b></p><ul>" +
+      "<li>Pick <b>one animal</b> and draw it in its habitat.</li>" +
+      "<li>Write <b>2-3 sentences</b>: how does the habitat help it survive?</li>" +
+      "<li>Bonus: build a <b>shoebox diorama</b> of the habitat!</li>" +
+      "<li>&#128640; Stretch: name 2 ADAPTATIONS your animal has - how does each one help it survive in its habitat?</li></ul>",
+    quiz: [
+      { q: "A habitat is…", opts: ["a type of animal food", "the natural home where a plant or animal lives", "a zoo cage", "a kind of weather"], a: 1 },
+      { q: "What 3 things does a habitat give an animal?", opts: ["Toys, beds, TVs", "Food, water, and shelter", "Cars, roads, parks", "Only water"], a: 1 },
+      { q: "Which animal belongs in a DESERT habitat?", opts: ["Penguin", "Polar bear", "Camel", "Frog"], a: 2 },
+      { q: "A polar bear's habitat is…", opts: ["the hot desert", "the rainforest", "the cold Arctic", "the ocean floor"], a: 2 },
+      { q: "\ud83d\ude80 Stretch: an ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "a kind of plant"], a: 0 }
+    ]
+  },
+  {
+    weekly: true, tab: "Quiz", date: "All week", emoji: "\ud83c\udfc6", title: "Weekly Brain Quest Quiz",
+    watch: [], doHtml: "", reward: { label: "", url: "" },
+    quiz: [
+      { q: "A fable is a short story that\u2026", opts: ["teaches a moral, often with animal characters", "is always a true news story", "has no ending", "is always a poem"], a: 0 },
+      { q: "The moral of The Ant and the Grasshopper is\u2026", opts: ["Play first, work later", "Prepare today for tomorrow", "Never help a friend", "Winter is the best season"], a: 1 },
+      { q: "\ud83d\ude80 A MORAL is different from a SUMMARY because\u2026", opts: ["a moral is the lesson; a summary retells what happened", "they are exactly the same", "a summary is always one word", "a moral lists the characters"], a: 0 },
+      { q: "In \"The busy bees buzzed over the flowers,\" the SIMPLE subject is\u2026", opts: ["The busy bees", "bees", "buzzed", "flowers"], a: 1 },
+      { q: "The PREDICATE of a sentence tells\u2026", opts: ["who the sentence is about", "what the subject does or is", "how to spell the words", "the punctuation mark"], a: 1 },
+      { q: "Number bonds: 8 + 5 = 8 + 2 + ?", opts: ["2", "3", "5", "1"], a: 1 },
+      { q: "An oak tree loses its leaves every fall, so an oak is\u2026", opts: ["coniferous", "deciduous", "an evergreen", "a cactus"], a: 1 },
+      { q: "VENATION is\u2026", opts: ["the pattern of veins in a leaf", "a leaf's color", "how tall a tree grows", "a type of seed"], a: 0 },
+      { q: "A habitat gives an animal\u2026", opts: ["food, water, and shelter", "toys, beds, and TVs", "only water", "cars and roads"], a: 0 },
+      { q: "\ud83d\ude80 An ADAPTATION is\u2026", opts: ["a body part or behavior that helps an animal survive in its habitat", "a type of zoo", "a weather report", "the edge of a leaf"], a: 0 },
+      { q: "Which continent is the BIGGEST?", opts: ["Africa", "Asia", "Europe", "North America"], a: 1 },
+      { q: "California became the 31st US state in 1850. How many of the 50 states joined AFTER it?", opts: ["19", "31", "50", "9"], a: 0 }
+    ]
+  }
+];
+
+var LS = "suvir-brain-quest-v1";
+var state = { done: {}, quizBest: {}, mathBest: 0 };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
+
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">📖</span>Reading Quest</h3>' + d.read + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
+    html += '<div class="card"><h3><span class="emoji">🧩</span>Word Problems</h3>' + d.word + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
+  sec.innerHTML = html;
+  root.appendChild(sec);
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+
+function refreshProgress() {
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Fact dash
+var cur = null, mScore = 0, mCount = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
+function newFact() {
+  if (mCount >= 100) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
+  cur = { q: q, ans: ans };
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 100 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 100) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 100 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 90 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 70 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 100 for another round!";
+    document.getElementById("newFact").textContent = "Start New 100";
+  } else {
+    setTimeout(newFact, 900);
+  }
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 100 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+</script>
+</body>
+</html>
