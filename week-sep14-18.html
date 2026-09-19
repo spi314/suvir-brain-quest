@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suvir's Brain Quest - Week of Sep 14</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Sep 14-18 · 2nd Grade · Mrs. Klezmer's class</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
+
+<div id="mathFab"><button id="openMath">⚡ Math Facts Training (100 facts)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>
+    <h2>⚡ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">School goal: 45 out of 50. Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.35rem;font-weight:900;color:#ffd54a;">100 facts · no timer</div>
+      <p style="color:#9fd0ea;margin:6px 0 0;">Take your time, use a smart strategy, and finish all 100.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash - 100 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact to begin!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Sep 2026</footer>
+
+<script>
+var DAYS = [
+  {
+    tab: "Mon", date: "Sep 14", emoji: "🐢", title: "Fable Monday",
+    read: "<p>A peacock spread his shining tail and laughed at a crane. \"Look at your dull gray feathers,\" he said. \"Mine shine like jewels in the sun.\" The crane stretched his long wings. \"Your feathers are beautiful,\" he said, \"but they keep you strutting on the ground. Mine are plain, and they carry me high into the clouds.\" Then the crane rose into the sky while the peacock stayed below, showing off to nobody at all.</p><p><b>Questions:</b></p><ul><li>Why did the peacock laugh at the crane?</li><li>What can the crane's plain feathers do that the peacock's cannot?</li><li>What is the moral of this fable?</li><p><b>Word of the day - boast:</b> to brag; to talk with too much pride about yourself. Try to use it in a sentence today!</p><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Because the crane's feathers looked dull and gray next to his shining tail. 2) They let the crane fly high into the sky. 3) Being useful matters more than looking showy - don't boast about looks.</p></details>",
+    word: "<p><b>Solve with a bar model or place value - show your thinking!</b></p><ul><li>The tortoise walks 236 paces in the morning and 148 more after lunch. How many paces does he walk in all?</li><li>A cheering crowd of 1,248 animals watches the big race. Round 1,248 to the nearest hundred.</li><li>The hare dashes 3,000 meters. The tortoise walks 400 meters. How many MORE meters did the hare dash?</li><li>🚀 Stretch: the race poster costs 245 leaves and the trophy costs 380 leaves. Round EACH to the nearest hundred, then add the rounded amounts.</li><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 384 paces. 2) 1,200. 3) 2,600 meters. 4) 200 + 400 = 600 leaves.</p></details>",
+    reward: { label: "🎬 Reward: Mark Rober - Backyard Squirrel Maze 1.0 (Ninja Warrior Course)", url: "https://youtu.be/hFZFjoX2cGg" },
+    world: { emoji: "📜", kind: "History", html: "<p><b>This Day in History (2 min):</b> On <b>Sep 14, 1814</b>, a lawyer named Francis Scott Key watched a battle all night long. British ships were bombing <b>Fort McHenry</b> in Baltimore. At dawn, he saw the giant American flag STILL waving - and wrote the poem that became <b>The Star-Spangled Banner</b>, our national anthem.</p><ul><li>Find <b>Baltimore, Maryland</b> on a map - it sits on the Chesapeake Bay.</li><li>Say the famous first line: \"Oh, say can you see...\" What did Key see at dawn?</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: The Tortoise and the Hare (CoComelon)", url: "https://youtu.be/WF8iaqRqI60" }
+    ],
+    doHtml: "<p>Fable work - talk or write it out:</p><ul><li><b>Retell</b> The Peacock and the Crane in 3 sentences - beginning, middle, end.</li><li>What is the <b>moral</b>? When has it been true in YOUR life?</li><li>In this sentence, underline the <b>subject</b> once and the <b>predicate</b> twice: \"The proud peacock spread his shining tail.\"</li><li>🚀 Stretch: rewrite the ending so the PEACOCK learns the lesson - what does he say or do differently?</li></ul>",
+    quiz: [
+      { q: "Why does the peacock laugh at the crane?", opts: ["The crane cannot sing", "The crane's feathers look dull and gray", "The crane is too slow", "The crane ate his lunch"], a: 1 },
+      { q: "What can the crane do that the peacock cannot?", opts: ["Swim across the sea", "Shine like jewels", "Fly high into the clouds", "Dance at parties"], a: 2 },
+      { q: "What is the moral of this fable?", opts: ["Being useful matters more than looking showy", "Birds should not talk", "Peacocks are the best birds", "Always fly away from problems"], a: 0 },
+      { q: "To BOAST means to…", opts: ["whisper a secret", "brag with too much pride", "roast food on a fire", "fly very fast"], a: 1 },
+      { q: "🚀 Stretch: how is a MORAL different from a SUMMARY?", opts: ["A moral is the lesson; a summary retells what happened", "They are exactly the same", "A moral lists every character", "A summary teaches the lesson"], a: 0 }
+    ]
+  },
+  {
+    tab: "Tue", date: "Sep 15", emoji: "✏️", title: "Sentence Builders Tuesday",
+    read: "<p>Every sentence you write does two jobs. First, it names WHO or WHAT the sentence is about - that part is called the subject. Second, it tells what the subject DOES or IS - that part is the predicate. Look at this sentence: \"The clever fox tricked the crow.\" The subject is \"the clever fox.\" The predicate is \"tricked the crow.\" Without both parts, you only have a fragment, like a puzzle missing half its pieces. Writers check every sentence to make sure both parts are there.</p><p><b>Questions:</b></p><ul><li>In \"The clever fox tricked the crow,\" what is the subject?</li><li>What does the predicate of a sentence tell?</li><li>What is a sentence called when one part is missing?</li><p><b>Word of the day - predicate:</b> the part of a sentence that tells what the subject does or is. Try to use it in a sentence today!</p><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) The clever fox. 2) It tells what the subject does or is. 3) A fragment.</p></details>",
+    word: "<p><b>Solve with place value - show your thinking!</b></p><ul><li>Suvir's class read 1,436 pages last week. Round 1,436 to the nearest hundred.</li><li>The library has 2,750 books on one wall and 1,325 on another. How many books in all? Then round your answer to the nearest hundred.</li><li>In the number 58,293, which place is the digit 8 in, and how much is it worth?</li><li>🚀 Stretch: a pencil factory made 12,640 pencils on Monday and 9,360 on Tuesday. How many more on Monday? Round the difference to the nearest thousand.</li><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 1,400. 2) 4,075 books; rounds to 4,100. 3) The thousands place; 8,000. 4) 3,280 more; rounds to 3,000.</p></details>",
+    reward: { label: "🎬 Reward: SciShow Kids - Solving Problems with Simple Machines", url: "https://youtu.be/q4U-HpEVLW8" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Map Detective (2 min):</b> tomorrow is a big birthday in <b>Mexico</b> - get ready by finding it today!</p><ul><li>Find <b>Mexico</b> on a map, just south of the USA. Put your finger on its capital, <b>Mexico City</b>.</li><li>Which 3 countries does Mexico touch? (Hint: one is the USA - can you name the two smaller ones on its southeast side?)</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: Schoolhouse Rock - The Tale of Mr. Morton (Subjects and Predicates)", url: "https://youtu.be/JoZn12BEjyM" }
+    ],
+    doHtml: "<p>Sentence surgery + writing ideas:</p><ul><li>Underline the <b>subject</b> once and the <b>predicate</b> twice: \"Mrs. Klezmer reads wonderful fables.\"</li><li>Do it again: \"The eight parts of speech work together.\"</li><li>The Six Traits of writing start with <b>IDEAS</b>. Pick an idea for your own fable and jot down 3 details.</li><li>🚀 Stretch: write ONE sentence with a compound subject (two who/whats), like \"The fox and the crow...\"</li></ul>",
+    quiz: [
+      { q: "The SUBJECT of a sentence tells…", opts: ["who or what the sentence is about", "how the sentence ends", "only the action", "the punctuation"], a: 0 },
+      { q: "In \"The busy bees buzzed over the flowers,\" the predicate starts with…", opts: ["The busy", "bees", "buzzed", "flowers"], a: 2 },
+      { q: "\"Running through the park.\" is a…", opts: ["complete sentence", "fragment", "question", "moral"], a: 1 },
+      { q: "Which of these is a COMPLETE sentence?", opts: ["The tall giraffe.", "Ate all the leaves.", "The tall giraffe ate the leaves.", "Under the tree."], a: 2 },
+      { q: "🚀 Stretch: in \"Suvir and Dad built a fort,\" the subject is…", opts: ["Suvir", "Dad", "Suvir and Dad", "built a fort"], a: 2 }
+    ]
+  },
+  {
+    tab: "Wed", date: "Sep 16", emoji: "🔢", title: "Place Value Power Wednesday",
+    read: "<p>How big is a million? Bigger than you think! If you counted one number every second, reaching a million would take about 12 days and nights without stopping. A million minutes is even longer - almost 2 whole years! Here is a trick for reading big numbers: every digit has a place, and the place tells its value. In 47,326, the 4 sits in the ten-thousands place, so it is worth 40,000. The same digit can be worth ten times more just by moving one spot to the left. That is the power of place value!</p><p><b>Questions:</b></p><ul><li>Which is longer: a million seconds or a million minutes?</li><li>In 47,326, how much is the digit 4 worth?</li><li>What happens to a digit's value when it moves one place to the left?</li><p><b>Word of the day - digit:</b> any of the symbols 0 through 9 that we use to write numbers. Try to use it in a sentence today!</p><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) A million minutes (almost 2 years vs about 12 days). 2) 40,000. 3) It becomes ten times bigger.</p></details>",
+    word: "<p><b>Beast Academy style - show your thinking!</b></p><ul><li>Beast Academy gives Suvir 1,275 points for finishing a chapter. Round 1,275 to the nearest hundred.</li><li>A stadium holds 23,480 fans. How much is the digit 3 worth in that number?</li><li>Use the tiles 4, 0, 9, and 2. Build the BIGGEST possible 4-digit number, then the SMALLEST (a number cannot start with 0).</li><li>🚀 Stretch: the school fair had 1,286 visitors on Saturday and 1,475 on Sunday. How many in all? Round the total to the nearest hundred.</li><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 1,300. 2) 3,000. 3) Biggest: 9,420. Smallest: 2,049. 4) 2,761 visitors; rounds to 2,800.</p></details>",
+    reward: { label: "🎬 Reward: MythBusters Jr. - Catching a Human With a Giant Glue Trap", url: "https://youtu.be/RR8dqCCZ_IY" },
+    world: { emoji: "📜", kind: "History", html: "<p><b>This Day in History (2 min):</b> On <b>Sep 16, 1810</b>, a priest named Father Hidalgo rang his church bell in the town of Dolores and called the people to stand up for freedom. That cry - <b>El Grito de Dolores</b> - started Mexico's fight for independence. Today is <b>Mexican Independence Day</b>, and every year Mexico's president rings that same bell and shouts \"¡Viva México!\"</p><ul><li>Find <b>Mexico</b> on the map again (you found it yesterday!).</li><li>Try it yourself: shout \"¡Viva México!\" - it means \"Long live Mexico!\"</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: Math Antics - Place Value", url: "https://youtu.be/T5Qf0qSSJFI" }
+    ],
+    doHtml: "<p>Place value training - the chapter assessment is this week, and you are ready:</p><ul><li>Marcy Cook style: use the digits 3, 8, 1, 5 to build the biggest number you can. Now the smallest. What is their difference?</li><li>Write 47,326 in expanded form (40,000 + 7,000 + ...).</li><li>Round 6,482 to the nearest ten, hundred, AND thousand.</li><li>🚀 Stretch: a number rounds to 5,000 when rounded to the nearest thousand. What is the SMALLEST whole number it could be?</li></ul>",
+    quiz: [
+      { q: "In 63,917, the digit 3 is worth…", opts: ["3", "300", "3,000", "30,000"], a: 2 },
+      { q: "Round 4,651 to the nearest hundred.", opts: ["4,600", "4,650", "4,700", "5,000"], a: 2 },
+      { q: "Which number is the BIGGEST?", opts: ["9,099", "9,909", "9,990", "9,999"], a: 3 },
+      { q: "2,000 + 400 + 70 + 5 in standard form is…", opts: ["2,475", "24,075", "2,745", "20,475"], a: 0 },
+      { q: "🚀 Stretch: the SMALLEST whole number that rounds to 5,000 (nearest thousand) is…", opts: ["4,000", "4,499", "4,500", "4,999"], a: 2 }
+    ]
+  },
+  {
+    tab: "Thu", date: "Sep 17", emoji: "🌳", title: "Tree Lab Thursday",
+    read: "<p>A leaf is a tiny food factory. Roots drink water from the soil and send it up through the trunk. The bark wraps around the tree like armor, protecting it from bugs and bumps. But the leaf does the most amazing job of all. Inside every green leaf is a material called chlorophyll - that is what makes leaves green. The chlorophyll catches sunlight, and the leaf uses the light, water, and air to cook up sugar, the tree's food. This cooking trick has a big name: photosynthesis. Every time you breathe, thank a leaf - trees release fresh oxygen for us, too!</p><p><b>Questions:</b></p><ul><li>What job do the roots do?</li><li>What makes leaves green?</li><li>What three things does a leaf use to make the tree's food?</li><p><b>Word of the day - chlorophyll:</b> the green material inside leaves that catches sunlight to help make food. Try to use it in a sentence today!</p><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) They drink water from the soil and send it up the trunk. 2) Chlorophyll. 3) Sunlight, water, and air.</p></details>",
+    word: "<p><b>Tree math - show your thinking!</b></p><ul><li>The class collected 1,235 leaves on Thursday and 968 on Friday. How many leaves in all?</li><li>An oak is 248 inches tall and a pine is 315 inches tall. Round EACH to the nearest hundred, then subtract to see about how much taller the pine is.</li><li>A maple leaf has 5 points. How many points do 36 leaves have? If 7 leaves blow away, how many points remain?</li><li>🚀 Stretch: a tree farm plants 1,524 seedlings in March and 2,476 in April. Round each month to the nearest hundred, then add the rounded numbers.</li><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 2,203 leaves. 2) 200 and 300; the pine is about 100 inches taller. 3) 180 points; 145 remain (7 leaves x 5 = 35 points blew away). 4) 1,500 + 2,500 = 4,000.</p></details>",
+    reward: { label: "🎬 Reward: Nat Geo Kids - Weird But True: Bugs Rule!", url: "https://youtu.be/XGoA36YPAdg" },
+    world: { emoji: "📜", kind: "History", html: "<p><b>This Day in History (2 min):</b> On <b>Sep 17, 1787</b>, in Philadelphia, <b>39 people signed the United States Constitution</b> - the rulebook for our whole country. It starts with three famous words: <b>\"We the People.\"</b> Today is Constitution Day!</p><ul><li>Find <b>Philadelphia, Pennsylvania</b> on a map - it is in the eastern USA.</li><li>The signers wrote their names by hand. You have learned cursive a, c, d, g, h, and t - write the word \"cat\" in your best cursive!</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: SciShow Kids - Why Do Leaves Change Colors in the Fall?", url: "https://youtu.be/Xk4-6II8l5Q" }
+    ],
+    doHtml: "<p>Leaf detective lab (you did microscope slides with Mrs. Freije - now be the scientist outside):</p><ul><li>Find one leaf from a <b>deciduous</b> tree (drops leaves in fall) and, if you can, a needle from a <b>coniferous</b> tree (stays green).</li><li>Draw your leaf and label the blade and the veins. Can you see the tubes that carry water?</li><li>Touch some tree bark. Write 2 words that describe how it feels - that bark is the tree's armor!</li><li>🚀 Stretch: explain photosynthesis in 2 sentences using the word <b>because</b>.</li></ul>",
+    quiz: [
+      { q: "Chlorophyll is the material that…", opts: ["makes bark hard", "makes leaves green and catches sunlight", "carries water in roots", "makes acorns"], a: 1 },
+      { q: "Photosynthesis uses sunlight, water, and ___ to make the tree's food.", opts: ["soil", "air", "bark", "acorns"], a: 1 },
+      { q: "A tree that stays green with needles all year is…", opts: ["deciduous", "coniferous", "an oak", "a maple"], a: 1 },
+      { q: "The Constitution was signed on Sep 17, 1787 in…", opts: ["Boston", "New York", "Philadelphia", "Baltimore"], a: 2 },
+      { q: "🚀 Stretch: which is the CORRECT order for a tree's water trip?", opts: ["leaf, root, trunk", "root, trunk, leaf", "trunk, leaf, root", "leaf, trunk, root"], a: 1 }
+    ]
+  },
+  {
+    tab: "Fri", date: "Sep 18", emoji: "✍️", title: "Fable Writers Friday",
+    read: "<p>The smartphone loved to show off. \"I can answer any question in one second,\" it said to the library book on the shelf. \"You are slow and dusty. Nobody needs you anymore.\" The book said nothing. That night, a storm knocked out the power. The phone's battery drained away, and its screen went black and silent. But the family lit a candle, picked up the book, and read adventure stories together until the storm passed. The next morning the phone admitted, \"Fast is fun, but you never run out of power.\"</p><p><b>Questions:</b></p><ul><li>Why did the smartphone think it was better than the book?</li><li>What happened to the phone during the storm?</li><li>What is the moral of this modern fable?</li><p><b>Word of the day - reliable:</b> able to be trusted to work again and again; dependable. Try to use it in a sentence today!</p><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) Because it could answer questions in one second, and the book seemed slow and dusty. 2) Its battery drained and the screen went black. 3) Being steady and reliable can matter more than being fast and fancy.</p></details>",
+    word: "<p><b>Last math set of the week - show your thinking!</b></p><ul><li>Today school dismisses at 11:15 am instead of 3:15 pm. How many hours shorter is the school day?</li><li>Spirit Week starts Monday, Sep 21. Today is Friday, Sep 18. How many days away is it?</li><li>Suvir writes 1,240 words in his fable draft, then adds 865 more. How many words now? Round the total to the nearest hundred.</li><li>🚀 Stretch: the class library has 2,468 books. How much is the digit 6 worth? Then round the whole number to the nearest thousand.</li><details><summary style=\"cursor:pointer;color:#9fd0ea;\">Tap for answers</summary><p style=\"color:#a6ff7e;\">1) 4 hours shorter. 2) 3 days (Sat, Sun, then Monday). 3) 2,105 words; rounds to 2,100. 4) 60; rounds to 2,000.</p></details>",
+    reward: { label: "🎬 Reward: Crash Course Kids - The Engineering Process", url: "https://youtu.be/fxJWin195kU" },
+    world: { emoji: "🗺️", kind: "Geography", html: "<p><b>Map Detective (2 min) - know your home state:</b></p><ul><li>Put your finger on <b>Indiana</b>. Trace its border with your finger - it looks a little like a stocking!</li><li>Name Indiana's 4 neighbor states: <b>Michigan</b> (north), <b>Ohio</b> (east), <b>Kentucky</b> (south), <b>Illinois</b> (west). Bonus: which Great Lake touches Indiana's northwest corner? (Lake Michigan!)</li></ul>" },
+    watch: [
+      { label: "▶️ Watch: Fables for Kids - What Makes a Story a Fable? (Learn Bright)", url: "https://youtu.be/cS3jchx0JJs" }
+    ],
+    doHtml: "<p>Become a fable writer - Mrs. Klezmer's class is writing fables, and so are you:</p><ul><li>Use the writing trait <b>IDEAS</b>: pick 2 characters, 1 problem, and 1 moral.</li><li>Write your fable in your best handwriting - sneak in cursive words you know, like cat, hat, tag, act.</li><li>Read it out loud to someone at home. Early dismissal at 11:15 today means extra writing time!</li><li>🚀 Stretch: add one line of dialogue with quotation marks, like: \"Slow and steady,\" said the tortoise.</li></ul>",
+    quiz: [
+      { q: "Why does the smartphone brag at the start of the fable?", opts: ["It is brand new and shiny", "It can answer any question in one second", "It has the most games", "It never needs charging"], a: 1 },
+      { q: "What saves family story time during the storm?", opts: ["The phone's flashlight", "The reliable old book", "The television", "The tablet"], a: 1 },
+      { q: "RELIABLE means…", opts: ["fast and shiny", "trusted to work again and again", "expensive", "brand new"], a: 1 },
+      { q: "A fable needs which 3 things?", opts: ["Characters, a problem, and a moral", "Pages, pictures, and a cover", "A king, a castle, and a dragon", "Jokes, songs, and dances"], a: 0 },
+      { q: "🚀 Stretch: how is a MODERN fable different from a classic one?", opts: ["It uses new settings and objects but still teaches a moral", "It has no moral", "It must be a true story", "It is always about animals"], a: 0 }
+    ]
+  },
+  {
+    weekly: true,
+    tab: "Quiz", date: "All week", emoji: "🏆", title: "Weekly Brain Quest Quiz",
+    reward: { label: "", url: "" },
+    watch: [], doHtml: "",
+    quiz: [
+      { q: "In The Peacock and the Crane, the crane proves that…", opts: ["looking showy is everything", "being useful matters more than looking showy", "peacocks can fly", "gray is the best color"], a: 1 },
+      { q: "In the smartphone fable, the phone learns that the book is…", opts: ["slow and useless", "reliable - it never runs out of power", "fast and shiny", "full of batteries"], a: 1 },
+      { q: "🚀 A MORAL is different from a SUMMARY because…", opts: ["a moral is the lesson; a summary retells what happened", "they are the same thing", "a summary teaches the lesson", "a moral is always one word"], a: 0 },
+      { q: "In \"The clever fox tricked the crow,\" the SUBJECT is…", opts: ["tricked the crow", "The clever fox", "crow", "the"], a: 1 },
+      { q: "The PREDICATE of a sentence tells…", opts: ["who the sentence is about", "what the subject does or is", "how to spell the words", "the title"], a: 1 },
+      { q: "In 58,293, the digit 8 is worth…", opts: ["8", "80", "800", "8,000"], a: 3 },
+      { q: "The school fair had 1,286 + 1,475 visitors. The total, rounded to the nearest hundred, is…", opts: ["2,700", "2,761", "2,800", "3,000"], a: 2 },
+      { q: "Leaves are green because of…", opts: ["bark", "chlorophyll", "acorns", "rain"], a: 1 },
+      { q: "🌎 The Star-Spangled Banner was written after the battle at…", opts: ["Fort McHenry", "Philadelphia", "Mexico City", "Dolores"], a: 0 },
+      { q: "🌎 The US Constitution was signed in 1787 in…", opts: ["Baltimore", "New York", "Boston", "Philadelphia"], a: 3 }
+    ]
+  }
+];
+
+var LS = "suvir-brain-quest-v2";
+var state = { done: {}, quizBest: {}, mathBest: 0 };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
+
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">📖</span>Reading Quest</h3>' + d.read + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
+    html += '<div class="card"><h3><span class="emoji">🧩</span>Word Problems</h3>' + d.word + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
+  sec.innerHTML = html;
+  root.appendChild(sec);
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+
+function refreshProgress() {
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Fact dash
+var cur = null, mScore = 0, mCount = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
+function newFact() {
+  if (mCount >= 100) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
+  cur = { q: q, ans: ans };
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 100 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 100) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 100 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 90 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 70 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 100 for another round!";
+    document.getElementById("newFact").textContent = "Start New 100";
+  } else {
+    setTimeout(newFact, 900);
+  }
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 100 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+</script>
+</body>
+</html>
