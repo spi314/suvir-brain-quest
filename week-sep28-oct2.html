@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suvir's Brain Quest - Week of Sep 28</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+
+  .daily-math .problem { padding:12px; margin:10px 0; border-left:4px solid #ffd54a; background:#ffffff0b; border-radius:10px; }
+  .daily-math label { display:block; font-weight:700; margin:5px 0; }
+  .daily-math input,.daily-math textarea { width:100%; margin:5px 0; padding:10px; background:#fff; color:#142536; border:0; border-radius:8px; font:inherit; }
+  .daily-math textarea { min-height:64px; resize:vertical; }
+  .daily-math .choices label { padding:7px; font-weight:500; }
+  .daily-math .choices input { width:auto; margin-right:7px; }
+  .daily-math .checkMath { width:100%; padding:12px; background:#ffd54a; color:#142536; border:0; border-radius:10px; font-weight:800; }
+  .daily-math .answerKey { display:none; line-height:1.5; color:#d5ffc4; margin-top:10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Sep 28-Oct 2 · 2nd Grade · Mrs. Klezmer's class</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
+
+<div id="mathFab"><button id="openMath">⚡ Daily Math Facts (30 facts)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>
+    <h2>⚡ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.35rem;font-weight:900;color:#ffd54a;">30 facts · no timer · about 5-7 min</div>
+      <p style="color:#9fd0ea;margin:6px 0 0;">Take your time, use a smart strategy, and finish all 30.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash - 30 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact to begin!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Sep 2026</footer>
+
+<script>
+var DAYS = [{"tab":"Mon","date":"Sep 28","emoji":"🌳","title":"The Tree with Two Stories","read":"<p>After a dry spring, a young maple stood beside an old oak. The maple boasted about its bright leaves, but the oak invited it to look closer: each ring inside its trunk recorded a year of growth. A narrow ring could mean a difficult growing season; a wide ring could mean better conditions. The oak did not call any single ring a full story. Scientists compare many trees, rainfall records, and other clues before deciding why a ring is narrow.</p><p><b>Read closely:</b> What did the maple notice first? Why is one narrow ring not proof of a drought? How is a tree ring like a chapter in a biography?</p><p><b>Word:</b> evidence - clues that support an explanation. <b>Author link:</b> Kate DiCamillo often gives animals an inner life; this is our own passage, not her writing.</p><details><summary>Check your thinking</summary><p>The maple noticed bright leaves. Insects, shade, and cold can also affect growth. Each ring records one part of a longer life.</p></details>","word":"<p><b>Singapore Math Daily 15 · 15-22 minutes</b> · 7 quick picks, 5 short answers, 3 show-your-thinking stories. Enter an answer for each. On the last three, also write your workings or a full-sentence explanation. Keep moving so you reach #13-15; pause to draw a bar model when needed. No countdown. Check answers only after you have attempted all 15.</p><div class=\"daily-math\" data-day=\"0\"></div>","reward":{"label":"🎬 Reward: Mark Rober: Backyard Squirrel Maze 1.0","url":"https://www.youtube.com/watch?v=hFZFjoX2cGg"},"world":{"emoji":"🗺️","kind":"Geography","html":"<p>Find Indiana on a U.S. map. Holliday Park is in Indianapolis. A temperate forest changes through four seasons; name one way its trees look different in fall and spring.</p>"},"watch":[{"label":"▶️ Watch: Candlewick Press: Writing Tips from Kate DiCamillo","url":"https://www.youtube.com/watch?v=yA1CTuZ27Bs"}],"doHtml":"<p><b>Author study:</b> Watch Kate DiCamillo talk about writing. Write a scene from the maple’s point of view, then revise it with a more precise verb. 🚀 Contrast what the maple <i>believes</i> and what the evidence shows.</p>","quiz":[{"q":"A narrow tree ring always proves a drought.","opts":["True","False - other factors may matter","Only in autumn","Only for oak"],"a":1},{"q":"What is evidence?","opts":["A guess","A clue that supports a claim","An ending","A spelling rule"],"a":1},{"q":"Which verb is most vivid?","opts":["went","moved","crept","did"],"a":2},{"q":"A tree grows new rings mainly during...","opts":["growing seasons","winter snow only","night only","a book club"],"a":0},{"q":"🚀 Why compare many trees?","opts":["To avoid drawing a conclusion from one clue","To count leaves","To name a tree","To change its age"],"a":0}],"mathProblems":[{"kind":"A","q":"4 rows of 6 seedlings: total?","answer":"24","work":""},{"kind":"A","q":"36 leaves, 18 more: total?","answer":"54","work":""},{"kind":"A","q":"Half of 30 acorns?","answer":"15","work":""},{"kind":"A","q":"Which number is 3,000+400+70+2?","answer":"3472","work":""},{"kind":"A","q":"8 groups of 5 seeds?","answer":"40","work":""},{"kind":"A","q":"72 leaves in 9 equal piles?","answer":"8","work":""},{"kind":"A","q":"Which is larger, 608 or 680?","answer":"680","work":""},{"kind":"B","q":"A sapling has 27 leaves and grows 16 more. How many?","answer":"43","work":""},{"kind":"B","q":"50 seeds, 18 fail. How many sprout?","answer":"32","work":""},{"kind":"B","q":"3 baskets of 12 pinecones: how many?","answer":"36","work":""},{"kind":"B","q":"A 90 cm branch loses 25 cm. Length left?","answer":"65 cm","work":""},{"kind":"B","q":"A ring chart shows 8 wide and 5 narrow years. How many years?","answer":"13 years","work":""},{"kind":"C","q":"Three trees each have 18 cones; 14 fall. How many remain?","answer":"40 cones","work":"3 × 18 = 54; 54 − 14 = 40. The trees have 40 cones left."},{"kind":"C","q":"A gardener plants 48 seedlings in 6 equal rows, then adds 2 to each row. How many now?","answer":"60 seedlings","work":"48 ÷ 6 = 8 per row; 8 + 2 = 10; 6 × 10 = 60."},{"kind":"C","q":"A number has 4 thousands, 7 hundreds, 0 tens, 3 ones. A tree label says 4,730. What is the correct label?","answer":"4,703","work":"4,000 + 700 + 0 + 3 = 4,703; the tens and ones were swapped."}]},{"tab":"Tue","date":"Sep 29","emoji":"🪵","title":"A Ring of Evidence","read":"<p>Mira counted ten pairs of light and dark bands in an oak core. Her partner said the oak must have survived exactly ten droughts. Mira disagreed. Each pair may mark one year, but a narrow year does not tell its cause by itself. They compared rings from nearby trees and checked rainfall notes. Several trees had narrow rings in the same year. That pattern made a dry season more plausible, but Mira still wrote, “The evidence suggests,” rather than “The evidence proves.”</p><p><b>Questions:</b> What does a pair of bands often represent? What claim did Mira challenge? Which new evidence strengthened the drought explanation?</p><p><b>Word:</b> plausible - reasonable, given the evidence. <b>Reading move:</b> distinguish an observation from an inference.</p><details><summary>Check your thinking</summary><p>A year; that each band means a drought; matching narrow rings across several trees plus rainfall notes.</p></details>","word":"<p><b>Singapore Math Daily 15 · 15-22 minutes</b> · 7 quick picks, 5 short answers, 3 show-your-thinking stories. Enter an answer for each. On the last three, also write your workings or a full-sentence explanation. Keep moving so you reach #13-15; pause to draw a bar model when needed. No countdown. Check answers only after you have attempted all 15.</p><div class=\"daily-math\" data-day=\"1\"></div>","reward":{"label":"🎬 Reward: Mark Rober: Squirrel Maze 2.0","url":"https://www.youtube.com/watch?v=DTvS9lvRxZ8"},"world":{"emoji":"📜","kind":"History","html":"<p>Tree-ring science is called <b>dendrochronology</b>. Draw a timeline of four imaginary tree years, with a wet year and a dry year. A timeline orders events, while the ring width is evidence about growth.</p>"},"watch":[{"label":"▶️ Watch: SciShow Kids: Life as a Tree!","url":"https://www.youtube.com/watch?v=MwNJC-IRgPE"},{"label":"▶️ Bonus Watch: Oceans for Kids - Geography for Kids (Smile and Learn)","url":"https://www.youtube.com/watch?v=zGtemTLAjCw"}],"doHtml":"<p><b>Tree-ring lab:</b> Draw four annual rings, one narrow. Label observation and inference separately. 🚀 Write another cause of narrow growth and how you could test it.</p>","quiz":[{"q":"One light and dark band pair often means...","opts":["one year","one drought","one month","two centuries"],"a":0},{"q":"An inference is...","opts":["a measured width","an explanation based on observations","a proper noun","a leaf"],"a":1},{"q":"Which strengthens a drought claim?","opts":["One thin ring","Matching thin rings and rainfall data","A guess","A large leaf"],"a":1},{"q":"What word signals caution?","opts":["proves","suggests","always","never"],"a":1},{"q":"🚀 Why might a narrow ring form without drought?","opts":["Shade or insects","The tree becomes a rock","It is always winter","No reason"],"a":0}],"mathProblems":[{"kind":"A","q":"Six bags of 7 acorns each?","answer":"42","work":""},{"kind":"A","q":"80 year rings minus 23?","answer":"57","work":""},{"kind":"A","q":"5 × 9 saplings?","answer":"45","work":""},{"kind":"A","q":"63 ÷ 7?","answer":"9","work":""},{"kind":"A","q":"What is 1,000 + 90 + 8?","answer":"1098","work":""},{"kind":"A","q":"Which is less, 5,408 or 5,480?","answer":"5408","work":""},{"kind":"A","q":"25 + 25 + 25?","answer":"75","work":""},{"kind":"B","q":"A core has 34 light-dark ring pairs. Age estimate?","answer":"34 years","work":""},{"kind":"B","q":"72 cones in 8 piles. Cones per pile?","answer":"9","work":""},{"kind":"B","q":"120 mm rain minus 45 mm?","answer":"75 mm","work":""},{"kind":"B","q":"27 narrow rings plus 43 wide rings. Years?","answer":"70 years","work":""},{"kind":"B","q":"Four trees with 13 apples each?","answer":"52 apples","work":""},{"kind":"C","q":"A scientist counts 39 ring pairs, then finds five pairs hidden under bark. Age estimate?","answer":"44 years","work":"39 + 5 = 44; each light-dark pair stands for one growing year."},{"kind":"C","q":"A field trip has 68 children. Buses seat 24 each. How many buses must be reserved?","answer":"3 buses","work":"Two buses seat 48, too few; three seat 72, enough for 68."},{"kind":"C","q":"A tree grew 14 cm, 8 cm, then 12 cm over three years. How much altogether, and which year grew least?","answer":"34 cm; year 2","work":"14 + 8 + 12 = 34 cm; 8 cm is the smallest growth, in year 2."}]},{"tab":"Wed","date":"Sep 30","emoji":"💧","title":"The Leaf’s Invisible Journey","read":"<p>Water begins in the soil, travels up a tree’s xylem, and reaches its leaves. Some water leaves as vapor through tiny openings called stomata. This process, transpiration, helps pull more water upward. A leaf can also use water, carbon dioxide, and light to make sugar during photosynthesis. The two processes are connected, but they are not the same. On a hot, dry day, a tree may close stomata to save water, which can also reduce the carbon dioxide it takes in.</p><p><b>Questions:</b> Trace water from roots to air. How are transpiration and photosynthesis different? Why might closing stomata create a trade-off?</p><p><b>Word:</b> trade-off - gaining one thing while giving up another.</p><details><summary>Check your thinking</summary><p>Soil → roots → xylem → leaf → vapor in air; transpiration loses water, photosynthesis makes sugar; closing stomata saves water but limits CO₂.</p></details>","word":"<p><b>Singapore Math Daily 15 · 15-22 minutes</b> · 7 quick picks, 5 short answers, 3 show-your-thinking stories. Enter an answer for each. On the last three, also write your workings or a full-sentence explanation. Keep moving so you reach #13-15; pause to draw a bar model when needed. No countdown. Check answers only after you have attempted all 15.</p><div class=\"daily-math\" data-day=\"2\"></div>","reward":{"label":"🎬 Reward: SciShow Kids: How a Seed Becomes a Plant","url":"https://www.youtube.com/watch?v=tkFPyue5X3Q"},"world":{"emoji":"🌍","kind":"Geography","html":"<p>Locate the Amazon rainforest in South America and a forest near Indiana. Compare rainfall and seasons. Different forests can have different growth patterns.</p>"},"watch":[{"label":"▶️ Watch: California Academy of Sciences: How Trees Transport Water","url":"https://www.youtube.com/watch?v=9-dicqNoODg"}],"doHtml":"<p><b>Science diagram:</b> Draw roots, trunk, leaves and arrows for water and vapor. Label xylem and stomata. 🚀 Explain the trade-off on a dry day in two sentences.</p>","quiz":[{"q":"Where does water enter a tree?","opts":["roots","bark only","petals","seeds only"],"a":0},{"q":"Xylem carries...","opts":["water upward","letters","sugar to soil only","air down"],"a":0},{"q":"Transpiration releases...","opts":["water vapor","soil","wood","seeds"],"a":0},{"q":"Photosynthesis uses light to make...","opts":["sugar","stones","clouds","bark"],"a":0},{"q":"🚀 Closing stomata saves water but reduces...","opts":["carbon dioxide intake","root length instantly","tree age","rainfall"],"a":0}],"mathProblems":[{"kind":"A","q":"A tree draws 8 L water on each of 4 days. Total?","answer":"32 L","work":""},{"kind":"A","q":"60 L minus 17 L?","answer":"43 L","work":""},{"kind":"A","q":"9 leaves on each of 6 twigs?","answer":"54","work":""},{"kind":"A","q":"48 ÷ 6?","answer":"8","work":""},{"kind":"A","q":"2,000 + 300 + 5?","answer":"2305","work":""},{"kind":"A","q":"Compare 3,045 or 3,405: larger?","answer":"3405","work":""},{"kind":"A","q":"Double 28?","answer":"56","work":""},{"kind":"B","q":"A leaf releases 12 mL each hour for 3 hours. Total?","answer":"36 mL","work":""},{"kind":"B","q":"A tank holds 75 L and loses 29 L. Remains?","answer":"46 L","work":""},{"kind":"B","q":"Four roots each carry 16 mL. Total?","answer":"64 mL","work":""},{"kind":"B","q":"A tree has 83 leaves, loses 27. Remaining?","answer":"56 leaves","work":""},{"kind":"B","q":"Find the next two: 125, 150, 175, ...","answer":"200, 225","work":""},{"kind":"C","q":"A tree takes in 24 L of water. It uses 7 L and releases 13 L. How much remains?","answer":"4 L","work":"24 − 7 − 13 = 4 L; the remaining four liters were neither used nor released."},{"kind":"C","q":"A class measures 5 leaves: 8, 10, 9, 8 and 11 cm. How many centimeters total?","answer":"46 cm","work":"8 + 10 + 9 + 8 + 11 = 46 cm; group 8 + 8 and 10 + 11 to check."},{"kind":"C","q":"A sapling is 86 cm tall and grows 17 cm twice. How tall now?","answer":"120 cm","work":"86 + 17 + 17 = 120 cm; two growth periods added 34 cm."}]},{"tab":"Thu","date":"Oct 1","emoji":"🔤","title":"The Name on the Library Card","read":"<p>At the library, Nia found a book by Kate DiCamillo. “Author” is a common noun, but “Kate DiCamillo” is a proper noun, so both names begin with capital letters. Nia noticed the long-i sound in <b>light</b>, <b>find</b>, and <b>pine</b>. The sound stays similar while its spelling changes. She wrote an invitation to a friend: “Let’s find a story about a pine tree.” Her friend wanted to know whether the story was a fable, an adventure, or both.</p><p><b>Questions:</b> Name two proper nouns from the passage. Why are they capitalized? Sort light, find, and pine by their long-i spelling.</p><p><b>Word:</b> invitation - a request to join in.</p><details><summary>Check your thinking</summary><p>Nia and Kate DiCamillo name particular people; igh, i, i_e.</p></details>","word":"<p><b>Singapore Math Daily 15 · 15-22 minutes</b> · 7 quick picks, 5 short answers, 3 show-your-thinking stories. Enter an answer for each. On the last three, also write your workings or a full-sentence explanation. Keep moving so you reach #13-15; pause to draw a bar model when needed. No countdown. Check answers only after you have attempted all 15.</p><div class=\"daily-math\" data-day=\"3\"></div>","reward":{"label":"🎬 Reward: Library of Congress: Kate DiCamillo at the National Book Festival","url":"https://www.youtube.com/watch?v=RWMH4fVd1cU"},"world":{"emoji":"🗺️","kind":"Geography","html":"<p>Kate DiCamillo was born in Philadelphia, Pennsylvania, according to her publisher. Find Pennsylvania and Indiana. Which is farther east? Name a neighboring state of each.</p>"},"watch":[{"label":"▶️ Watch: Khan Academy: Common and Proper Nouns","url":"https://www.youtube.com/watch?v=bGz1acC3Wew"},{"label":"▶️ Bonus Watch: Magnets - MightyOwl Science (3rd Grade)","url":"https://www.youtube.com/watch?v=BAFsDeJ1j4I"}],"doHtml":"<p><b>Editor’s desk:</b> Write three common nouns and replace each with a specific proper noun. Sort five long-i words by spelling pattern. 🚀 Write two sentences showing a character’s feelings without naming the feeling.</p>","quiz":[{"q":"Which is a proper noun?","opts":["author","city","Kate DiCamillo","tree"],"a":2},{"q":"Which long-i spelling appears in pine?","opts":["i_e","igh","y","ie"],"a":0},{"q":"Why capitalize Nia?","opts":["It names a specific person","It is a verb","It rhymes","It is long-i"],"a":0},{"q":"Which word has igh?","opts":["light","pine","find","sit"],"a":0},{"q":"🚀 Which sentence shows rather than names a feeling?","opts":["Nia was excited.","Nia bounced up and hugged the book.","Nia felt happy.","Nia had a mood."],"a":1}],"mathProblems":[{"kind":"A","q":"7 books on each of 5 shelves?","answer":"35","work":""},{"kind":"A","q":"90 pages minus 28?","answer":"62","work":""},{"kind":"A","q":"6 × 8?","answer":"48","work":""},{"kind":"A","q":"56 ÷ 7?","answer":"8","work":""},{"kind":"A","q":"Common noun or proper noun: Indianapolis?","answer":"proper","work":""},{"kind":"A","q":"2,400 + 300 + 6?","answer":"2706","work":""},{"kind":"A","q":"Long-i pattern in pine: i_e or igh?","answer":"i_e","work":""},{"kind":"B","q":"Nia reads 24 pages Monday and 19 Tuesday. Total?","answer":"43 pages","work":""},{"kind":"B","q":"A book has 86 pages. Nia reads 37. Left?","answer":"49 pages","work":""},{"kind":"B","q":"4 shelves hold 15 books each. Total?","answer":"60 books","work":""},{"kind":"B","q":"Three bookmarks cost $2 each. Total?","answer":"$6","work":""},{"kind":"B","q":"Count forward twice: 1,950, 2,000, ...","answer":"2,050, 2,100","work":""},{"kind":"C","q":"A library has 74 tree books. It lends 26, then receives 15. How many now?","answer":"63 books","work":"74 − 26 + 15 = 63; lending reduces, a delivery increases the count."},{"kind":"C","q":"Kate writes 18 pages on each of 3 days, then edits 11 pages. How many pages has she drafted (not edited)?","answer":"54 pages","work":"18 × 3 = 54 drafted; editing 11 does not add or remove drafted pages."},{"kind":"C","q":"A number has 6 thousands, hundreds twice ones, tens 4, ones 3. Find it and check all clues.","answer":"6,643","work":"Ones 3 means hundreds 6; thousands 6 and tens 4, so 6,643. Check 6 = 2 × 3."}]},{"tab":"Fri","date":"Oct 2","emoji":"📖","title":"A Better Ending","read":"<p>A fox found a closed box under an old tree. He told a sparrow, “Only the strongest animal can open it.” The sparrow noticed a tiny latch and asked the fox to move aside. Inside was a note: “Look carefully before you decide.” The fox expected strength to solve every problem, but the sparrow’s observation changed the ending. A fable’s moral is more convincing when a character’s actions earn it. In a longer story, an author may let the reader infer the lesson rather than announcing it.</p><p><b>Questions:</b> What did the fox assume? What detail did the sparrow notice? State a moral and cite an action that supports it. How would a chapter-book ending differ?</p><p><b>Word:</b> infer - reach a conclusion using clues.</p><details><summary>Check your thinking</summary><p>The fox assumed strength was required; the sparrow saw a latch; “look carefully” fits her action; a longer ending could leave the lesson unstated.</p></details>","word":"<p><b>Singapore Math Daily 15 · 15-22 minutes</b> · 7 quick picks, 5 short answers, 3 show-your-thinking stories. Enter an answer for each. On the last three, also write your workings or a full-sentence explanation. Keep moving so you reach #13-15; pause to draw a bar model when needed. No countdown. Check answers only after you have attempted all 15.</p><div class=\"daily-math\" data-day=\"4\"></div>","reward":{"label":"🎬 Reward: SciShow Kids: Life as a Tree!","url":"https://www.youtube.com/watch?v=MwNJC-IRgPE"},"world":{"emoji":"📜","kind":"History","html":"<p>A living tree can hold a long record of past seasons. A historian also uses clues, such as letters, photos and dates. Name one similarity and one difference between a tree core and a diary as historical evidence.</p>"},"watch":[{"label":"▶️ Watch: Candlewick Press: Writing Tips from Kate DiCamillo","url":"https://www.youtube.com/watch?v=yA1CTuZ27Bs"},{"label":"▶️ Bonus Watch: Gentoo Penguin - Amazing Animals (Nat Geo Kids)","url":"https://www.youtube.com/watch?v=xnu5htZpruE"}],"doHtml":"<p><b>Fable revision:</b> Finish your original fable with a lesson supported by an action. Check capitalized proper nouns and one long-i word. 🚀 Rewrite the ending without stating the moral, so a reader can infer it.</p>","quiz":[{"q":"What did the fox assume?","opts":["Strength opens the box","The sparrow had a key","The tree talked","It was empty"],"a":0},{"q":"What helped the sparrow?","opts":["Noticing the latch","Pulling hard","Waiting for rain","Guessing"],"a":0},{"q":"A moral should be supported by...","opts":["the character’s actions","a random number","a title only","a spelling list"],"a":0},{"q":"To infer is to...","opts":["use clues to reach a conclusion","copy words","measure leaves","find a rhyme"],"a":0},{"q":"🚀 Which ending lets readers infer a lesson?","opts":["The fox stepped back and checked the next latch.","The moral is observation matters.","This was a story.","Everyone learned a lesson."],"a":0}],"mathProblems":[{"kind":"A","q":"8 foxes see 4 boxes each. Total boxes seen?","answer":"32","work":""},{"kind":"A","q":"72 − 36?","answer":"36","work":""},{"kind":"A","q":"7 × 9?","answer":"63","work":""},{"kind":"A","q":"81 ÷ 9?","answer":"9","work":""},{"kind":"A","q":"Which is greater: 7,035 or 7,305?","answer":"7305","work":""},{"kind":"A","q":"Next: 420, 440, 460, ...","answer":"480","work":""},{"kind":"A","q":"35 + 48?","answer":"83","work":""},{"kind":"B","q":"A sparrow finds 23 seeds, then 18 more. Total?","answer":"41 seeds","work":""},{"kind":"B","q":"56 seeds, 19 eaten. Left?","answer":"37 seeds","work":""},{"kind":"B","q":"5 boxes hold 14 notes each. Total?","answer":"70 notes","work":""},{"kind":"B","q":"Four friends share 36 cards. Each?","answer":"9 cards","work":""},{"kind":"B","q":"A story is 75 pages; 28 read. Left?","answer":"47 pages","work":""},{"kind":"C","q":"A fox finds 63 nuts and shares equally among 7 animals. Each eats 2. How many nuts remain in all?","answer":"49 nuts","work":"63 ÷ 7 = 9 each; 9 − 2 = 7 each; 7 × 7 = 49 remain."},{"kind":"C","q":"Four branches have 16 leaves each. A storm blows away 27 leaves. How many remain?","answer":"37 leaves","work":"4 × 16 = 64; 64 − 27 = 37 leaves remain."},{"kind":"C","q":"A box has a 4-digit code. Thousands is 3, hundreds is twice thousands, tens is 1 less than hundreds, ones is 2 more than thousands. What is the code?","answer":"3,655","work":"Thousands 3; hundreds 6; tens 5; ones 5. Every clue gives 3,655."}]},{"weekly":true,"tab":"Quiz","date":"All week","emoji":"🏆","title":"Weekly Brain Quest Quiz","reward":{"label":"","url":""},"watch":[],"doHtml":"","quiz":[{"q":"Why is a narrow ring not proof of drought?","opts":["Several factors affect growth","Rings cannot be counted","Trees do not need water","It is always one month"],"a":0},{"q":"What does xylem carry?","opts":["Water upward","Light downward","Spelling patterns","Air into soil"],"a":0},{"q":"What is transpiration?","opts":["Water vapor leaving leaves","Sugar entering roots","A new ring","A fable"],"a":0},{"q":"Which is a proper noun?","opts":["forest","author","Kate DiCamillo","tree"],"a":2},{"q":"Which long-i spelling is in light?","opts":["igh","i_e","ay","ai"],"a":0},{"q":"What strengthens a scientific inference?","opts":["Several matching clues","One guess","A title","A louder claim"],"a":0},{"q":"A bar model for 36 + 18 should show...","opts":["two parts and a whole","two names","one ring","only an answer"],"a":0},{"q":"🚀 Eight rows hold six seedlings each; five fail. How many grow?","opts":["43","48","53","35"],"a":0},{"q":"🌎 Indiana is west of...","opts":["Pennsylvania","Illinois","Iowa","Kansas"],"a":0},{"q":"🌎 Which continent holds the Amazon rainforest?","opts":["South America","Europe","Africa","Australia"],"a":0}]}];
+
+var LS = "suvir-brain-quest-v4";
+var state = { done: {}, quizBest: {}, mathBest: 0, mathWork: {} };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
+
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">📖</span>Reading Quest</h3>' + d.read + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
+    html += '<div class="card"><h3><span class="emoji">🧩</span>Word Problems</h3>' + d.word + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
+  sec.innerHTML = html;
+  root.appendChild(sec);
+});
+
+
+// Daily math: show answer key only after all answers and all three workings are entered.
+DAYS.slice(0,5).forEach(function(d,day){
+  var box=document.querySelector('.daily-math[data-day="'+day+'"]'); if(!box)return;
+  d.mathProblems.forEach(function(p,n){
+    var row=document.createElement('div');row.className='problem';
+    var typ=p.kind==='A'?'Quick pick':p.kind==='B'?'Short answer':'🚀 Show your thinking';
+    var prompt='<label for="math-'+day+'-'+n+'">'+(n+1)+'. '+typ+': '+p.q+'</label>';
+    if(p.kind==='A'){
+      var correct=p.answer, num=Number(correct.replace(/,/g,''));
+      var vals=Number.isFinite(num)&&correct.trim()!==''
+        ?[num, num+10, num+1, Math.max(0,num-10)].map(String)
+        :(correct==='proper'?['proper','common','verb','adjective']
+          :correct==='i_e'?['i_e','igh','ay','ai']:['480','470','460','490']);
+      var unique=[]; vals.forEach(function(v){if(unique.indexOf(v)<0)unique.push(v);});
+      while(unique.length<4)unique.push(String(num+unique.length+2));
+      var shift=(day*3+n)%4;unique=unique.slice(shift).concat(unique.slice(0,shift));
+      prompt+='<div class="choices">'+unique.map(function(v,j){return '<label><input type="radio" name="pick-'+day+'-'+n+'" value="'+v+'"> '+String.fromCharCode(65+j)+'. '+v+'</label>';}).join('')+'</div>';
+    } else prompt+='<input id="math-'+day+'-'+n+'" aria-label="Answer for problem '+(n+1)+'" placeholder="Your answer" autocomplete="off">';
+    if(p.kind==='C')prompt+='<textarea aria-label="Workings for problem '+(n+1)+'" placeholder="Show your workings or explain in words"></textarea>';
+    row.innerHTML=prompt;box.appendChild(row);
+  });
+  var button=document.createElement('button');button.type='button';button.className='checkMath';button.textContent='Check all 15 answers';box.appendChild(button);
+  var notice=document.createElement('p');notice.setAttribute('role','status');box.appendChild(notice);
+  var key=document.createElement('div');key.className='answerKey';box.appendChild(key);
+  button.addEventListener('click',function(){
+    var rows=Array.prototype.slice.call(box.querySelectorAll('.problem'));
+    function pKind(n){return d.mathProblems[n].kind;}
+    var missing=rows.findIndex(function(row,n){var a=pKind(n)==='A'?row.querySelector('input[type=radio]:checked'):row.querySelector('input:not([type=radio])').value.trim();var w=row.querySelector('textarea');return !a||(w&&!w.value.trim());});
+    if(missing>=0){notice.textContent='Finish the answer and, if asked, the workings for problem '+(missing+1)+' before checking. Keep going - there is no timer.';rows[missing].querySelector('input').focus();return;}
+    var out='<h4>Answer and work check</h4><p>Compare each result; for #13-15, check BOTH the answer and written workings. You can try again without a penalty.</p>';
+    d.mathProblems.forEach(function(p,n){out+='<p><b>'+(n+1)+'. '+p.answer+'</b>'+(p.work?' · '+p.work:'')+'</p>';});
+    key.innerHTML=out;key.style.display='block';state.mathChecked=state.mathChecked||{};state.mathChecked[day]=true;persistMath();notice.textContent='All 15 attempted, including written workings. Check each explanation against the model.';
+  });
+  var stored=(state.mathWork||{})[day]||{};
+  Array.prototype.forEach.call(box.querySelectorAll('.problem'),function(row,n){
+    var old=stored[n]||{};var inp=row.querySelector('input:not([type=radio])');var area=row.querySelector('textarea');
+    if(inp)inp.value=old.answer||'';if(area)area.value=old.work||'';
+    if(old.answer&&d.mathProblems[n].kind==='A'){var found=Array.prototype.find.call(row.querySelectorAll('input[type=radio]'),function(x){return x.value===old.answer;});if(found)found.checked=true;}
+  });
+  if(state.mathChecked&&state.mathChecked[day]){var out='<h4>Answer and work check</h4>';d.mathProblems.forEach(function(p,n){out+='<p><b>'+(n+1)+'. '+p.answer+'</b>'+(p.work?' · '+p.work:'')+'</p>';});key.innerHTML=out;key.style.display='block';}
+  box.addEventListener('change',persistMath);
+  box.addEventListener('input',persistMath);
+  function persistMath(){
+    state.mathWork=state.mathWork||{};state.mathWork[day]=state.mathWork[day]||{};
+    Array.prototype.forEach.call(box.querySelectorAll('.problem'),function(row,n){
+      var selected=row.querySelector('input[type=radio]:checked'),inp=row.querySelector('input:not([type=radio])'),area=row.querySelector('textarea');
+      state.mathWork[day][n]={answer:selected?selected.value:inp?inp.value:'',work:area?area.value:''};
+    });save();
+  }
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+
+function refreshProgress() {
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    var quizBox=document.querySelector('.quiz[data-day="'+di+'"]');
+    var mathBox=document.querySelector('.daily-math[data-day="'+di+'"]');
+    if(quizBox.querySelectorAll('.quiz-q[data-answered]').length<DAYS[di].quiz.length){
+      alert("Finish today's five quiz questions before unlocking the reward.");return;
+    }
+    if(!state.mathChecked||!state.mathChecked[di]){
+      alert('Complete all 15 math answers and the written workings before unlocking the reward.');return;
+    }
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Fact dash
+var cur = null, mScore = 0, mCount = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
+function newFact() {
+  if (mCount >= 30) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); q = a + " \u00d7 " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); a = b * ans; q = a + " \u00f7 " + b + " = ?"; }
+  cur = { q: q, ans: ans };
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 30 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 30) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 30 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 27 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 21 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 30 for another round!";
+    document.getElementById("newFact").textContent = "Start New 30";
+  } else {
+    setTimeout(newFact, 900);
+  }
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 30 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+</script>
+</body>
+</html>
