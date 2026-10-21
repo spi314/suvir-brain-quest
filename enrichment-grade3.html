@@ -1,0 +1,155 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Math Enrichment Lab - 25 Grade 3 Challenges</title><meta name="description" content="25 original grade-3 enrichment word problems, separate from weekly Brain Quest. Type an answer, check it, and keep exploring."><style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+
+  .daily-math .problem { padding:12px; margin:10px 0; border-left:4px solid #ffd54a; background:#ffffff0b; border-radius:10px; }
+  .daily-math label { display:block; font-weight:700; margin:5px 0; }
+  .daily-math input,.daily-math textarea { width:100%; margin:5px 0; padding:10px; background:#fff; color:#142536; border:0; border-radius:8px; font:inherit; }
+  .daily-math textarea { min-height:64px; resize:vertical; }
+  .daily-math .choices label { padding:7px; font-weight:500; }
+  .daily-math .choices input { width:auto; margin-right:7px; }
+  .daily-math .checkMath { width:100%; padding:12px; background:#ffd54a; color:#142536; border:0; border-radius:10px; font-weight:800; }
+  .daily-math .answerKey { display:none; line-height:1.5; color:#d5ffc4; margin-top:10px; }
+  .daily-math .checkOne {padding:9px 12px;border:0;border-radius:8px;background:#ffd54a;color:#142536;font:inherit;font-weight:700;margin-top:6px;}
+  .daily-math .mathResult {margin:10px 0 0;font-weight:700;}
+  .daily-math .mathCorrect {border-left-color:#42d77d;}
+  .daily-math .mathCorrect .mathResult {color:#a6ff7e;}
+  .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
+  .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
+  .daily-math .optionalWork {margin-top:8px;}
+
+body{padding-bottom:24px;}nav#tabs{justify-content:center;flex-wrap:wrap;overflow:visible;}nav#tabs button{min-height:48px;flex:1 1 72px;max-width:120px;}main{max-width:760px;} .problem input{width:100%;min-height:48px;padding:12px;font:inherit;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 0;}button{min-height:44px;} .checkOne,.retry{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;} .problem{border-left:4px solid #ffd54a;} .problem.correct{border-color:#42d77d;} .problem.wrong{border-color:#ff8a8a;} .feedback{margin:10px 0 0;font-weight:700;} .correct .feedback{color:#a6ff7e;} .wrong .feedback{color:#ffb8b8;} .math-note{margin:10px 0;color:#d7eeff;font-size:1rem;overflow-wrap:anywhere;} math{font-size:1.08em;max-width:100%;} .day-summary{background:#214956;padding:12px;border-radius:12px;margin:12px 0;} .day.active{animation:none;} .badge{display:inline-block;color:#ffd54a;font-size:.8rem;margin-bottom:6px;} .optional{color:#bfe3ff;font-size:.85rem;} footer a{color:#bfe3ff;} a{overflow-wrap:anywhere;}@media(max-width:420px){html{font-size:16px;}header h1{font-size:1.5rem;}nav#tabs{gap:5px;padding:8px;}nav#tabs button{padding:9px 6px;flex-basis:54px;min-width:50px;}main{padding:12px;} .card{padding:14px;} .math-note{font-size:.95rem;}}
+main{max-width:760px}nav#tabs{justify-content:center;flex-wrap:wrap}nav#tabs button{min-width:0;flex:1 1 100px;max-width:145px;min-height:48px;font-size:.8rem}.problem input{max-width:100%}.math-note:empty{display:none}.question-unit{color:#bfe3ff;font-size:.85rem}math{font-size:1.1rem}.back-link{color:#bfe3ff}.feedback{overflow-wrap:anywhere}button,input{min-height:44px}button:focus-visible,a:focus-visible{outline:3px solid #ffd54a;outline-offset:3px}
+</style></head><body><header><h1><span class="star">✦</span> Math Enrichment Lab</h1><p class="sub">25 word-problem challenges · Grade 3 enrichment</p></header><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel" role="status"></div></div><nav id="tabs" aria-label="Choose a set"></nav><main><section class="card"><h2>Think beyond the first step.</h2><p>Five sets of five puzzles. Try a picture, a bar model, a table, or working backward. Every answer is one whole number. Take them at your own pace; there is no timer.</p><p>Original practice inspired by Noetic-style reasoning and Singapore-style bar models. These are not official Noetic or Math in Focus questions. The later sets introduce grade-3 fractions, measurement, and counting challenges.</p><p>This lab is separate from weekly Brain Quest. Your progress here will not change your weekly answers.</p></section><div id="daysRoot"></div><footer class="card"><p id="storageNotice"></p><p>Progress stays in this browser on this device, not across devices.</p><p><a class="back-link" href="./">Open weekly Brain Quest</a> (a different practice page).</p></footer></main><script>
+const DAYS=[{"title": "Number detectives", "problems": [{"title": "The warehouse mix-up", "q": "A robot counts 2 crates of 1,000 tiles, 17 boxes of 100 tiles, 24 packets of 10 tiles, and 9 loose tiles. How many tiles are there altogether?", "answer": 3949, "unit": "tiles", "expr": "", "math": ""}, {"title": "The four-digit vault", "q": "A four-digit code begins with 3. Its hundreds digit is 4. Its tens digit is twice its ones digit. All four digits add to 16. What is the code?", "answer": 3463, "unit": "code", "expr": "", "math": ""}, {"title": "The reversed label", "q": "A three-digit locker number begins with 6. Its digits add to 17. Swapping its hundreds and ones digits makes the number 297 smaller. What was the original number?", "answer": 683, "unit": "number", "expr": "", "math": ""}, {"title": "The missing donation", "q": "A library wants 1,500 books. It has 875 books, receives 248 more, and then gives 96 damaged books to a recycling project. How many more books does it need to reach its goal?", "answer": 473, "unit": "books", "expr": "", "math": ""}, {"title": "Digit showdown", "q": "Use 0, 2, 5, and 8 exactly once each to make the greatest four-digit number. Use them again to make the smallest four-digit number. What is the difference between your two numbers?", "answer": 6462, "unit": "difference", "expr": "", "math": ""}]}, {"title": "Bar-model mysteries", "problems": [{"title": "Two collection jars", "q": "Two jars hold 138 marbles altogether. The taller jar holds 26 more marbles than the shorter jar. How many marbles are in the shorter jar?", "answer": 56, "unit": "marbles", "expr": "", "math": ""}, {"title": "Make it fair", "q": "Arun and Bela have 84 game cards altogether. Arun gives Bela 6 cards, and then they have equal numbers. How many cards did Arun have at first?", "answer": 48, "unit": "cards", "expr": "", "math": ""}, {"title": "The red-token stall", "q": "A stall starts with 96 tokens. It has three times as many red tokens as blue tokens. Only red tokens are sold. After the sale, there are twice as many red tokens as blue tokens. How many red tokens were sold?", "answer": 24, "unit": "tokens", "expr": "", "math": ""}, {"title": "A very small farm", "q": "A farm has only chickens and rabbits. There are 14 animals and 40 legs altogether. Every chicken has 2 legs and every rabbit has 4. How many rabbits are there?", "answer": 6, "unit": "rabbits", "expr": "", "math": ""}, {"title": "Ticket detective", "q": "Adult tickets cost $8 each and child tickets cost $5 each. A group buys 12 tickets for exactly $75. How many adult tickets did it buy?", "answer": 5, "unit": "adult tickets", "expr": "", "math": ""}]}, {"title": "Groups and trades", "problems": [{"title": "The pencil delivery", "q": "A club opens 7 boxes with 9 pencils in each box. It gives 5 pencils to each of 8 children. How many pencils are left?", "answer": 23, "unit": "pencils", "expr": "", "math": ""}, {"title": "Enough vans for everyone", "q": "There are 87 children going on a trip. Each van has 8 seats, but one seat in every van must be used by its driver. What is the fewest number of vans needed for all the children?", "answer": 13, "unit": "vans", "expr": "", "math": ""}, {"title": "Equal prize bags", "q": "A teacher has 4 packs of 9 stickers and 3 packs of 8 stickers. She puts ALL the stickers into 5 equal prize bags. How many stickers go in each bag?", "answer": 12, "unit": "stickers", "expr": "", "math": ""}, {"title": "The trading booth", "q": "At a game booth, 4 badges can be traded for 3 tokens. Each token is worth 12 points. Every badge has the same value. How many points are 5 badges worth?", "answer": 45, "unit": "points", "expr": "", "math": ""}, {"title": "The team greeting", "q": "Six teammates arrive at a tournament. Each teammate shakes hands with every other teammate exactly once. How many handshakes happen altogether?", "answer": 15, "unit": "handshakes", "expr": "", "math": ""}]}, {"title": "Fraction adventures", "problems": [{"title": "Three bead colors", "q": "A tray holds 48 beads. Half are blue. One third of the beads that are NOT blue are green. All the rest are red. How many red beads are there?", "answer": 16, "unit": "beads", "expr": "half, then one third of the rest", "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mtext>half, then one third of the rest</mtext></math>"}, {"title": "The ribbon remnant", "q": "Mira uses three quarters of a ribbon to wrap a present. The piece left over is 20 cm long. How long was the whole ribbon before she cut it?", "answer": 80, "unit": "cm", "expr": "3/4 used; 1/4 remains", "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mtext></mtext><mfrac><mn>3</mn><mn>4</mn></mfrac><mspace width=\"0.25em\"/><mtext> used; </mtext><mfrac><mn>1</mn><mn>4</mn></mfrac><mspace width=\"0.25em\"/><mtext> remains</mtext></math>"}, {"title": "Brownies after the picnic", "q": "A tray starts with 24 brownies. Half are eaten at lunch. Later, one third of the remaining brownies are eaten. How many brownies are left?", "answer": 8, "unit": "brownies", "expr": "half, then one third of the rest", "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mtext>half, then one third of the rest</mtext></math>"}, {"title": "The marble bag", "q": "Three fifths of the marbles in a bag are yellow. There are 18 yellow marbles. All the other marbles are purple. How many purple marbles are there?", "answer": 12, "unit": "marbles", "expr": "3/5 yellow; 2/5 purple", "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mtext></mtext><mfrac><mn>3</mn><mn>5</mn></mfrac><mspace width=\"0.25em\"/><mtext> yellow; </mtext><mfrac><mn>2</mn><mn>5</mn></mfrac><mspace width=\"0.25em\"/><mtext> purple</mtext></math>"}, {"title": "The orchard plan", "q": "An orchard has 40 trees. One quarter are pear trees. Two fifths of the remaining trees are apple trees. All the other trees are plum trees. How many plum trees are there?", "answer": 18, "unit": "trees", "expr": "1/4 pears; 2/5 of the rest apples", "math": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mtext></mtext><mfrac><mn>1</mn><mn>4</mn></mfrac><mspace width=\"0.25em\"/><mtext> pears; </mtext><mfrac><mn>2</mn><mn>5</mn></mfrac><mspace width=\"0.25em\"/><mtext> of the rest apples</mtext></math>"}]}, {"title": "Final stretch", "problems": [{"title": "A border of lights", "q": "A rectangular stage is 12 m long and 7 m wide. A string of lights goes all the way around its edge except across a 3 m entrance. How many meters of lights are needed?", "answer": 35, "unit": "m", "expr": "", "math": ""}, {"title": "The delayed robot show", "q": "A robot show starts at 10:35 a.m. Its first act lasts 48 minutes. There is then a 17-minute break and a 36-minute second act. How many minutes after noon does the show end?", "answer": 16, "unit": "minutes", "expr": "", "math": ""}, {"title": "Water for the garden", "q": "A tank holds 3 liters of water. A gardener fills four 450 mL bottles from the tank. How many milliliters of water remain? Remember: 1 liter is 1,000 milliliters.", "answer": 1200, "unit": "mL", "expr": "", "math": ""}, {"title": "Guarantee a match", "q": "A bag contains 5 red counters, 5 blue counters, and 5 yellow counters. Without looking, what is the fewest counters you must take to GUARANTEE that at least 3 of them are the same color?", "answer": 7, "unit": "counters", "expr": "", "math": ""}, {"title": "The staircase challenge", "q": "A robot climbs a staircase with 6 steps. On each move it climbs either 1 step or 2 steps. Different orders count as different ways. For example, 1 then 2 is different from 2 then 1. How many different ways can it reach the top without going past step 6?", "answer": 13, "unit": "ways", "expr": "", "math": ""}]}];
+const LS='suvir-grade3-enrichment-25-oct21-v1';
+let state={answers:{},checked:{},active:0};let storageOK=true;
+try{const saved=JSON.parse(localStorage.getItem(LS)||'null');if(saved&&typeof saved==='object'){state.answers=saved.answers||{};state.checked=saved.checked||{};state.active=Number(saved.active)||0;}}catch(e){storageOK=false;}
+function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){storageOK=false;}document.getElementById('storageNotice').textContent=storageOK?'Saved on this device.':'Saving is unavailable in this browser. Keep this page open to retain this session.';}
+function normalized(value){const text=String(value).trim().replace(/,/g,'');return /^\d+$/.test(text)?Number(text):null;}
+const tabs=document.getElementById('tabs'),root=document.getElementById('daysRoot');
+DAYS.forEach((day,i)=>{
+ const tab=document.createElement('button');tab.type='button';tab.innerHTML='Set '+(i+1)+'<span class="d">'+day.title+'</span>';tab.addEventListener('click',()=>showDay(i));tabs.appendChild(tab);
+ const sec=document.createElement('section');sec.className='day';sec.id='day-'+i;sec.innerHTML='<h2 class="day-title">'+day.title+'</h2><p class="day-date">Problems '+(i*5+1)+'-'+(i*5+5)+' · Five challenges</p><div class="day-summary" id="summary-'+i+'" role="status"></div>';
+ day.problems.forEach((p,n)=>{
+  const id=i*5+n+1,card=document.createElement('article');card.className='card problem';card.id='problem-'+i+'-'+n;
+  card.innerHTML='<span class="badge">'+(i===4?'STRETCH CHALLENGE':'CHALLENGE '+id)+'</span><h3>'+id+'. '+p.title+'</h3><p>'+p.q+'</p><div class="math-note">'+p.math+'</div><label for="answer-'+i+'-'+n+'">Your answer <span class="optional">('+p.unit+'; number only)</span></label><input id="answer-'+i+'-'+n+'" inputmode="numeric" autocomplete="off" aria-describedby="feedback-'+i+'-'+n+'"><button class="checkOne" type="button">Check answer</button><p class="feedback" id="feedback-'+i+'-'+n+'" role="status" aria-live="polite" hidden></p>';
+  const input=card.querySelector('input');input.value=(state.answers[i]||{})[n]||'';
+  input.addEventListener('input',()=>{state.answers[i]=state.answers[i]||{};state.answers[i][n]=input.value;state.checked[i]=state.checked[i]||{};delete state.checked[i][n];card.classList.remove('correct','wrong');card.querySelector('.feedback').hidden=true;save();refresh();});
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check(i,n);}});card.querySelector('button').addEventListener('click',()=>check(i,n));sec.appendChild(card);
+ });
+ const all=document.createElement('button');all.type='button';all.className='big-btn';all.textContent='Check this set';all.addEventListener('click',()=>day.problems.forEach((_,n)=>check(i,n)));sec.appendChild(all);root.appendChild(sec);
+});
+function check(i,n){const card=document.getElementById('problem-'+i+'-'+n),input=card.querySelector('input'),fb=card.querySelector('.feedback');state.answers[i]=state.answers[i]||{};state.answers[i][n]=input.value;card.classList.remove('correct','wrong');fb.hidden=false;state.checked[i]=state.checked[i]||{};
+ const value=normalized(input.value);if(value===null){fb.textContent='Type one whole-number answer, then check. Commas are OK.';delete state.checked[i][n];save();refresh();return;}
+ const p=DAYS[i].problems[n],correct=value===p.answer;card.classList.add(correct?'correct':'wrong');fb.textContent=correct?'✓ Correct!':'✗ Not quite. Correct answer: '+p.answer.toLocaleString('en-US')+' '+p.unit+'. Edit and try again.';state.checked[i][n]=true;save();refresh();}
+function refresh(){let solved=0,done=0;DAYS.forEach((d,i)=>{let attempted=0,correct=0;d.problems.forEach((p,n)=>{if((state.checked[i]||{})[n]){attempted++;if(normalized((state.answers[i]||{})[n])===p.answer)correct++;}});solved+=correct;if(correct===5)done++;tabs.children[i].classList.toggle('done',correct===5);document.getElementById('summary-'+i).textContent=correct+' of 5 correct · '+attempted+' checked'+(correct===5?' · Set complete! ⭐':' · Take it one puzzle at a time.');});document.getElementById('progressFill').style.width=(solved/25*100)+'%';document.getElementById('progressLabel').textContent=solved+' of 25 challenges solved · '+done+' of 5 sets complete';}
+function showDay(i){i=Math.max(0,Math.min(4,Math.floor(Number(i)||0)));state.active=i;[...tabs.children].forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',String(j===i));});[...root.children].forEach((s,j)=>s.classList.toggle('active',j===i));save();}
+DAYS.forEach((d,i)=>d.problems.forEach((_,n)=>{if((state.checked[i]||{})[n])check(i,n);}));showDay(state.active);refresh();save();
+</script></body></html>
