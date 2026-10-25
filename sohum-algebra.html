@@ -1,0 +1,240 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Algebra I Factoring Lab</title><meta name="description" content="19 Algebra I practice problems: factoring, solving by factoring, and word problems. Type an answer and check it."><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0 0 40px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0f2027 0%,#203a43 45%,#2c5364 100%);min-height:100vh;color:#fff}
+header{padding:22px 16px 6px;text-align:center}header h1{margin:0;font-size:1.7rem}header p{margin:6px 0 0;color:#bfe3ff;font-size:.92rem}
+main{max-width:760px;margin:0 auto;padding:10px 14px}
+.pw{max-width:760px;margin:12px auto 4px;padding:0 14px}.pb{background:rgba(255,255,255,.15);border-radius:999px;height:14px;overflow:hidden}.pf{height:100%;width:0;background:linear-gradient(90deg,#42d77d,#a6ff7e);transition:width .5s}.pl{font-size:.82rem;color:#cfeeff;text-align:center;margin-top:5px}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 8px;font-size:1.2rem}.card h3{margin:0 0 8px;font-size:1.05rem}.card p{color:#e8f4ff;line-height:1.5;margin:6px 0}
+a.btn{display:block;text-align:center;text-decoration:none;font-weight:800;background:linear-gradient(135deg,#3aa0ff,#2f6bff);color:#fff;border-radius:14px;padding:13px;margin:10px 0 0}a.btn.alt{background:linear-gradient(135deg,#8a5cf6,#c05cff)}
+.vid{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;margin-top:8px}.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.problem{padding:14px;margin:12px 0;border-left:5px solid #ffd54a;background:rgba(255,255,255,.06);border-radius:12px}
+.problem.ok{border-left-color:#42d77d}.problem.no{border-left-color:#ff8a8a}
+.num{font-weight:900;color:#ffd54a;margin-bottom:4px}.stmt{font-size:1.05rem;line-height:1.6}.stmt .katex{font-size:1.12em}
+.how{font-size:.82rem;color:#9fd0ea;margin-top:6px}
+.problem input{width:100%;min-height:48px;padding:12px;font:inherit;font-size:1.05rem;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 0 6px}
+.problem input:disabled{background:#e4efe6}
+button.chk,button.retry,button.hint{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:800;min-height:44px;cursor:pointer;margin-right:8px}
+button.chk{background:#ffd54a;color:#142536}button.retry{background:#fff;color:#142536;display:none}button.hint{background:rgba(255,255,255,.14);color:#fff}
+.res{margin-top:10px;font-weight:700;line-height:1.5}.problem.ok .res{color:#a6ff7e}.problem.no .res{color:#ffb8b8}.res .why{display:block;font-weight:500;color:#e8f4ff;margin-top:4px}
+.hinttxt{display:none;margin-top:8px;color:#ffe9a8;font-size:.95rem}
+.sec{margin:22px 2px 4px;font-size:1.2rem}.secsub{margin:0 2px 8px;color:#9fd0ea;font-size:.88rem}
+footer{text-align:center;color:#6d97ad;font-size:.75rem;padding:18px 14px}
+.done{display:none;text-align:center;font-size:1.2rem;font-weight:900;color:#a6ff7e}
+</style></head><body>
+<header><h1>Algebra I Factoring Lab</h1><p>Watch the video, then work all 19 problems. Type your answer, press Enter or tap Check.</p></header>
+<div class="pw"><div class="pb"><div class="pf" id="pf"></div></div><div class="pl" id="pl">0 of 19 correct</div></div>
+<main>
+<div class="card"><h2>1. Watch first (about 6 minutes)</h2>
+<p>Factoring a 4th-degree polynomial with substitution: spot the hidden quadratic, factor it, then keep going until nothing more factors. Pay attention to the last step.</p>
+<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/ti4lUF3r3EU" title="Factor 4th Degree Polynomials with Substitution: Practice" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+<a class="btn" href="https://www.youtube.com/watch?v=ti4lUF3r3EU" target="_blank" rel="noopener">Open on YouTube: Factor 4th Degree Polynomials with Substitution (5:32, Euler's Academy)</a>
+<a class="btn alt" href="https://www.youtube.com/watch?v=KWeL4UFfSKI" target="_blank" rel="noopener">Bonus, optional: Factoring Word Problems - Area, Projectiles, Volume (11:31, Mario's Math Tutoring)</a>
+</div>
+<div class="card"><h2>2. How to enter answers</h2>
+<p><b>Factoring:</b> type the fully factored form, like <code>5(x-3)(x+3)</code>. Use <code>^</code> for powers (<code>x^2</code>). Any order works, and <code>(x-3)^2</code> or <code>(x-3)(x-3)</code> both count. A correct answer that is not fully factored gets a nudge to keep going.</p>
+<p><b>Solving:</b> type every solution separated by commas, like <code>-5, 1</code>.</p>
+<p><b>Word problems:</b> type the number(s) asked for, separated by commas if there is more than one. Units are optional. Progress saves on this device.</p></div>
+<div id="list"></div>
+<div class="card done" id="done">All 19 done. Nice work.</div>
+</main>
+<footer>Original practice problems. Progress is saved on this device only.</footer>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+// ---------- Algebra answer engine ----------
+function polyConst(c){return {"":c};}
+function padd(a,b,s){var r={};for(var k in a)r[k]=a[k];for(var k2 in b){r[k2]=(r[k2]||0)+s*b[k2];}for(var k3 in r){if(Math.abs(r[k3])<1e-9)delete r[k3];}return r;}
+function mkey(m){var ks=Object.keys(m).filter(function(v){return m[v]>0}).sort();return ks.map(function(v){return v+(m[v]>1?"^"+m[v]:"")}).join("*");}
+function kparse(k){var m={};if(!k)return m;k.split("*").forEach(function(p){var q=p.split("^");m[q[0]]=q[1]?+q[1]:1;});return m;}
+function pmul(a,b){var r={};for(var i in a)for(var j in b){var m=kparse(i),n=kparse(j);for(var v in n)m[v]=(m[v]||0)+n[v];var k=mkey(m);r[k]=(r[k]||0)+a[i]*b[j];}for(var k2 in r)if(Math.abs(r[k2])<1e-9)delete r[k2];return r;}
+function ppow(a,n){var r={"":1};for(var i=0;i<n;i++)r=pmul(r,a);return r;}
+function tokenize(s){
+  s=s.toLowerCase().replace(/[\u2212\u2013\u2014]/g,"-").replace(/[\u00d7\u00b7\u22c5]/g,"*").replace(/\u00b2/g,"^2").replace(/\u00b3/g,"^3").replace(/\u2074/g,"^4").replace(/\s+/g,"").replace(/\*\*/g,"^").replace(/[\[\{]/g,"(").replace(/[\]\}]/g,")");
+  var t=[],i=0,m;
+  while(i<s.length){
+    var c=s[i];
+    if(/[0-9.]/.test(c)){m=/^[0-9]*\.?[0-9]+/.exec(s.slice(i));if(!m)throw 1;t.push({t:"n",v:parseFloat(m[0])});i+=m[0].length;}
+    else if(/[a-z]/.test(c)){t.push({t:"v",v:c});i++;}
+    else if("+-*^()/".indexOf(c)>=0){t.push({t:c});i++;}
+    else throw 1;
+  }
+  return t;
+}
+// AST: {k:'add',a,b,s} {k:'mul',l:[..]} {k:'pow',b,e} {k:'neg',x} {k:'num'} {k:'var'}
+function parseExpr(s){
+  var t=tokenize(s),p=0;
+  function peek(){return t[p]?t[p].t:null}
+  function startsAtom(){var k=peek();return k==="n"||k==="v"||k==="(";}
+  function expr(){var n=term();while(peek()==="+"||peek()==="-"){var o=t[p++].t;var r=term();n={k:"add",a:n,b:r,s:o==="+"?1:-1};}return n;}
+  function term(){
+    var f=[unary()];
+    while(peek()==="*"||peek()==="/"||startsAtom()){
+      if(peek()==="/"){p++;var d=power();if(d.k!=="num")throw 1;f.push({k:"num",v:1/d.v});}
+      else{if(peek()==="*")p++;f.push(power());}
+    }
+    return f.length===1?f[0]:{k:"mul",l:f};
+  }
+  function unary(){if(peek()==="-"){p++;return {k:"neg",x:unary()};}if(peek()==="+"){p++;return unary();}return power();}
+  function power(){var b=atom();if(peek()==="^"){p++;var neg=false;if(peek()==="-"){p++;neg=true}var e=atom();if(e.k!=="num")throw 1;b={k:"pow",b:b,e:neg?-e.v:e.v};}return b;}
+  function atom(){var x=t[p++];if(!x)throw 1;if(x.t==="n")return {k:"num",v:x.v};if(x.t==="v")return {k:"var",v:x.v};if(x.t==="("){var e=expr();if(peek()!==")")throw 1;p++;return {k:"paren",x:e};}throw 1;}
+  var r=expr();if(p!==t.length)throw 1;return r;
+}
+function toPoly(n){
+  switch(n.k){
+    case "num":return {"":n.v};
+    case "var":var o={};o[n.v]=1;return o;
+    case "paren":return toPoly(n.x);
+    case "neg":return pmul({"":-1},toPoly(n.x));
+    case "add":return padd(toPoly(n.a),toPoly(n.b),n.s);
+    case "mul":return n.l.reduce(function(a,x){return pmul(a,toPoly(x))},{"":1});
+    case "pow":if(n.e<0||n.e!==Math.floor(n.e)||n.e>64)throw 1;return ppow(toPoly(n.b),n.e);
+  }
+  throw 1;
+}
+function polyEq(a,b){var d=padd(a,b,-1);return Object.keys(d).length===0;}
+function isMono(p){return Object.keys(p).length===1;}
+function gcdI(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t;}return a;}
+function ordKeys(p){return Object.keys(p).sort(function(a,b){var da=deg(a),db=deg(b);return db-da||(a<b?-1:a>b?1:0);});}
+function deg(k){var m=kparse(k),s=0;for(var v in m)s+=m[v];return s;}
+// normalise one polynomial factor -> {c, key}
+function normFactor(p){
+  var ks=ordKeys(p),g=0,i;
+  for(i=0;i<ks.length;i++){var c=p[ks[i]];if(Math.abs(c-Math.round(c))>1e-9){g=0;break;}g=gcdI(g,Math.round(c));}
+  var scale=g>0?g:1;
+  if(p[ks[0]]<0)scale=-scale;
+  var q={};ks.forEach(function(k){q[k]=Math.round(p[k]/scale*1e6)/1e6;});
+  return {c:scale,key:ordKeys(q).map(function(k){return q[k]+"@"+k}).join("|")};
+}
+// flatten AST into list of polynomial factors with constant
+function factorList(n){
+  var out={c:1,f:[]};
+  (function walk(x,rep){
+    if(x.k==="paren")return walk(x.x,rep);
+    if(x.k==="neg"){out.c*=-1;return walk(x.x,rep);}
+    if(x.k==="mul"){x.l.forEach(function(y){walk(y,rep)});return;}
+    if(x.k==="pow"&&x.e>=1&&x.e===Math.floor(x.e)){for(var i=0;i<x.e;i++)walk(x.b,rep);return;}
+    var p=toPoly(x);
+    if(Object.keys(p).length===0){out.c=0;return;}
+    if(Object.keys(p).length===1&&p[""]!==undefined){out.c*=p[""];return;}
+    if(isMono(p)){var k=Object.keys(p)[0];out.c*=p[k];var m=kparse(k);for(var v in m)for(var j=0;j<m[v];j++)out.f.push("1@"+v);return;}
+    var nf=normFactor(p);out.c*=nf.c;out.f.push(nf.key);
+  })(n,1);
+  out.f.sort();return out;
+}
+// answer: expected factorization string; returns "ok" | "equal-not-factored" | "wrong" | "bad"
+function checkFactored(input,expected){
+  var a,e;
+  try{a=parseExpr(input);}catch(x){return "bad";}
+  e=parseExpr(expected);
+  var pa,pe;
+  try{pa=toPoly(a);}catch(x){return "bad";}
+  pe=toPoly(e);
+  if(!polyEq(pa,pe))return "wrong";
+  var fa=factorList(a),fe=factorList(e);
+  if(Math.abs(fa.c-fe.c)<1e-9&&fa.f.join(",")===fe.f.join(","))return "ok";
+  return "equal-not-factored";
+}
+function parseNums(s){
+  s=s.toLowerCase().replace(/[\u2212\u2013\u2014]/g,"-").replace(/,(?=\d{3}(\D|$))/g,"");
+  var out=[],re=/(\u00b1|\+-|\+\/-)?\s*(-?\s*\d*\.?\d+)\s*(?:\/\s*(\d*\.?\d+))?/g,m;
+  while((m=re.exec(s))){
+    var v=parseFloat(m[2].replace(/\s+/g,""));
+    if(m[3])v=v/parseFloat(m[3]);
+    if(m[1]){out.push(v);out.push(-v);}else out.push(v);
+  }
+  return out;
+}
+function checkNums(input,expected){
+  var got=parseNums(input);
+  if(!got.length)return "bad";
+  var uniq=[];got.forEach(function(v){if(!uniq.some(function(u){return Math.abs(u-v)<1e-6}))uniq.push(v)});
+  var ex=expected.slice();
+  if(uniq.length!==ex.length)return "wrong";
+  uniq.sort(function(a,b){return a-b});ex.sort(function(a,b){return a-b});
+  for(var i=0;i<ex.length;i++)if(Math.abs(uniq[i]-ex[i])>1e-6)return "wrong";
+  return "ok";
+}
+function checkPrime(input){
+  var s=input.toLowerCase();
+  return /prime|irreducible|cannot|can't|cant|not factor|unfactor|no factor/.test(s)?"ok":"wrong";
+}
+var P=[
+{sec:"A. Factor completely",sub:"Always pull out the greatest common factor first, then check whether anything is left to factor.",
+ t:"f",q:String.raw`\(5x^2-45\)`,a:"5(x-3)(x+3)",tex:String.raw`5(x-3)(x+3)`,h:"Is there a number that divides both terms?",w:"Pull out 5, then \\(x^2-9\\) is a difference of squares."},
+{t:"f",q:String.raw`\(6a(2b-5)+7(5-2b)\)`,a:"(2b-5)(6a-7)",tex:String.raw`(2b-5)(6a-7)`,h:"The two binomials are opposites of each other. Rewrite one of them.",w:"\\(7(5-2b)=-7(2b-5)\\), so the common factor is \\((2b-5)\\) and what is left is \\(6a-7\\)."},
+{t:"f",q:String.raw`\(15x^4y^2-20x^3y^3+35x^2y^4\)`,a:"5x^2y^2(3x^2-4xy+7y^2)",tex:String.raw`5x^2y^2(3x^2-4xy+7y^2)`,h:"Take the GCF of the numbers AND the lowest power of each letter. Divide every term, including the last one.",w:"GCF is \\(5x^2y^2\\). Dividing gives \\(3x^2\\), \\(-4xy\\), \\(7y^2\\). The trinomial left over does not factor."},
+{t:"f",q:String.raw`\((x+2)^2-7(x+2)+10\)`,a:"x(x-3)",tex:String.raw`x(x-3)`,h:"Let u = x + 2. Factor, then put x + 2 back in and simplify each bracket.",w:"\\(u^2-7u+10=(u-2)(u-5)\\). Replace u: \\((x+2-2)(x+2-5)=x(x-3)\\)."},
+{t:"f",q:String.raw`\(2x^2-9x-18\)`,a:"(2x+3)(x-6)",tex:String.raw`(2x+3)(x-6)`,h:"a is not 1. Multiply a times c (that is -36) and find two numbers that add to -9.",w:"-12 and 3 work: \\(2x^2-12x+3x-18=2x(x-6)+3(x-6)=(2x+3)(x-6)\\)."},
+{t:"f",q:String.raw`\(18y^3-24y^2+8y\)`,a:"2y(3y-2)^2",tex:String.raw`2y(3y-2)^2`,h:"GCF first. What is left looks like a perfect square.",w:"GCF is \\(2y\\), leaving \\(9y^2-12y+4=(3y-2)^2\\)."},
+{t:"f",q:String.raw`\(x^3+5x^2-4x-20\)`,a:"(x+5)(x-2)(x+2)",tex:String.raw`(x+5)(x-2)(x+2)`,h:"Four terms: group them in pairs. Then check the leftover factor.",w:"\\(x^2(x+5)-4(x+5)=(x+5)(x^2-4)=(x+5)(x-2)(x+2)\\)."},
+{t:"f",q:String.raw`\(y^4-81\)`,a:"(y^2+9)(y-3)(y+3)",tex:String.raw`(y^2+9)(y-3)(y+3)`,h:"Difference of squares twice. One piece can never be split further.",w:"\\(y^4-81=(y^2-9)(y^2+9)\\), and \\(y^2-9=(y-3)(y+3)\\). A sum of squares stays."},
+{t:"f",q:String.raw`\(w^2-10w+25-z^2\)`,a:"(w-5-z)(w-5+z)",tex:String.raw`(w-5-z)(w-5+z)`,h:"Group the first three terms. What do they make?",w:"\\(w^2-10w+25=(w-5)^2\\), so you have \\((w-5)^2-z^2\\), a difference of squares."},
+{t:"p",q:String.raw`\(x^2+6x+10\)`,a:"prime",tex:String.raw`\text{prime (cannot be factored)}`,h:"Look for two integers that multiply to 10 and add to 6. If none exist, type: prime",w:"Pairs that multiply to 10 are 1,10 and 2,5. Sums are 11 and 7, never 6. So it is prime."},
+{sec:"B. Solve by factoring",sub:"Get one side to zero first. Do not divide away a variable.",
+ t:"n",q:String.raw`\(3x^2=12x\)`,a:[0,4],tex:String.raw`x=0,\ 4`,h:"Move everything to one side. Do not divide both sides by x.",w:"\\(3x^2-12x=0\\), so \\(3x(x-4)=0\\), giving \\(x=0\\) or \\(x=4\\). Dividing by x would lose the 0."},
+{t:"n",q:String.raw`\((x-2)(x+6)=-7\)`,a:[-5,1],tex:String.raw`x=-5,\ 1`,h:"The right side is not zero, so you cannot set each factor equal to -7. Multiply out first.",w:"\\(x^2+4x-12=-7\\) gives \\(x^2+4x-5=0\\), so \\((x+5)(x-1)=0\\)."},
+{t:"n",q:String.raw`\(2x^3-18x=0\)`,a:[0,3,-3],tex:String.raw`x=0,\ 3,\ -3`,h:"Pull out the GCF, then keep factoring. A cubic can have three solutions.",w:"\\(2x(x^2-9)=2x(x-3)(x+3)=0\\)."},
+{sec:"C. Word problems",sub:"Define a variable, write an equation, factor, then check which solutions make sense.",
+ t:"n",q:String.raw`A ball is thrown up from an 8-foot platform. Its height in feet after \(t\) seconds is \(h=-16t^2+48t+8\). Find <b>all</b> times \(t\) when the ball is 40 feet high.`,a:[1,2],tex:String.raw`t=1\text{ s and } t=2\text{ s}`,h:"Set h = 40, move everything to one side, then divide out the GCF.",w:"\\(-16t^2+48t-32=0\\) gives \\(t^2-3t+2=0\\), so \\((t-1)(t-2)=0\\). Both are valid: going up at 1 s, coming down at 2 s."},
+{t:"n",q:String.raw`The length of a rectangle is 3 feet more than twice its width. The area is 119 square feet. Find the width and the length.`,a:[7,17],tex:String.raw`\text{width }7\text{ ft, length }17\text{ ft}`,h:"Let w = width, so length = 2w + 3. Area = length times width.",w:"\\(w(2w+3)=119\\) gives \\(2w^2+3w-119=0=(2w+17)(w-7)\\). Width 7, length 17. The negative root is impossible."},
+{t:"n",q:String.raw`A rectangular pool is 12 meters by 8 meters. A deck of the same width \(x\) goes all the way around it. The deck itself has an area of 44 square meters. How wide is the deck?`,a:[1],tex:String.raw`1\text{ m}`,h:"Pool plus deck is (12 + 2x) by (8 + 2x). Subtract the pool's area to get the deck.",w:"\\((12+2x)(8+2x)-96=44\\) gives \\(x^2+10x-11=0=(x+11)(x-1)\\). Width 1 m (not -11)."},
+{t:"n",q:String.raw`A rectangular TV screen has a diagonal of 25 inches. Its width is 5 inches more than its height. Find the height and the width.`,a:[15,20],tex:String.raw`\text{height }15\text{ in, width }20\text{ in}`,h:"The diagonal is the hypotenuse. Let height = h, width = h + 5, and use the Pythagorean theorem.",w:"\\(h^2+(h+5)^2=625\\) gives \\(h^2+5h-300=0=(h+20)(h-15)\\). Height 15, width 20."},
+{t:"n",q:String.raw`Two hikers leave camp at the same time, one walking due north and the other due east. When the northbound hiker has gone 15 miles, the distance between them is 1 mile more than twice the distance the eastbound hiker has walked. How far apart are the hikers?`,a:[17],tex:String.raw`17\text{ miles}`,h:"Let x = east distance. The straight-line distance is 2x + 1 and is the hypotenuse. Find x first, then answer what was asked.",w:"\\(15^2+x^2=(2x+1)^2\\) gives \\(3x^2+4x-224=0=(3x+28)(x-8)\\). So x = 8 and the distance is 2(8)+1 = 17."},
+{t:"n",q:String.raw`The product of two consecutive positive odd integers is 143. Find the two integers.`,a:[11,13],tex:String.raw`11\text{ and }13`,h:"If the first is n, the next odd integer is n + 2.",w:"\\(n(n+2)=143\\) gives \\(n^2+2n-143=0=(n+13)(n-11)\\). n = 11, so the integers are 11 and 13."}
+];
+var KEY="algebra1-factoring-lab-v1";
+var S={};try{S=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function grade(p,v){
+  if(p.t==="f"){var r=checkFactored(v,p.a);return r;}
+  if(p.t==="p"){if(checkPrime(v)==="ok")return "ok";try{var a=parseExpr(v);if(polyEq(toPoly(a),toPoly(parseExpr(p.q.replace(/\\\(|\\\)/g,"")))))return "ok";}catch(e){}return "wrong";}
+  return checkNums(v,p.a);
+}
+function render(){
+  var L=document.getElementById("list"),h="";
+  P.forEach(function(p,i){
+    if(p.sec)h+='<h3 class="sec">'+p.sec+'</h3><p class="secsub">'+p.sub+'</p>';
+    var how=p.t==="f"?"Type the fully factored form.":p.t==="p"?"Type the factored form, or type: prime":(i>=13?"Type the number(s) asked for, separated by commas.":"Type all solutions, separated by commas.");
+    h+='<div class="problem" id="p'+i+'"><div class="num">Problem '+(i+1)+'</div><div class="stmt">'+p.q+'</div><div class="how">'+how+'</div>'+
+    '<input id="in'+i+'" type="text" inputmode="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Your answer">'+
+    '<button class="chk" data-i="'+i+'">Check</button><button class="retry" data-i="'+i+'">Try again</button><button class="hint" data-i="'+i+'">Hint</button>'+
+    '<div class="hinttxt" id="h'+i+'">Hint: '+p.h+'</div><div class="res" id="r'+i+'"></div></div>';
+  });
+  L.innerHTML=h;
+  P.forEach(function(p,i){var s=S[i];if(s){document.getElementById("in"+i).value=s.v;show(i,s.r,s.v,true);}});
+  progress();
+  document.querySelectorAll(".chk").forEach(function(b){b.onclick=function(){check(+b.dataset.i)}});
+  document.querySelectorAll(".retry").forEach(function(b){b.onclick=function(){retry(+b.dataset.i)}});
+  document.querySelectorAll(".hint").forEach(function(b){b.onclick=function(){var e=document.getElementById("h"+b.dataset.i);e.style.display=e.style.display==="block"?"none":"block"}});
+  P.forEach(function(p,i){document.getElementById("in"+i).addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();check(i)}})});
+  typeset();
+}
+function typeset(){if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}],throwOnError:false});}}
+function show(i,r,v,quiet){
+  var p=P[i],box=document.getElementById("p"+i),res=document.getElementById("r"+i),inp=document.getElementById("in"+i),rb=box.querySelector(".retry");
+  box.className="problem "+(r==="ok"?"ok":(r==="empty"?"":"no"));
+  var msg="";
+  if(r==="ok"){msg='\u2713 Correct. <span class="why">'+p.w+'</span>';inp.disabled=true;rb.style.display="none";}
+  else if(r==="bad"){msg="\u2717 I could not read that. "+(p.t==="f"||p.t==="p"?"Use ^ for powers and parentheses for factors, like 2(x-3)^2.":"Type numbers only, separated by commas.");inp.disabled=false;rb.style.display="none";}
+  else if(r==="equal-not-factored"){msg="\u2717 That equals the right expression but it is not fully factored yet. Keep factoring, then check again.";inp.disabled=false;rb.style.display="none";}
+  else{msg='\u2717 Not quite. Correct answer: \\('+p.tex+'\\)<span class="why">'+p.w+'</span>';inp.disabled=false;rb.style.display="inline-block";}
+  res.innerHTML=msg;
+  if(!quiet){typeset();}
+}
+function check(i){
+  var inp=document.getElementById("in"+i),v=inp.value.trim();
+  if(!v){document.getElementById("r"+i).innerHTML="Type an answer first.";return;}
+  var r;try{r=grade(P[i],v);}catch(e){r="bad";}
+  S[i]={v:v,r:r};save();show(i,r,v);progress();
+}
+function retry(i){var inp=document.getElementById("in"+i);inp.disabled=false;inp.focus();inp.select();delete S[i];save();document.getElementById("p"+i).className="problem";document.getElementById("r"+i).innerHTML="";document.querySelector("#p"+i+" .retry").style.display="none";progress();}
+function progress(){
+  var n=0;P.forEach(function(p,i){if(S[i]&&S[i].r==="ok")n++});
+  document.getElementById("pf").style.width=(n/P.length*100)+"%";
+  document.getElementById("pl").textContent=n+" of "+P.length+" correct";
+  document.getElementById("done").style.display=n===P.length?"block":"none";
+}
+render();
+window.addEventListener("load",function(){setTimeout(typeset,300);});
+</script></body></html>
