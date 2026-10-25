@@ -1,4 +1,10 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Suvir's Brain Quest - Oct 24-25 Weekend Math Sprint</title><meta name="description" content="Ten two-step word problems each day, October 24-25: choose the right first step, comparison clues, starting amounts, and careful regrouping with big numbers and money. Typed answers with feedback beside each question."><style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suvir's Brain Quest - Week of Oct 26</title>
+<style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { font-size: 17px; }
   body {
@@ -123,38 +129,1086 @@
   .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
   .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
   .daily-math .optionalWork {margin-top:8px;}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Oct 26-30 · Big Numbers Week</p>
+</header>
 
-body{padding-bottom:24px;}nav#tabs{justify-content:center;flex-wrap:wrap;overflow:visible;}nav#tabs button{min-height:48px;flex:1 1 72px;max-width:120px;}main{max-width:760px;} .problem input{width:100%;min-height:48px;padding:12px;font:inherit;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 0;}button{min-height:44px;} .checkOne,.retry{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;} .problem{border-left:4px solid #ffd54a;} .problem.correct{border-color:#42d77d;} .problem.wrong{border-color:#ff8a8a;} .feedback{margin:10px 0 0;font-weight:700;} .correct .feedback{color:#a6ff7e;} .wrong .feedback{color:#ffb8b8;} .math-note{margin:10px 0;color:#d7eeff;font-size:1rem;overflow-wrap:anywhere;} math{font-size:1.08em;max-width:100%;} .day-summary{background:#214956;padding:12px;border-radius:12px;margin:12px 0;} .day.active{animation:none;} .badge{display:inline-block;color:#ffd54a;font-size:.8rem;margin-bottom:6px;} .optional{color:#bfe3ff;font-size:.85rem;} footer a{color:#bfe3ff;} a{overflow-wrap:anywhere;}@media(max-width:420px){html{font-size:16px;}header h1{font-size:1.5rem;}nav#tabs{gap:5px;padding:8px;}nav#tabs button{padding:9px 6px;flex-basis:54px;min-width:50px;}main{padding:12px;} .card{padding:14px;} .math-note{font-size:.95rem;}}</style></head><body><header><h1>⭐ Suvir's Brain Quest</h1><p class="sub">Oct 24-25, 2026 · Weekend Math Sprint</p></header>
-<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel"></div></div>
-<nav id="tabs" aria-label="Choose a day"></nav><main><section class="card"><h3>Weekend sprint: ten puzzles each day.</h3><p>Start with Saturday's set, then Sunday's. The tricky part is choosing the RIGHT first step - so read twice, and draw a bar model or quick picture if it helps. Then type your answer and check it.</p><p><b>This weekend's focus:</b> two-step problems (find the hidden amount first), comparison clues like "more than" and "fewer than" (decide: add or subtract?), finding the starting amount, and careful regrouping with big numbers and money. For money answers, type dollars and cents like 20.90. For big numbers, commas are OK.</p><p>These are original practice problems in the style of your workbook - not official questions from any book or contest.</p><details><summary>Optional strategy video · Noetic Learning · 4:10</summary><p><a class="link-btn" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=11wOd0Wjy98">Drawing boxes to show known and unknown numbers</a></p><p class="optional">Bar models are a great fit for this weekend's two-step puzzles. Watch once, or revisit when you need a picture idea. The video opens on YouTube; no sign-in is needed to use the math page.</p></details></section>
-<div id="daysRoot"></div><section class="card"><h3>Keep practicing</h3><p><a href="week-oct19-23.html">Continue the Oct 19-23 Math Challenge</a> - unchanged, with its own saved checkmarks.</p><p><a href="enrichment-grade3.html">Math Enrichment Lab</a> - 25 more word problems, any time.</p><p class="optional">Answers and checkmarks save only in this browser on this device, not across devices. Clearing browser data removes them.</p><p id="storageNotice" role="status"></p></section></main><footer>Made for Suvir · October 2026</footer>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
+<main><section class="card"><h3><span class="emoji">📚</span>Earlier weeks</h3><p><a href="weekend-oct24-25.html">Weekend Sprint - Oct 24-25</a> · <a href="week-oct19-23.html">Week of Oct 19-23</a> · <a href="enrichment-grade3.html">Grade 3 Enrichment</a></p></section></main>
+
+<div id="mathFab"><button id="openMath">⚡ Daily Math Facts (30 facts)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>    <h2>⚡ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.35rem;font-weight:900;color:#ffd54a;">30 facts · no timer · about 5-7 min</div>
+      <p style="color:#9fd0ea;margin:6px 0 0;">Take your time, use a smart strategy, and finish all 30.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash - 30 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact to begin!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Oct 2026</footer>
+
 <script>
-const DAYS=[{"tab": "Sat", "date": "Oct 24", "title": "Saturday Sprint", "problems": [{"title": "Toy Store Clues", "q": "A drone costs $46.35. It is $18.50 more expensive than a puzzle. A sticker pack costs $6.95 less than the puzzle. How much does the sticker pack cost?", "hint": "Comparison clue: the drone is MORE, so the puzzle costs LESS. Subtract first to find the puzzle, then subtract again.", "money": true, "answer": 20.9, "display": "$20.90"}, {"title": "The Helmet Switch", "q": "Mia saved some money. She bought a water bottle for $18.45 and had $12.67 left. If she had bought a helmet for $25.90 instead, how much money would she have left?", "hint": "Find how much she started with first: add the bottle and what is left. Then subtract the helmet.", "money": true, "answer": 5.22, "display": "$5.22"}, {"title": "Farm Sale", "q": "A farm has 2,345 ducks and 1,678 geese. After selling some birds, 2,050 birds are left. How many birds were sold?", "hint": "Two steps: add to find the birds at first, then subtract the birds left.", "money": false, "answer": 1973, "display": "1,973"}, {"title": "Two Shows", "q": "1,480 people attended a puppet show. 365 fewer people attended a magic show. How many people attended both shows?", "hint": "Comparison clue: 'fewer' means subtract to find the magic show first. Then add both shows.", "money": false, "answer": 2595, "display": "2,595"}, {"title": "Library Lending", "q": "A library has 5,250 books. It lends out 1,375 books on Monday and 986 books on Tuesday. How many books are still in the library?", "hint": "Subtract one day at a time. Regroup carefully - check each place twice.", "money": false, "answer": 2889, "display": "2,889"}, {"title": "Bike Shop Puzzle", "q": "A red bike costs $235.80. It is $47.25 more expensive than a blue bike. A helmet costs $18.95 less than the blue bike. How much does the helmet cost?", "hint": "The red bike is MORE, so the blue bike costs LESS. Subtract to find the blue bike, then subtract again.", "money": true, "answer": 169.6, "display": "$169.60"}, {"title": "Ticket Booths", "q": "At a school fair, Booth A sold 1,256 tickets. Booth B sold 348 more tickets than Booth A. How many tickets did both booths sell in all?", "hint": "Comparison clue: 'more' means add to find Booth B first. Then add both booths.", "money": false, "answer": 2860, "display": "2,860"}, {"title": "Liam's Choice", "q": "Liam spent $27.55 on a game and had $14.20 left. If he had bought a puzzle for $19.99 instead, how much money would he have left?", "hint": "Find how much he started with first: add the game and what is left. Then subtract the puzzle.", "money": true, "answer": 21.76, "display": "$21.76"}, {"title": "Filling the Stadium", "q": "A stadium has 5,000 seats. At the start of a game, 2,378 seats are filled. Then 1,045 more fans arrive. How many seats are still empty?", "hint": "Two steps: add the fans, then subtract from 5,000. Subtracting across zeros needs careful regrouping.", "money": false, "answer": 1577, "display": "1,577"}, {"title": "🚀 Emma's $50", "q": "Emma has $50.00. She buys markers for $12.85 and a sketchbook for $15.60. How much money does she have left?", "hint": "Add the two prices first, then subtract from $50.00. Lining up the decimal points keeps the cents honest.", "money": true, "answer": 21.55, "display": "$21.55"}]}, {"tab": "Sun", "date": "Oct 25", "title": "Sunday Sprint", "problems": [{"title": "Zoo Weekend", "q": "A zoo had 3,264 visitors on Saturday. It had 1,857 fewer visitors on Sunday. How many visitors came over the two days?", "hint": "Comparison clue: 'fewer' means subtract to find Sunday first. Then add both days.", "money": false, "answer": 4671, "display": "4,671"}, {"title": "Star Gazer Shop", "q": "A telescope costs $58.40. It is $23.75 more expensive than a microscope. A star chart costs $8.90 less than the microscope. How much does the star chart cost?", "hint": "The telescope is MORE, so the microscope costs LESS. Subtract first, then subtract again.", "money": true, "answer": 25.75, "display": "$25.75"}, {"title": "Noah's Ball", "q": "Noah saved some money. He bought a cap for $16.80 and had $9.45 left. If he had bought a ball for $21.35 instead, how much money would he have left?", "hint": "Find how much he started with first: add the cap and what is left. Then subtract the ball.", "money": true, "answer": 4.9, "display": "$4.90"}, {"title": "Orchard Count", "q": "An orchard has 4,520 apples and 2,785 pears. After selling some fruit, 3,150 pieces of fruit are left. How many pieces of fruit were sold?", "hint": "Two steps: add to find the fruit at first, then subtract what is left. Regroup carefully.", "money": false, "answer": 4155, "display": "4,155"}, {"title": "Reading Streak", "q": "Ben read 436 pages in July. He read 158 more pages in August than in July. How many pages did he read in the two months?", "hint": "Comparison clue: 'more' means add to find August first. Then add both months.", "money": false, "answer": 1030, "display": "1,030"}, {"title": "Concert Seats", "q": "A concert hall has 6,000 seats. For one show, 3,582 tickets were sold online and 1,467 tickets were sold at the door. How many seats stayed empty?", "hint": "Add the tickets first, then subtract from 6,000. Zeros make the regrouping tricky - go slow.", "money": false, "answer": 951, "display": "951"}, {"title": "Class Bake Sale", "q": "A class earned $63.25 at a bake sale on Saturday. It earned $18.90 less on Sunday. How much did the class earn in all?", "hint": "Comparison clue: 'less' means subtract to find Sunday first. Then add both days.", "money": true, "answer": 107.6, "display": "$107.60"}, {"title": "Sofia's Scooter", "q": "Sofia paid $34.75 for a backpack and had $28.30 left. The scooter she wants costs $72.99. How much MORE money does she need to buy the scooter?", "hint": "Find how much she started with first (backpack + left). Then compare with the scooter's price: how much more is needed?", "money": true, "answer": 9.94, "display": "$9.94"}, {"title": "Warehouse Shipping", "q": "A warehouse has 8,000 boxes. It ships out 2,645 boxes on Monday. On Tuesday it ships out 1,378 fewer boxes than on Monday. How many boxes are left in the warehouse?", "hint": "Three steps: 'fewer' means subtract to find Tuesday. Add both shipping days, then subtract from 8,000.", "money": false, "answer": 4088, "display": "4,088"}, {"title": "🚀 Sam's Hundred", "q": "Sam has $100.00. He buys a game for $39.95 and headphones for $27.50. Later, he earns $15.00 raking leaves. How much money does Sam have now?", "hint": "Three steps: add what he spent, subtract from $100.00, then add what he earned.", "money": true, "answer": 47.55, "display": "$47.55"}]}];
-const LS='suvir-weekend-oct24-25-v1';
-let state={answers:{},checked:{},active:0};let storageOK=true;
-try{const saved=JSON.parse(localStorage.getItem(LS)||'null');if(saved&&typeof saved==='object'){state.answers=saved.answers||{};state.checked=saved.checked||{};state.active=Number(saved.active)||0;}}catch(e){storageOK=false;}
-function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){storageOK=false;}document.getElementById('storageNotice').textContent=storageOK?'Saved on this device.':'Saving is unavailable in this browser. Keep the page open to retain this session.';}
-function normalized(value){let text=String(value).trim().replace(/[$\s]/g,'').replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');if(!/^\d+(?:\.\d{1,2})?$/.test(text))return null;return Number(text);}
-function fmt(p){return p.money?p.display:p.answer.toLocaleString('en-US');}
-function matches(p,v){return v!==null&&Math.abs(v-p.answer)<0.005;}
-const tabs=document.getElementById('tabs'),root=document.getElementById('daysRoot');
-DAYS.forEach((day,i)=>{
- const tab=document.createElement('button');tab.type='button';tab.innerHTML=day.tab+'<span class="d">'+day.date+'</span>';tab.addEventListener('click',()=>showDay(i));tabs.appendChild(tab);
- const sec=document.createElement('section');sec.className='day';sec.id='day-'+i;sec.innerHTML='<h2 class="day-title">'+day.title+'</h2><p class="day-date">'+day.tab+', '+day.date+', 2026 · 10 challenges</p><div class="day-summary" id="summary-'+i+'" role="status"></div>';
- day.problems.forEach((p,n)=>{
-  const card=document.createElement('article');card.className='card problem';card.id='problem-'+i+'-'+n;
-  card.innerHTML='<span class="badge">'+(n===9?'STRETCH CHALLENGE':'CHALLENGE '+(n+1))+'</span><h3>'+(n+1)+'. '+p.title+'</h3><p>'+p.q+'</p><div class="math-note">💡 '+p.hint+'</div><label for="answer-'+i+'-'+n+'">Your answer <span class="optional">'+(p.money?'(dollars and cents, like 20.90)':'(number only)')+'</span></label><input id="answer-'+i+'-'+n+'" inputmode="'+(p.money?'decimal':'numeric')+'" autocomplete="off" aria-describedby="feedback-'+i+'-'+n+'"><button class="checkOne" type="button">Check answer</button><p class="feedback" id="feedback-'+i+'-'+n+'" role="status" aria-live="polite" hidden></p>';
-  const input=card.querySelector('input');input.value=(state.answers[i]||{})[n]||'';
-  input.addEventListener('input',()=>{state.answers[i]=state.answers[i]||{};state.answers[i][n]=input.value;state.checked[i]=state.checked[i]||{};delete state.checked[i][n];card.classList.remove('correct','wrong');card.querySelector('.feedback').hidden=true;save();refresh();});
-  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check(i,n);}});
-  card.querySelector('button').addEventListener('click',()=>check(i,n));sec.appendChild(card);
- });
- const all=document.createElement('button');all.type='button';all.className='big-btn';all.textContent='Check all of today\'s answers';all.addEventListener('click',()=>{day.problems.forEach((_,n)=>check(i,n));});sec.appendChild(all);root.appendChild(sec);
+var DAYS = [
+  {
+    "tab": "Mon",
+    "date": "Oct 26",
+    "emoji": "🔢",
+    "title": "Big Numbers Day",
+    "read": "<p>You can count to one hundred in less than two minutes. Counting to one thousand takes about seventeen minutes. But a million? That is a thousand thousands! If you said one number every second with no breaks, counting to a million would take about eleven days. Big numbers hide everywhere. A stadium can hold 40,000 fans. Your heart beats about 100,000 times a day. Scientists think there are more stars in the sky than grains of sand on a beach. When numbers get huge, mathematicians <b>estimate</b>. They round to the nearest thousand or million to keep things simple. Estimating does not give the exact answer. It gives an answer close enough to be useful.</p><p><b>Read closely:</b> What is this passage mostly about? About how long would counting to a million take? Why do mathematicians estimate?</p><p><b>Word:</b> estimate - find an answer that is close enough to be useful.</p><details><summary>Check your thinking after answering</summary><p>It is mostly about big numbers and how to handle them. Counting to a million would take about eleven days. Mathematicians estimate because exact counting with huge numbers is too slow, and a close answer is often enough.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"0\"></div>",
+    "reward": {
+      "label": "Mark Rober - Backyard Squirrel Maze 1.0",
+      "url": "https://www.youtube.com/watch?v=hFZFjoX2cGg"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Place Value",
+        "url": "https://www.youtube.com/watch?v=T5Qf0qSSJFI"
+      }
+    ],
+    "doHtml": "<p><b>Mission - Big Number Hunt:</b> Find three real big numbers at home (a food label, a book's page count, a calculator, a mailbox of facts). Write them down. Circle the biggest one. Then compare the two biggest with >, <, or =. 🚀 Stretch: order all three from smallest to biggest and say each number out loud in words.</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch & Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What is this passage mostly about?",
+        "opts": [
+          "Counting games",
+          "Big numbers are everywhere, and estimating helps",
+          "How beaches form",
+          "Why hearts beat"
+        ],
+        "a": 1
+      },
+      {
+        "q": "About how long would counting to a million take?",
+        "opts": [
+          "Seventeen minutes",
+          "Two hours",
+          "About eleven days",
+          "One year"
+        ],
+        "a": 2
+      },
+      {
+        "q": "To estimate means to...",
+        "opts": [
+          "find a close-enough answer",
+          "count every single thing",
+          "guess randomly",
+          "add two numbers"
+        ],
+        "a": 0
+      },
+      {
+        "q": "In 5,382, which digit is in the hundreds place?",
+        "opts": [
+          "8",
+          "5",
+          "3",
+          "2"
+        ],
+        "a": 0
+      },
+      {
+        "q": "The Erie Canal connects the Hudson River to which lake?",
+        "opts": [
+          "Lake Michigan",
+          "Lake Ontario",
+          "Lake Erie",
+          "Lake Superior"
+        ],
+        "a": 2
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "The school library has 2,345 books. The town library has 5,678 books. How many MORE books does the town library have?",
+        "answer": "3,333"
+      },
+      {
+        "kind": "C",
+        "q": "Write this number in digits: 4 thousands + 6 hundreds + 2 tens + 9 ones.",
+        "answer": "4,629"
+      },
+      {
+        "kind": "C",
+        "q": "Which is greater, 7,089 or 7,809? By how much?",
+        "answer": "720"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir counted 1,236 LEGOs in one bin and 2,547 in another bin. Round each number to the nearest hundred, then add the rounded numbers.",
+        "answer": "3,700"
+      },
+      {
+        "kind": "C",
+        "q": "A video game costs $28.45 and a book costs $15.25. Suvir pays with $50. How much change does he get back?",
+        "answer": "$6.30"
+      },
+      {
+        "kind": "C",
+        "q": "In the number 3,507, what digit is in the hundreds place?",
+        "answer": "5"
+      },
+      {
+        "kind": "C",
+        "q": "A stadium holds 9,999 people. One more person walks in. How many people are inside now?",
+        "answer": "10,000"
+      },
+      {
+        "kind": "C",
+        "q": "Town A has 4,567 people. Town B has 4,657 people. How many more people does Town B have?",
+        "answer": "90"
+      },
+      {
+        "kind": "C",
+        "q": "Write the number 'six thousand forty-two' in digits.",
+        "answer": "6,042"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 What is the biggest 4-digit number you can build using the digits 3, 8, 1, and 9 exactly once each?",
+        "answer": "9,831"
+      }
+    ],
+    "world": {
+      "emoji": "🚢",      "kind": "History",
+      "html": "<p>On <b>October 26, 1825</b>, the Erie Canal opened. Workers dug a water path 363 miles long, connecting the Hudson River to Lake Erie. Goods that once took weeks to move now traveled in days. Find New York State on a map and trace the route. <b>Question:</b> What two waters does the Erie Canal connect?</p>"
+    }
+  },
+  {
+    "tab": "Tue",
+    "date": "Oct 27",
+    "emoji": "➕",
+    "title": "Add & Subtract Big Numbers",
+    "read": "<p>A maple tree cannot walk, but its seeds can travel. Maple seeds have thin wings that spin like tiny helicopters in the wind. Some seeds travel by water. A coconut can float across the ocean and <b>sprout</b> on a new beach. Other seeds hitchhike. A <b>burr</b> sticks to a fox's fur and drops off far away. Some plants even fling their seeds: a touch-me-not pod pops open and shoots seeds through the air. Traveling matters. A seed that lands under its parent must fight for sunlight and water. A seed that lands far away gets its own patch of soil, sun, and rain. Every seed carries a tiny lunch box of food and a baby plant, ready for the journey.</p><p><b>Read closely:</b> Name two ways seeds travel. Why does a seed need to land far from its parent? What does a seed carry with it?</p><p><b>Word:</b> burr - a sticky seed case that catches on fur. sprout - to begin to grow.</p><details><summary>Check your thinking after answering</summary><p>Seeds travel by wind, water, animals, and popping pods. A seed far from its parent gets its own sunlight, water, and space. Each seed carries stored food and a baby plant.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"1\"></div>",
+    "reward": {
+      "label": "Nat Geo Kids - Gentoo Penguin",
+      "url": "https://www.youtube.com/watch?v=xnu5htZpruE"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Multi-Digit Addition",
+        "url": "https://www.youtube.com/watch?v=mAvuom42NyY"
+      },
+      {
+        "label": "Math Antics - Multi-Digit Subtraction",
+        "url": "https://www.youtube.com/watch?v=Y6M89-6106I"
+      }
+    ],
+    "doHtml": "<p><b>Mission - Regrouping Race:</b> Roll a die (or draw cards) eight times to build two 4-digit numbers. Add them on paper, regrouping carefully. Then subtract the smaller from the bigger. Do it twice. 🚀 Stretch: build numbers so the answer needs regrouping across a zero.</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch & Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "How do maple seeds travel?",
+        "opts": [
+          "By floating on oceans",
+          "By spinning on the wind",
+          "By sticking to fur",
+          "By popping pods"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Why does a seed need to land far from its parent?",
+        "opts": [
+          "To find friends",
+          "It gets its own sunlight, water, and space",
+          "To avoid rain",
+          "Parents push seeds away"
+        ],
+        "a": 1
+      },
+      {
+        "q": "To sprout means...",
+        "opts": [
+          "to dry up",
+          "to begin to grow",
+          "to fly",
+          "to sleep"
+        ],
+        "a": 1
+      },
+      {
+        "q": "3,000 - 1,500 = ?",
+        "opts": [
+          "1,500",
+          "2,500",
+          "1,050",
+          "2,000"
+        ],
+        "a": 0
+      },
+      {
+        "q": "Teddy Roosevelt became which number president of the United States?",
+        "opts": [
+          "16th",
+          "1st",
+          "42nd",
+          "26th"
+        ],
+        "a": 3
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "2,457 + 1,368 = ? (Watch your regrouping!)",
+        "answer": "3,825"
+      },
+      {
+        "kind": "C",
+        "q": "5,203 - 2,658 = ?",
+        "answer": "2,545"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir solved 1,235 - 275 and wrote 1,060. That is not right. Solve it correctly.",
+        "answer": "960"
+      },
+      {
+        "kind": "C",
+        "q": "After buying a toy, Suvir has $12.75 left. The toy cost $24.60. How much money did he start with?",
+        "answer": "$37.35"
+      },
+      {
+        "kind": "C",
+        "q": "4,096 + 3,904 = ? (Notice the friendly thousand!)",
+        "answer": "8,000"
+      },
+      {
+        "kind": "C",
+        "q": "A school collected 1,847 cans in week 1 and 2,163 cans in week 2. How many cans in all?",
+        "answer": "4,010"
+      },
+      {
+        "kind": "C",
+        "q": "Sneakers cost $42.99 and socks cost $7.50. Dad pays with $60. How much change?",
+        "answer": "$9.51"
+      },
+      {
+        "kind": "C",
+        "q": "6,000 - 2,345 = ? (Regroup across the zeros.)",
+        "answer": "3,655"
+      },
+      {
+        "kind": "C",
+        "q": "A team scored 1,240 points in all. Ana scored 585 points and Ben scored 320 points. How many points did Cy score?",
+        "answer": "335"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 9,999 + 1,234 = ?",
+        "answer": "11,233"
+      }
+    ],
+    "world": {
+      "emoji": "🐻",
+      "kind": "History",
+      "html": "<p>Theodore Roosevelt was born on <b>October 27, 1858</b>, in New York City. He became the 26th president and loved nature so much that he protected millions of acres as national parks and forests. The teddy bear is named after him! <b>Question:</b> What number president was Theodore Roosevelt?</p>"
+    }
+  },
+  {
+    "tab": "Wed",
+    "date": "Oct 28",
+    "emoji": "🕸️",
+    "title": "Food Webs & Equal Groups",
+    "read": "<p>In a meadow, everything is connected by eating. Grass catches sunlight and turns it into food, so grass is a <b>producer</b>. A grasshopper munches the grass. A frog snaps up the grasshopper. A hawk swoops down on the frog. The grasshopper, frog, and hawk are <b>consumers</b> - they eat other living things. Draw arrows from the grass to the grasshopper to the frog to the hawk, and you have a food chain. But real meadows are messier. Hawks also eat mice, and frogs eat flies too. When many food chains tangle together, they form a <b>food web</b>. If one kind of animal disappears, the whole web shakes. Fewer frogs could mean more grasshoppers - and hungrier hawks.</p><p><b>Read closely:</b> Why is grass called a producer? What is the difference between a food chain and a food web? What could happen if frogs disappear?</p><p><b>Word:</b> producer - a living thing that makes its own food from sunlight. consumer - a living thing that eats other living things.</p><details><summary>Check your thinking after answering</summary><p>Grass makes its own food from sunlight. A food chain is one path of eating; a food web is many chains tangled together. With fewer frogs, grasshoppers could grow in number and hawks could go hungry.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"2\"></div>",
+    "reward": {
+      "label": "Mark Rober - World's Largest Devil's Toothpaste",
+      "url": "https://www.youtube.com/watch?v=BHiWygziyso"
+    },
+    "watch": [
+      {
+        "label": "Crash Course Kids - Food Webs",
+        "url": "https://www.youtube.com/watch?v=Vtb3I8Vzlfg"
+      }
+    ],    "doHtml": "<p><b>Mission - Food Web Builder:</b> On paper, draw the sun, grass, a grasshopper, a frog, and a hawk. Draw arrows to show where the energy goes (sun → grass → grasshopper → frog → hawk). Add one more animal and connect it to the web. 🚀 Stretch: What happens to your web if all the grass disappears?</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch & Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "Why is grass a producer?",
+        "opts": [
+          "It eats bugs",
+          "It makes its own food from sunlight",
+          "It drinks water",
+          "It hops"
+        ],
+        "a": 1
+      },
+      {
+        "q": "A food web is...",
+        "opts": [
+          "a spider's home",
+          "one path of eating",
+          "many food chains tangled together",
+          "a kind of plant"
+        ],
+        "a": 2
+      },
+      {
+        "q": "If frogs disappeared from the meadow, what would probably happen?",
+        "opts": [
+          "More grasshoppers, hungrier hawks",
+          "More hawks",
+          "Less grass",
+          "Nothing changes"
+        ],
+        "a": 0
+      },
+      {
+        "q": "4 rows of 5 make...",
+        "opts": [
+          "9",
+          "45",
+          "20",
+          "25"
+        ],
+        "a": 2
+      },
+      {
+        "q": "The Statue of Liberty was a gift to the USA from which country?",
+        "opts": [
+          "England",
+          "France",
+          "Spain",
+          "Italy"
+        ],
+        "a": 1
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Estimate 1,987 + 2,943: round each number to the nearest thousand, then add.",
+        "answer": "5,000"
+      },
+      {
+        "kind": "C",
+        "q": "There are 4 groups of pumpkins with 5 pumpkins in each group. How many pumpkins in all?",
+        "answer": "20"
+      },
+      {
+        "kind": "C",
+        "q": "Spider rings come in an array of 3 rows with 6 in each row. How many spider rings?",
+        "answer": "18"
+      },
+      {
+        "kind": "C",
+        "q": "5 treat bags hold 8 candies each. How many candies in all?",
+        "answer": "40"
+      },
+      {
+        "kind": "C",
+        "q": "Estimate 4,213 - 1,789: round each number to the nearest thousand, then subtract.",
+        "answer": "2,000"
+      },
+      {
+        "kind": "C",
+        "q": "Write 7 + 7 + 7 + 7 as a multiplication and solve it.",
+        "answer": "28"
+      },
+      {
+        "kind": "C",
+        "q": "6 teams have 9 players each. How many players in all?",
+        "answer": "54"
+      },
+      {
+        "kind": "C",
+        "q": "Is 2,345 + 4,567 closer to 6,000 or 7,000? (Add exactly, then decide: how much is it?)",
+        "answer": "6,912"
+      },
+      {
+        "kind": "C",
+        "q": "There are 3 boxes with 10 crayons each, plus 7 loose crayons. How many crayons in all?",
+        "answer": "37"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 What is 12 x 5? (Hint: double 12 is 24, then double 24 is 48, then add one more 12.)",
+        "answer": "60"
+      }
+    ],
+    "world": {
+      "emoji": "🗽",
+      "kind": "History",
+      "html": "<p>On <b>October 28, 1886</b>, the Statue of Liberty was dedicated in New York Harbor. She was a gift from France, and she stands about 305 feet tall from the ground to the tip of her torch - as tall as a 22-story building! <b>Question:</b> Which country gave the Statue of Liberty to the United States?</p>"
+    }
+  },
+  {
+    "tab": "Thu",
+    "date": "Oct 29",
+    "emoji": "🌱",
+    "title": "Seeds & Circles Day",
+    "read": "<p>The old oak on Maple Street is so wide that three kids holding hands cannot reach around it. How wide is it, really? Priya wraps a string around the trunk. The string measures 198 centimeters. That distance around is the <b>circumference</b>. Then she paces straight across the shady circle under the branches. The distance across the middle is the <b>diameter</b>. Priya notices something amazing: the circumference is about three times the diameter. Try it with a plate, a clock, or a pumpkin - it works every time! Mathematicians call this special number <b>pi</b>. Long ago, people used pi to build round temples and measure wheels. Next time you see something round, you can estimate its distance around, just like Priya.</p><p><b>Read closely:</b> What is the circumference? What is the diameter? What amazing thing did Priya notice?</p><p><b>Word:</b> circumference - the distance around a circle. diameter - the distance straight across the middle of a circle.</p><details><summary>Check your thinking after answering</summary><p>The circumference is the distance around. The diameter is the distance straight across the middle. Priya noticed the circumference is always about three times the diameter - that number is pi.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"3\"></div>",
+    "reward": {
+      "label": "SciShow Kids - How Does a Seed Become a Plant?",
+      "url": "https://www.youtube.com/watch?v=tkFPyue5X3Q"
+    },
+    "watch": [
+      {
+        "label": "SciShow Kids - How Do Plant Seeds Travel?",
+        "url": "https://www.youtube.com/watch?v=WqgVks9NViQ"
+      }
+    ],
+    "doHtml": "<p><b>Mission - Seed Scientist:</b> Find three real seeds (outside or in the kitchen - an apple seed, a maple helicopter, a dandelion puff, a burr). For each one, draw it and write how you think it travels: wind, water, animal, or pop! 🚀 Stretch: measure around a round thing with string, then measure across the middle. Is 'around' about three times 'across'?</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch & Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "The circumference is...",
+        "opts": [
+          "the distance across the middle",
+          "the distance around a circle",
+          "the weight of a tree",
+          "a kind of seed"
+        ],
+        "a": 1
+      },
+      {
+        "q": "The circumference of a circle is about how many times its diameter?",
+        "opts": [
+          "Two times",
+          "Five times",
+          "Ten times",
+          "Three times"
+        ],
+        "a": 3
+      },
+      {
+        "q": "How did Priya measure around the oak?",
+        "opts": [          "With a string",
+          "With a ruler",
+          "With her hands",
+          "With a scale"
+        ],
+        "a": 0
+      },
+      {
+        "q": "1,240 - 585 - 320 = ?",
+        "opts": [
+          "445",
+          "335",
+          "655",
+          "975"
+        ],
+        "a": 1
+      },
+      {
+        "q": "The very first internet message in 1969 was which two letters?",
+        "opts": [
+          "HI",
+          "OK",
+          "LO",
+          "GO"
+        ],
+        "a": 2
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Mia has $28.45. Sam has $15.25 MORE than Mia. How much money does Sam have?",
+        "answer": "$43.70"
+      },
+      {
+        "kind": "C",
+        "q": "Leo has $43.70. That is $15.25 more than Zoe has. How much money does Zoe have?",
+        "answer": "$28.45"
+      },
+      {
+        "kind": "C",
+        "q": "After spending $22.75 on a gift, Dad has $24.60 left. How much money did he start with?",
+        "answer": "$47.35"
+      },
+      {
+        "kind": "C",
+        "q": "A baker made 1,250 rolls. He sold 485 in the morning and 390 in the afternoon. How many rolls are left?",
+        "answer": "375"
+      },
+      {
+        "kind": "C",
+        "q": "A theater sold 3,000 tickets for the weekend. It sold 1,145 on Friday and 1,255 on Saturday. How many were sold on Sunday?",
+        "answer": "600"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir buys two toys for $12.99 and $9.50. He pays with $25. How much change does he get?",
+        "answer": "$2.51"
+      },
+      {
+        "kind": "C",
+        "q": "A jar holds 2,500 beads in all. If 1,368 are red, how many are blue?",
+        "answer": "1,132"
+      },
+      {
+        "kind": "C",
+        "q": "4,004 - 1,567 = ?",
+        "answer": "2,437"
+      },
+      {
+        "kind": "C",
+        "q": "Class A read 1,245 pages, Class B read 1,090 pages, and Class C read 980 pages. How many MORE pages did Class A read than Class C?",
+        "answer": "265"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 Suvir had some money. He earned $15.00, then spent $8.25. Now he has $31.75. How much did he start with?",
+        "answer": "$25.00"
+      }
+    ],
+    "world": {
+      "emoji": "💻",
+      "kind": "STEM History",
+      "html": "<p>On <b>October 29, 1969</b>, the very first message traveled between two computers on the ARPANET - the grandparent of today's internet. The word was supposed to be LOGIN, but the system crashed after two letters, so the first message ever sent was just <b>LO</b>. <b>Question:</b> Which two letters made up the first internet message?</p>"
+    }
+  },
+  {
+    "tab": "Fri",
+    "date": "Oct 30",
+    "emoji": "🎃",
+    "title": "Pumpkin Math & Book Report Day",
+    "read": "<p>Maya had saved eleven dollars for the biggest pumpkin in the patch, and her little brother Nico wanted a round one for a <b>jack-o'-lantern</b>. At the patch, Maya spotted a giant pumpkin priced at fourteen dollars. Her shoulders sank. Then Nico tugged her sleeve. “We could share it,” he said. “Your eleven dollars plus my four dollars is fifteen!” Maya grinned. Together they rolled the giant pumpkin to the wagon. On the way home, Maya drew the face: triangle eyes and a zigzag grin. That night, their lantern glowed on the porch. Maya decided it was the best pumpkin ever - not because it was the biggest, but because they had bought it together.</p><p><b>Read closely:</b> What problem does Maya face? How do the kids solve it? Why does Maya call it the best pumpkin ever?</p><p><b>Word:</b> jack-o'-lantern - a pumpkin carved with a face, lit from inside.</p><details><summary>Check your thinking after answering</summary><p>The pumpkin costs fourteen dollars and Maya has only eleven. Nico offers his four dollars and they buy it together. Maya loves it because they solved the problem as a team.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"4\"></div>",
+    "reward": {
+      "label": "Mark Rober - Squirrel Maze 2.0: The Walnut Heist",
+      "url": "https://www.youtube.com/watch?v=DTvS9lvRxZ8"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Circles, What Is PI?",
+        "url": "https://www.youtube.com/watch?v=cC0fZ_lkFpQ"
+      },
+      {
+        "label": "Noetic Learning - Bar Models for Word Problems",
+        "url": "https://www.youtube.com/watch?v=11wOd0Wjy98"
+      }
+    ],
+    "doHtml": "<p><b>Mission - Pumpkin Math:</b> Find a round thing (a pumpkin, ball, or plate). Wrap a string around it - that's the circumference. Measure straight across the middle - that's the diameter. How many diameters fit around? (It should be about 3 - you just found pi!) 🚀 Stretch: estimate the circumference of a second round thing, then measure to check.</p><p><b>School today:</b> Book report due + Halloween party in the afternoon. Have an amazing day!</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch & Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What problem does Maya face?",
+        "opts": [
+          "The patch is closed",
+          "The pumpkin she wants costs more than she has",
+          "Nico loses the money",
+          "The wagon is broken"
+        ],
+        "a": 1
+      },
+      {
+        "q": "How do the kids solve the problem?",
+        "opts": [
+          "They pick a smaller pumpkin",
+          "They ask a farmer for help",
+          "They share their money and buy it together",
+          "They come back tomorrow"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Why does Maya call it the best pumpkin ever?",
+        "opts": [
+          "It is the biggest",
+          "It glows brightest",
+          "They bought it together",
+          "It cost the least"
+        ],
+        "a": 2
+      },
+      {
+        "q": "7 x 8 = ?",
+        "opts": [
+          "54",
+          "63",
+          "48",
+          "56"
+        ],
+        "a": 3
+      },
+      {
+        "q": "The 1938 radio show that fooled some listeners was about...",
+        "opts": [
+          "a real alien invasion",          "a fake Martian invasion",
+          "a storm",
+          "a lost ship"
+        ],
+        "a": 1
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "24 pieces of candy are shared equally into 4 bags. How many pieces in each bag?",
+        "answer": "6"
+      },
+      {
+        "kind": "C",
+        "q": "The haunted house had 1,845 visitors on Friday and 2,367 on Saturday. How many visitors in all?",
+        "answer": "4,212"
+      },
+      {
+        "kind": "C",
+        "q": "One pumpkin weighs 4,268 grams and another weighs 3,879 grams. How much heavier is the first pumpkin?",
+        "answer": "389 grams"
+      },
+      {
+        "kind": "C",
+        "q": "5 pumpkins cost $6 each. What is the total cost?",
+        "answer": "$30"
+      },
+      {
+        "kind": "C",
+        "q": "Candy corn costs $13.75 and caramel apples cost $16.50. Mom pays with $35. How much change?",
+        "answer": "$4.75"
+      },
+      {
+        "kind": "C",
+        "q": "8 rows of 4 chairs are set up for the party. How many chairs in all?",
+        "answer": "32"
+      },
+      {
+        "kind": "C",
+        "q": "There were 60 candies. The kids ate 12, then shared the rest equally among 6 kids. How many did each kid get?",
+        "answer": "8"
+      },
+      {
+        "kind": "C",
+        "q": "A costume costs $29.99 and a mask costs $12.50. Suvir has $45. Is that enough? If yes, how much is left over?",
+        "answer": "$2.51"
+      },
+      {
+        "kind": "C",
+        "q": "Skip-count by 7s: 7, 14, 21, 28, 35, 42, 49, ... What is 7 x 8?",
+        "answer": "56"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 A trick-or-treat route is 1,250 steps to the first street, 1,750 steps to the second street, then 1,000 steps home. How many steps in all?",
+        "answer": "4,000"
+      }
+    ],
+    "world": {
+      "emoji": "📻",
+      "kind": "History",
+      "html": "<p>On <b>October 30, 1938</b> - the night before Halloween - a radio show performed <i>The War of the Worlds</i>, a story about Martians landing on Earth. It sounded so real that some listeners thought it was actual news! It was only a play, not a real invasion. <b>Question:</b> Was the Martian invasion real?</p>"
+    }
+  },
+  {
+    "weekly": true,
+    "tab": "Quiz",
+    "date": "All week",
+    "emoji": "🏆",
+    "title": "Weekly Brain Quest Quiz",
+    "reward": {
+      "label": "",
+      "url": ""
+    },
+    "watch": [],
+    "doHtml": "",
+    "quiz": [
+      {
+        "q": "Why do seeds travel away from their parent plant?",
+        "opts": [
+          "To get their own sunlight, water, and space",
+          "To find other seeds",
+          "To escape rain",
+          "To turn into animals"
+        ],
+        "a": 0
+      },
+      {
+        "q": "In a food web, a producer...",
+        "opts": [
+          "eats other animals",
+          "makes its own food from sunlight",
+          "hunts at night",
+          "drinks only water"
+        ],
+        "a": 1
+      },
+      {
+        "q": "The circumference of a circle is...",
+        "opts": [
+          "the distance across the middle",
+          "the space inside",
+          "the distance around",
+          "half the diameter"
+        ],
+        "a": 2
+      },
+      {
+        "q": "In 'The Pumpkin Patch Plan,' how do Maya and Nico buy the giant pumpkin?",
+        "opts": [
+          "They save for a month",
+          "They share their money",
+          "The farmer gifts it",
+          "They trade toys"
+        ],
+        "a": 1
+      },
+      {
+        "q": "To estimate means...",
+        "opts": [
+          "to count exactly",
+          "to find a close-enough answer",
+          "to give up",
+          "to multiply"
+        ],
+        "a": 1
+      },
+      {
+        "q": "4,096 + 3,904 = ?",
+        "opts": [
+          "7,990",
+          "8,000",
+          "8,100",
+          "7,900"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which number is greater?",
+        "opts": [
+          "7,089",
+          "7,809",
+          "They are equal",
+          "6,980"
+        ],
+        "a": 1
+      },
+      {
+        "q": "6 x 9 = ?",
+        "opts": [
+          "56",
+          "63",          "54",
+          "48"
+        ],
+        "a": 2
+      },
+      {
+        "q": "The Erie Canal opened in which year?",
+        "opts": [
+          "1776",
+          "1825",
+          "1886",
+          "1969"
+        ],
+        "a": 1
+      },
+      {
+        "q": "The Statue of Liberty stands in which city's harbor?",
+        "opts": [
+          "Boston",
+          "Philadelphia",
+          "San Francisco",
+          "New York"
+        ],
+        "a": 3
+      }
+    ]
+  }
+];
+
+var LS = "suvir-brain-quest-week-oct26-30-v1";
+var state = { done: {}, quizBest: {}, mathBest: 0, mathWork: {} };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
+
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">📖</span>Reading Quest</h3>' + d.read + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
+    html += '<div class="card"><h3><span class="emoji">🧩</span>Word Problems</h3>' + d.word + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
+  sec.innerHTML = html;
+  root.appendChild(sec);
 });
-function check(i,n){const card=document.getElementById('problem-'+i+'-'+n),input=card.querySelector('input'),fb=card.querySelector('.feedback');state.answers[i]=state.answers[i]||{};state.answers[i][n]=input.value;card.classList.remove('correct','wrong');fb.hidden=false;const p=DAYS[i].problems[n];
- const value=normalized(input.value);if(value===null){fb.textContent='Type your answer as a number, then check. For money use dollars and cents like 20.90. Commas are OK.';state.checked[i]=state.checked[i]||{};delete state.checked[i][n];save();refresh();return;}
- const correct=matches(p,value);card.classList.add(correct?'correct':'wrong');fb.textContent=correct?'✓ Correct!':'✗ Not quite. Correct answer: '+fmt(p)+'. You can edit and try again.';state.checked[i]=state.checked[i]||{};state.checked[i][n]=true;save();refresh();}
-function refresh(){let solved=0,doneDays=0;DAYS.forEach((d,i)=>{let attempted=0,correct=0;d.problems.forEach((p,n)=>{if((state.checked[i]||{})[n]){attempted++;if(matches(p,normalized((state.answers[i]||{})[n])))correct++;}});solved+=correct;if(correct===10)doneDays++;tabs.children[i].classList.toggle('done',correct===10);document.getElementById('summary-'+i).textContent=correct+' of 10 correct · '+attempted+' checked'+(correct===10?' · Day complete! ⭐':' · Take it one puzzle at a time.');});document.getElementById('progressFill').style.width=(solved/20*100)+'%';document.getElementById('progressLabel').textContent=solved+' of 20 challenges solved · '+doneDays+' of 2 days complete';}
-function showDay(i){i=Math.max(0,Math.min(1,i));state.active=i;[...tabs.children].forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',String(j===i));});[...root.children].forEach((s,j)=>s.classList.toggle('active',j===i));save();}
-DAYS.forEach((d,i)=>d.problems.forEach((_,n)=>{if((state.checked[i]||{})[n])check(i,n);}));showDay(state.active);refresh();save();
-</script></body></html>
+
+
+// Daily math: feedback stays beside each question; no required written-work entry.
+function mathTokens(value) {
+  var text=String(value).toLowerCase().replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');
+  return {numbers:(text.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number), words:(text.match(/[a-z]+/g)||[])};
+}
+function mathAnswerMatches(value,expected){
+  var got=mathTokens(value),want=mathTokens(expected);
+  var allowed=['cm','m','mm','l','ml','dollar','dollars','cent','cents','book','books','card','cards','tree','trees','word','words','straw','straws','sheet','sheets','page','pages','leaf','leaves','bus','buses','seat','seats','bookmark','bookmarks','and','budget','remains','remain','left','empty','larger','by','is','the','answer'];
+  if(got.words.some(function(w){return allowed.indexOf(w)<0&&want.words.indexOf(w)<0;}))return false;
+  var units=['cm','m','mm','l','ml'];
+  if(got.words.some(function(w){return units.indexOf(w)>=0&&want.words.indexOf(w)<0;}))return false;
+  if(String(expected).indexOf('+')>=0){got.numbers.sort(function(a,b){return a-b;});want.numbers.sort(function(a,b){return a-b;});}
+  return got.numbers.length===want.numbers.length&&got.numbers.every(function(n,i){return n===want.numbers[i];});
+}
+DAYS.slice(0,5).forEach(function(d,day){
+  var box=document.querySelector('.daily-math[data-day="'+day+'"]');if(!box)return;
+  var stored=(state.mathWork||{})[day]||{};
+  var previousChecks=(state.mathFeedback||{})[day]||{};
+  d.mathProblems.forEach(function(p,n){
+    var row=document.createElement('div');row.className='problem';
+    var typ=p.kind==='A'?'Quick pick':p.kind==='B'?'Short answer':'🚀 Reasoning word problem';
+    var prompt='<label for="math-'+day+'-'+n+'">'+(n+1)+'. '+typ+': '+p.q+'</label>';
+    if(p.kind==='A'){
+      var num=Number(p.answer.replace(/,/g,'')),vals=[num,num+10,num+1,Math.max(0,num-10)].map(String),unique=[];
+      vals.forEach(function(v){if(unique.indexOf(v)<0)unique.push(v);});while(unique.length<4)unique.push(String(num+unique.length+2));
+      var shift=(day*3+n)%4;unique=unique.slice(shift).concat(unique.slice(0,shift));
+      prompt+='<div class="choices">'+unique.map(function(v,j){return '<label><input type="radio" name="pick-'+day+'-'+n+'" value="'+v+'"> '+String.fromCharCode(65+j)+'. '+v+'</label>';}).join('')+'</div>';
+    }else prompt+='<input id="math-'+day+'-'+n+'" aria-label="Answer for problem '+(n+1)+'" placeholder="Your answer (units optional)" autocomplete="off">';
+    prompt+='<button type="button" class="checkOne">Check answer</button><p class="mathResult" role="status" aria-live="polite" hidden></p>';
+
+    row.innerHTML=prompt;box.appendChild(row);
+    var old=stored[n]||{},inp=row.querySelector('input:not([type=radio])');
+    if(inp)inp.value=old.answer||'';
+    if(old.answer&&p.kind==='A'){var found=Array.prototype.find.call(row.querySelectorAll('input[type=radio]'),function(x){return x.value===old.answer;});if(found)found.checked=true;}
+    row.querySelector('.checkOne').addEventListener('click',function(){checkRow(n);persist();summary();});
+    row.addEventListener('input',function(){row.querySelector('.mathResult').hidden=true;row.classList.remove('mathCorrect','mathIncorrect');var detail=row.querySelector('.optionalWork');if(detail){detail.hidden=true;detail.open=false;}state.mathFeedback=state.mathFeedback||{};state.mathFeedback[day]=state.mathFeedback[day]||{};delete state.mathFeedback[day][n];state.mathChecked=state.mathChecked||{};state.mathChecked[day]=false;persist();summary();});
+  });
+  var button=document.createElement('button');button.type='button';button.className='checkMath';button.textContent='Check answers';box.appendChild(button);
+  var notice=document.createElement('p');notice.setAttribute('role','status');box.appendChild(notice);
+  function answerAt(n){var row=box.querySelectorAll('.problem')[n],pick=row.querySelector('input[type=radio]:checked'),inp=row.querySelector('input:not([type=radio])');return pick?pick.value:inp?inp.value.trim():'';}
+  function checkRow(n){
+    var row=box.querySelectorAll('.problem')[n],value=answerAt(n),result=row.querySelector('.mathResult');
+    result.hidden=false;row.classList.remove('mathCorrect','mathIncorrect');
+    if(!value){result.textContent='Enter an answer, then check it here.';var detail=row.querySelector('.optionalWork');if(detail)detail.hidden=true;return;}
+    var correct=mathAnswerMatches(value,d.mathProblems[n].answer);row.classList.add(correct?'mathCorrect':'mathIncorrect');
+    result.textContent=correct?'✓ Correct!':'✗ Not quite. Correct answer: '+d.mathProblems[n].answer+'. You can edit and check again.';
+    var detail=row.querySelector('.optionalWork');if(detail)detail.hidden=false;
+    state.mathFeedback=state.mathFeedback||{};state.mathFeedback[day]=state.mathFeedback[day]||{};state.mathFeedback[day][n]=true;
+  }
+  function summary(){
+    var rows=Array.prototype.slice.call(box.querySelectorAll('.problem')),answered=rows.filter(function(_,n){return !!answerAt(n);}).length,checked=rows.filter(function(row){return !row.querySelector('.mathResult').hidden&&!!row.className.match(/mathCorrect|mathIncorrect/);}).length,correct=rows.filter(function(row){return row.classList.contains('mathCorrect');}).length;
+    state.mathChecked=state.mathChecked||{};state.mathChecked[day]=answered===d.mathProblems.length&&checked===d.mathProblems.length;
+    notice.textContent=checked?correct+' correct of '+checked+' checked. '+answered+' of '+d.mathProblems.length+' answered. Feedback is beside each question.':'';save();
+  }
+  function persist(){state.mathWork=state.mathWork||{};state.mathWork[day]=state.mathWork[day]||{};d.mathProblems.forEach(function(_,n){var old=state.mathWork[day][n]||{};state.mathWork[day][n]={answer:answerAt(n),work:old.work||''};});save();}
+  button.addEventListener('click',function(){d.mathProblems.forEach(function(_,n){checkRow(n);});persist();summary();});
+  d.mathProblems.forEach(function(_,n){if(previousChecks[n]||(state.mathChecked&&state.mathChecked[day]&&answerAt(n)))checkRow(n);});summary();
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+function refreshProgress() {
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    var quizBox=document.querySelector('.quiz[data-day="'+di+'"]');
+    var mathBox=document.querySelector('.daily-math[data-day="'+di+'"]');
+    if(quizBox.querySelectorAll('.quiz-q[data-answered]').length<DAYS[di].quiz.length){
+      alert("Finish today's five quiz questions before unlocking the reward.");return;
+    }
+    if(!state.mathChecked||!state.mathChecked[di]){
+      alert('Answer and check all 15 math questions before unlocking the reward. Written workings are optional.');return;
+    }
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Fact dash
+var cur = null, mScore = 0, mCount = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
+function newFact() {
+  if (mCount >= 30) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); if (a * b > 60) { b = Math.max(2, Math.floor(60 / a)); } q = a + " × " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); if (b * ans > 60) { ans = Math.max(2, Math.floor(60 / b)); } a = b * ans; q = a + " ÷ " + b + " = ?"; }
+  cur = { q: q, ans: ans };
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 30 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 30) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 30 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 27 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 21 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 30 for another round!";
+    document.getElementById("newFact").textContent = "Start New 30";
+  } else {
+    setTimeout(newFact, 900);
+  }
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 30 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+</script>
+</body>
+</html>
