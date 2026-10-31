@@ -136,7 +136,10 @@ body{padding-bottom:24px;}nav#tabs{justify-content:center;flex-wrap:wrap;overflo
   .cell { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px; }
   .cell h4 { margin: 0 0 6px; font-size: .9rem; color: #ffd54a; }
   .cell p.q { margin: 0 0 8px; font-size: .92rem; line-height: 1.45; }
-  .cell .math-note { font-size: .78rem; color: #9fd0ea; background: rgba(66,165,245,.12); border-radius: 8px; padding: 6px 8px; margin-bottom: 8px; }
+  .cell .math-note { font-size: .78rem; color: #9fd0ea; background: rgba(66,165,245,.12); border-radius: 8px; padding: 6px 8px; margin: 6px 0 8px; }
+  .cell details.hint summary { cursor: pointer; font-size: .8rem; font-weight: 700; color: #8fc7ec; list-style: none; display: inline-block; padding: 4px 10px; border: 1px dashed rgba(143,199,236,.5); border-radius: 8px; user-select: none; -webkit-user-select: none; }
+  .cell details.hint summary::-webkit-details-marker { display: none; }
+  .cell details.hint[open] summary { color: #ffd54a; border-color: rgba(255,213,74,.5); }
   .cell input { width: 100%; font: inherit; padding: 9px 10px; border-radius: 9px; border: 2px solid rgba(255,255,255,.25); background: rgba(0,0,0,.25); color: #fff; margin-bottom: 7px; }
   .cell input:focus { outline: none; border-color: #ffd54a; }
   .cell .checkOne { width: 100%; padding: 8px; border: 0; border-radius: 8px; background: #ffd54a; color: #142536; font: inherit; font-weight: 700; cursor: pointer; }
@@ -156,7 +159,7 @@ body{padding-bottom:24px;}nav#tabs{justify-content:center;flex-wrap:wrap;overflo
 <main>
 <section class="card"><h3>🎃 50 puzzles, one giant grid.</h3>
 <p>Every puzzle is a two-step story, and hiding inside each one is a ×6, ×7, ×8, ×9 or ×10 fact (products up to 144). Read twice, find the hidden multiplication first, then finish the second step. Draw a bar model if it helps. Type your answer and tap <b>Check answer</b> - feedback appears right in the cell. For money answers, type dollars and cents like 7.00. Commas are OK for big numbers.</p>
-<p>Your answers save on this device, so you can split the grid across Saturday and Sunday.</p></section>
+<p>Try each puzzle on your own first - the hint stays hidden unless you tap <b>Show hint</b>. Your answers save on this device, so you can split the grid across Saturday and Sunday.</p></section>
 <button class="big-btn" id="checkAll" type="button">Check all my answers</button>
 <div class="grid" id="grid"></div>
 <p id="storageNotice" role="status"></p>
@@ -176,7 +179,7 @@ function matches(p,v){return v!==null&&Math.abs(v-p.answer)<0.005;}
 const grid=document.getElementById('grid');
 PROBLEMS.forEach((p,n)=>{
  const cell=document.createElement('article');cell.className='cell';cell.id='cell-'+n;
- cell.innerHTML='<h4>#'+(n+1)+'</h4><p class="q">'+p.q+'</p><div class="math-note">💡 '+p.hint+'</div><label for="answer-'+n+'">Your answer <span class="optional">'+(p.money?'(dollars and cents, like 7.00)':'(number only)')+'</span></label><input id="answer-'+n+'" inputmode="'+(p.money?'decimal':'numeric')+'" autocomplete="off" aria-describedby="feedback-'+n+'"><button class="checkOne" type="button">Check answer</button><p class="feedback" id="feedback-'+n+'" role="status" aria-live="polite" hidden></p>';
+ cell.innerHTML='<h4>#'+(n+1)+'</h4><p class="q">'+p.q+'</p><details class="hint"><summary>💡 Show hint</summary><div class="math-note">'+p.hint+'</div></details><label for="answer-'+n+'">Your answer <span class="optional">'+(p.money?'(dollars and cents, like 7.00)':'(number only)')+'</span></label><input id="answer-'+n+'" inputmode="'+(p.money?'decimal':'numeric')+'" autocomplete="off" aria-describedby="feedback-'+n+'"><button class="checkOne" type="button">Check answer</button><p class="feedback" id="feedback-'+n+'" role="status" aria-live="polite" hidden></p>';
  const input=cell.querySelector('input');input.value=state.answers[n]||'';
  input.addEventListener('input',()=>{state.answers[n]=input.value;delete state.checked[n];cell.classList.remove('correct','wrong');cell.querySelector('.feedback').hidden=true;save();refresh();});
  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check(n);}});
