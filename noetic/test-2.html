@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Noetic Practice Test 2 - Suvir Brain Quest</title>
+<style>
+:root{color-scheme:dark;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:Verdana,'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#0d2b45,#123a5c 55%,#0b2036);color:#eef7ff;min-height:100vh;}
+header{padding:18px 16px 8px;text-align:center;}
+header h1{margin:0 0 4px;font-size:1.7rem;color:#ffd54a;}
+header p{margin:4px 0;color:#cfe8ff;}
+a{color:#ffd54a;}
+nav.top{padding:0 16px 10px;text-align:center;font-size:.95rem;}
+nav.top a{margin:0 10px;}
+main{max-width:760px;margin:0 auto;padding:0 12px 40px;}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:12px 0;}
+.card h3{margin:0 0 8px;font-size:1.05rem;}
+.card p,.card li{color:#e8f4ff;font-size:.95rem;line-height:1.5;}
+.card ul{margin:8px 0 0;padding-left:20px;}
+#timerBox{text-align:center;position:sticky;top:0;z-index:5;background:linear-gradient(160deg,#12395c,#0d2b45);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px;margin:12px 0;box-shadow:0 4px 18px rgba(0,0,0,.35);}
+#clock{font-size:2.2rem;font-weight:800;color:#a6ff7e;font-variant-numeric:tabular-nums;}
+#clock.warn{color:#ffd54a;}
+#clock.done{color:#ff8a8a;}
+.tbtn{margin:6px 4px 0;}
+button{min-height:44px;padding:11px 18px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;cursor:pointer;}
+button.ghost{background:#2a5578;color:#dff1ff;}
+.problem{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-left:4px solid #ffd54a;border-radius:14px;padding:14px;margin:12px 0;}
+.problem.correct{border-left-color:#42d77d;}
+.problem.wrong{border-left-color:#ff8a8a;}
+.problem .qline{font-size:1rem;line-height:1.55;color:#eef7ff;}
+.problem .qnum{display:inline-block;background:#ffd54a;color:#142536;font-weight:800;border-radius:8px;padding:2px 9px;margin-right:8px;}
+.problem input{width:100%;max-width:280px;min-height:48px;padding:12px;font:inherit;font-size:1.05rem;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 8px 0 0;}
+.problem .feedback{margin:10px 0 0;font-weight:700;}
+.problem.correct .feedback{color:#a6ff7e;}
+.problem.wrong .feedback{color:#ffb8b8;}
+#scorePanel{text-align:center;font-size:1.1rem;font-weight:700;color:#a6ff7e;display:none;}
+#timeup{display:none;text-align:center;font-weight:800;color:#ff8a8a;margin:10px 0 0;}
+.testlink{display:block;padding:14px;margin:10px 0;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);text-decoration:none;color:#eef7ff;font-size:1.05rem;}
+.testlink:hover{background:rgba(255,255,255,.12);}
+.testlink .status{display:block;font-size:.85rem;color:#bfe3ff;margin-top:4px;}
+footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
+@media(max-width:420px){html{font-size:16px;}header h1{font-size:1.4rem;}main{padding:0 10px 30px;}}
+</style></head><body>
+<header><h1>🏆 Noetic Practice Test 2</h1>
+<p>20 problems &bull; 45 minutes &bull; No calculators &bull; Score = correct answers &times; 5</p></header>
+<nav class="top"><a href="../index.html">🏠 Brain Quest home</a> &bull; <a href="index.html">🏆 All Noetic tests</a></nav>
+<main>
+<section class="card"><h3>📋 How this works</h3>
+<ul><li>Type an answer for each problem, then tap <b>Check</b> to see if it is right.</li>
+<li>For letter questions, type just the letter (A, B, C, or D).</li>
+<li>Tap <b>Start 45-minute timer</b> when you are ready to practice like the real contest.</li>
+<li>Your answers are saved on this iPad even if you close the page.</li></ul></section>
+<div id="timerBox">
+<div id="clock">45:00</div>
+<button class="tbtn" id="startBtn" onclick="startTimer()">▶️ Start 45-minute timer</button>
+<button class="tbtn ghost" id="resetTimerBtn" style="display:none" onclick="resetTimer()">🔄 Restart timer</button>
+<div id="timeup">⏰ Time's up! You can still finish and check your answers.</div>
+</div>
+<div class="problem" id="p1">
+<div class="qline"><span class="qnum">1</span>25 + 25 = ?</div>
+
+<div><input id="in1" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 1"><button class="tbtn" onclick="checkOne(1,true)">Check</button></div>
+<div class="feedback" id="fb1"></div>
+</div>
+<div class="problem" id="p2">
+<div class="qline"><span class="qnum">2</span>One spider has 8 legs. How many legs do 4 spiders have in all?</div>
+
+<div><input id="in2" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 2"><button class="tbtn" onclick="checkOne(2,true)">Check</button></div>
+<div class="feedback" id="fb2"></div>
+</div>
+<div class="problem" id="p3">
+<div class="qline"><span class="qnum">3</span>How many dots are on the border of the figure below?</div>
+<div class="fig"><svg viewBox="0 0 186 152" width="186" height="152" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="59" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="93" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="59" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="59" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="93" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="93" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="127" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="127" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="59" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="93" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/></svg></div>
+<div><input id="in3" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 3"><button class="tbtn" onclick="checkOne(3,true)">Check</button></div>
+<div class="feedback" id="fb3"></div>
+</div>
+<div class="problem" id="p4">
+<div class="qline"><span class="qnum">4</span>Ben has 18 trading cards. Ana has 7 more cards than Ben. How many cards do they have in all?</div>
+
+<div><input id="in4" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 4"><button class="tbtn" onclick="checkOne(4,true)">Check</button></div>
+<div class="feedback" id="fb4"></div>
+</div>
+<div class="problem" id="p5">
+<div class="qline"><span class="qnum">5</span>A swim lesson starts at 2:30 p.m. and ends at 4:00 p.m. How many minutes long is the lesson?</div>
+
+<div><input id="in5" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 5"><button class="tbtn" onclick="checkOne(5,true)">Check</button></div>
+<div class="feedback" id="fb5"></div>
+</div>
+<div class="problem" id="p6">
+<div class="qline"><span class="qnum">6</span>Ravi uses a balance scale twice with a toy truck and a teddy bear. The results are shown below. Which statement is correct?<br><b>A)</b> The toy truck weighs 50 g. &nbsp; <b>B)</b> The toy truck weighs more than 50 g. &nbsp; <b>C)</b> The toy truck weighs less than 50 g. &nbsp; <b>D)</b> The toy truck weighs more than 60 g.<br>Write A, B, C, or D as your answer.</div>
+<div class="fig"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:flex-start"><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="70" x2="260" y2="70" stroke="#495057" stroke-width="4"/><line x1="40" y1="70" x2="14" y2="104" stroke="#495057" stroke-width="2"/><line x1="40" y1="70" x2="66" y2="104" stroke="#495057" stroke-width="2"/><path d="M8,104 A32,14 0 0 0 72,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><rect x="29.0" y="81.0" width="22.0" height="22.0" rx="4" fill="#4dabf7" stroke="#1864ab" stroke-width="1.5"/><line x1="260" y1="70" x2="234" y2="104" stroke="#495057" stroke-width="2"/><line x1="260" y1="70" x2="286" y2="104" stroke="#495057" stroke-width="2"/><path d="M228,104 A32,14 0 0 0 292,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="260.0" cy="92" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 1 (balanced)</text></svg></div><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="52" x2="260" y2="88" stroke="#495057" stroke-width="4"/><line x1="40" y1="52" x2="14" y2="86" stroke="#495057" stroke-width="2"/><line x1="40" y1="52" x2="66" y2="86" stroke="#495057" stroke-width="2"/><path d="M8,86 A32,14 0 0 0 72,86 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="40.0" cy="74" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><line x1="260" y1="88" x2="234" y2="122" stroke="#495057" stroke-width="2"/><line x1="260" y1="88" x2="286" y2="122" stroke="#495057" stroke-width="2"/><path d="M228,122 A32,14 0 0 0 292,122 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><path d="M247.0,122 L273.0,122 L268.0,100 L252.0,100 Z" fill="#adb5bd" stroke="#495057" stroke-width="1.5"/><text x="260.0" y="118" font-family="Verdana" font-size="10" font-weight="bold" fill="#212529" text-anchor="middle">50g</text><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 2</text></svg></div></div></div>
+<div><input id="in6" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 6"><button class="tbtn" onclick="checkOne(6,true)">Check</button></div>
+<div class="feedback" id="fb6"></div>
+</div>
+<div class="problem" id="p7">
+<div class="qline"><span class="qnum">7</span>Omar, Bella, and Eli are the only three children in the family. Omar is not the youngest, and Bella is the middle child. Who is the youngest?<br><b>A)</b> Omar &nbsp; <b>B)</b> Bella &nbsp; <b>C)</b> Eli &nbsp; <b>D)</b> cannot tell<br>Write A, B, C, or D as your answer.</div>
+
+<div><input id="in7" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 7"><button class="tbtn" onclick="checkOne(7,true)">Check</button></div>
+<div class="feedback" id="fb7"></div>
+</div>
+<div class="problem" id="p8">
+<div class="qline"><span class="qnum">8</span>Lena chooses two different cards from the six number cards shown below. She does not choose the smallest number, the largest number, or any multiple of 3. What is the sum of the two numbers on the cards she chooses?</div>
+<div class="fig"><svg viewBox="0 0 424 100" width="424" height="100" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="42.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">3</text><rect x="84" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="110.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">4</text><rect x="152" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="178.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">6</text><rect x="220" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="246.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">8</text><rect x="288" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="314.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">9</text><rect x="356" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="382.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">11</text></svg></div>
+<div><input id="in8" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 8"><button class="tbtn" onclick="checkOne(8,true)">Check</button></div>
+<div class="feedback" id="fb8"></div>
+</div>
+<div class="problem" id="p9">
+<div class="qline"><span class="qnum">9</span>Zoe has 2 quarters and 1 dime. Bouncy balls cost 12&cent; each. What is the greatest number of bouncy balls she can buy? Note: one quarter is worth 25&cent; and one dime is worth 10&cent;.</div>
+
+<div><input id="in9" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 9"><button class="tbtn" onclick="checkOne(9,true)">Check</button></div>
+<div class="feedback" id="fb9"></div>
+</div>
+<div class="problem" id="p10">
+<div class="qline"><span class="qnum">10</span>There are 42 books on a shelf. Seventeen of them are picture books and the rest are chapter books. How many more chapter books than picture books are on the shelf?</div>
+
+<div><input id="in10" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 10"><button class="tbtn" onclick="checkOne(10,true)">Check</button></div>
+<div class="feedback" id="fb10"></div>
+</div>
+<div class="problem" id="p11">
+<div class="qline"><span class="qnum">11</span>A bag holds 30 counters: 9 yellow, 5 purple, 11 orange, and 5 green. If Diego takes 1 counter from the bag without looking, which color is he most likely to get?<br><b>A)</b> yellow &nbsp; <b>B)</b> purple &nbsp; <b>C)</b> orange &nbsp; <b>D)</b> green<br>Write A, B, C, or D as your answer.</div>
+
+<div><input id="in11" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 11"><button class="tbtn" onclick="checkOne(11,true)">Check</button></div>
+<div class="feedback" id="fb11"></div>
+</div>
+<div class="problem" id="p12">
+<div class="qline"><span class="qnum">12</span>Ravi paints 1 fence panel in 2 days. Zoe paints 1 fence panel in 4 days. What is the total number of panels the two of them can paint in 8 days?</div>
+
+<div><input id="in12" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 12"><button class="tbtn" onclick="checkOne(12,true)">Check</button></div>
+<div class="feedback" id="fb12"></div>
+</div>
+<div class="problem" id="p13">
+<div class="qline"><span class="qnum">13</span>Three number cards are on the table. Two cards are face up and one card is face down, as shown. The three numbers add up to 27. What number is on the face-down card?</div>
+<div class="fig"><svg viewBox="0 0 220 100" width="220" height="100" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="42.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">10</text><rect x="84" y="14" width="52" height="72" rx="8" fill="#fff" stroke="#495057" stroke-width="2"/><text x="110.0" y="58.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">6</text><rect x="152" y="14" width="52" height="72" rx="8" fill="#748ffc" stroke="#3b5bdb" stroke-width="2"/><text x="178.0" y="58.0" font-family="Verdana" font-size="26" font-weight="bold" fill="#fff" text-anchor="middle">?</text></svg></div>
+<div><input id="in13" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 13"><button class="tbtn" onclick="checkOne(13,true)">Check</button></div>
+<div class="feedback" id="fb13"></div>
+</div>
+<div class="problem" id="p14">
+<div class="qline"><span class="qnum">14</span>Four kickball teams (Comets, Rockets, Stars, and Tigers) played six games in a tournament. The team that won the most games was the champion. The table shows the final scores. How many games did the champion win?</div>
+<div class="fig"><table style="border-collapse:collapse;margin:8px auto;font-family:Verdana,Arial,sans-serif;font-size:14px"><tr><th style="border:1.5px solid #495057;padding:5px 12px;background:#e7f5ff;color:#142536">Game</th><th style="border:1.5px solid #495057;padding:5px 12px;background:#e7f5ff;color:#142536">Team</th><th style="border:1.5px solid #495057;padding:5px 12px;background:#e7f5ff;color:#142536">Score</th><th style="border:1.5px solid #495057;padding:5px 12px;background:#e7f5ff;color:#142536">Team</th><th style="border:1.5px solid #495057;padding:5px 12px;background:#e7f5ff;color:#142536">Score</th></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 1</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Comets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">24</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Rockets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">18</td></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 2</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Stars</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">30</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Tigers</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">22</td></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 3</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Comets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">15</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Stars</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">19</td></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 4</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Rockets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">26</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Tigers</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">21</td></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 5</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Comets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">28</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Tigers</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">24</td></tr><tr><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Game 6</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Rockets</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">12</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">Stars</td><td style="border:1.5px solid #495057;padding:5px 12px;color:#142536;text-align:center;background:#fff">16</td></tr></table></div>
+<div><input id="in14" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 14"><button class="tbtn" onclick="checkOne(14,true)">Check</button></div>
+<div class="feedback" id="fb14"></div>
+</div>
+<div class="problem" id="p15">
+<div class="qline"><span class="qnum">15</span>Ella builds a step pattern with square tiles. Step 1 uses 1 tile, Step 2 uses 4 tiles, and Step 3 uses 9 tiles. How many tiles does she need for Step 4?</div>
+<div class="fig"><svg viewBox="0 0 319.5 486" width="319.5" height="486" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="20.0" y="430" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><text x="33.0" y="476" font-family="Verdana,Arial,sans-serif" font-size="11" fill="#142536" text-anchor="middle">Step 1</text><rect x="75.9" y="430" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="75.9" y="404" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="75.9" y="378" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="75.9" y="352" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><text x="88.9" y="476" font-family="Verdana,Arial,sans-serif" font-size="11" fill="#142536" text-anchor="middle">Step 2</text><rect x="131.8" y="430" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="404" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="378" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="352" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="326" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="300" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="274" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="248" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><rect x="131.8" y="222" width="26" height="26" fill="#845ef7" stroke="#5f3dc4" stroke-width="1.5"/><text x="144.8" y="476" font-family="Verdana,Arial,sans-serif" font-size="11" fill="#142536" text-anchor="middle">Step 3</text><rect x="187.7" y="378" width="36.4" height="78" rx="8" fill="#e9ecef" stroke="#868e96" stroke-width="2" stroke-dasharray="6,4"/><text x="205.89999999999998" y="430" font-family="Verdana" font-size="30" font-weight="bold" fill="#868e96" text-anchor="middle">?</text><text x="205.89999999999998" y="476" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Step 4</text></svg></div>
+<div><input id="in15" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 15"><button class="tbtn" onclick="checkOne(15,true)">Check</button></div>
+<div class="feedback" id="fb15"></div>
+</div>
+<div class="problem" id="p16">
+<div class="qline"><span class="qnum">16</span>In the grid below, the sum of the three numbers in each row and in each column is the same. What number should go in the box with the question mark?</div>
+<div class="fig"><svg viewBox="0 0 194 194" width="194" height="194" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="192" height="192" fill="#fff" stroke="#142536" stroke-width="3"/><line x1="65" y1="1" x2="65" y2="193" stroke="#142536" stroke-width="2.5"/><line x1="1" y1="65" x2="193" y2="65" stroke="#142536" stroke-width="2.5"/><line x1="129" y1="1" x2="129" y2="193" stroke="#142536" stroke-width="2.5"/><line x1="1" y1="129" x2="193" y2="129" stroke="#142536" stroke-width="2.5"/><text x="33.0" y="42.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">9</text><text x="97.0" y="42.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">2</text><text x="161.0" y="42.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">7</text><text x="33.0" y="106.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">4</text><text x="97.0" y="106.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">6</text><text x="161.0" y="106.0" font-family="Verdana" font-size="26" font-weight="bold" fill="#e8590c" text-anchor="middle">?</text><text x="33.0" y="170.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">5</text><text x="97.0" y="170.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">10</text><text x="161.0" y="170.0" font-family="Verdana" font-size="24" font-weight="bold" fill="#142536" text-anchor="middle">3</text></svg></div>
+<div><input id="in16" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 16"><button class="tbtn" onclick="checkOne(16,true)">Check</button></div>
+<div class="feedback" id="fb16"></div>
+</div>
+<div class="problem" id="p17">
+<div class="qline"><span class="qnum">17</span>Children are standing in a circle line for freeze tag. Ruby is 4th from one end of the line and 10th from the other end. How many children are in the line?</div>
+
+<div><input id="in17" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 17"><button class="tbtn" onclick="checkOne(17,true)">Check</button></div>
+<div class="feedback" id="fb17"></div>
+</div>
+<div class="problem" id="p18">
+<div class="qline"><span class="qnum">18</span>Evan has 20 marbles. If he gives 6 marbles to Fay, they will have the same number of marbles. How many marbles does Fay have right now?</div>
+
+<div><input id="in18" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 18"><button class="tbtn" onclick="checkOne(18,true)">Check</button></div>
+<div class="feedback" id="fb18"></div>
+</div>
+<div class="problem" id="p19">
+<div class="qline"><span class="qnum">19</span>The map shows the paths from HOME to SCHOOL. How many different ways can Suvir walk from HOME to SCHOOL if he can only move UP or RIGHT along the paths?</div>
+<div class="fig"><svg viewBox="0 0 264 244" width="264" height="244" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><line x1="45" y1="20" x2="161" y2="20" stroke="#868e96" stroke-width="2.5"/><line x1="45" y1="78" x2="161" y2="78" stroke="#868e96" stroke-width="2.5"/><line x1="45" y1="136" x2="161" y2="136" stroke="#868e96" stroke-width="2.5"/><line x1="45" y1="20" x2="45" y2="136" stroke="#868e96" stroke-width="2.5"/><line x1="103" y1="20" x2="103" y2="136" stroke="#868e96" stroke-width="2.5"/><line x1="161" y1="20" x2="161" y2="136" stroke="#868e96" stroke-width="2.5"/><rect x="29" y="132" width="26" height="20" fill="#ffa94d" stroke="#d9480f" stroke-width="2"/><polygon points="25,132 42,116 59,132" fill="#fa5252" stroke="#c92a2a" stroke-width="2"/><text x="47" y="170" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">HOME</text><rect x="146" y="18" width="30" height="22" fill="#74c0fc" stroke="#1864ab" stroke-width="2"/><polygon points="142,18 161,2 180,18" fill="#4dabf7" stroke="#1864ab" stroke-width="2"/><text x="161" y="58" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">SCHOOL</text></svg></div>
+<div><input id="in19" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 19"><button class="tbtn" onclick="checkOne(19,true)">Check</button></div>
+<div class="feedback" id="fb19"></div>
+</div>
+<div class="problem" id="p20">
+<div class="qline"><span class="qnum">20</span>Two soccer teams greet each other before a game. Each team has four players, numbered 1 through 4. For each pair of players (one from each team), they shake hands if the sum of their numbers is even, and give a high five if the sum is odd. How many handshakes are there in all?</div>
+
+<div><input id="in20" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 20"><button class="tbtn" onclick="checkOne(20,true)">Check</button></div>
+<div class="feedback" id="fb20"></div>
+</div>
+<div style="text-align:center;margin:18px 0;">
+<button onclick="checkAll()">✅ Check all answers</button>
+<button class="ghost" onclick="resetAnswers()">🧹 Clear my answers</button>
+</div>
+<div class="card" id="scorePanel"></div>
+</main>
+<footer>Original practice problems in the style of the Noetic Learning Math Contest &bull; Suvir Brain Quest</footer>
+<script>const PROBLEMS=[{n:1,a:'50',disp:'50'},{n:2,a:'32',disp:'32 legs'},{n:3,a:'14',disp:'14 dots'},{n:4,a:'43',disp:'43 cards'},{n:5,a:'90',disp:'90 minutes'},{n:6,a:'c',disp:'C (less than 50 g)'},{n:7,a:'c',disp:'C (Eli)'},{n:8,a:'12',disp:'12'},{n:9,a:'5',disp:'5 bouncy balls'},{n:10,a:'8',disp:'8 more chapter books'},{n:11,a:'c',disp:'C (orange)'},{n:12,a:'6',disp:'6 panels'},{n:13,a:'11',disp:'11'},{n:14,a:'3',disp:'3 games'},{n:15,a:'16',disp:'16 tiles'},{n:16,a:'8',disp:'8'},{n:17,a:'13',disp:'13 children'},{n:18,a:'8',disp:'8 marbles'},{n:19,a:'6',disp:'6 different ways'},{n:20,a:'8',disp:'8 handshakes'}];
+const KEY='suvir-noetic-test-'+2+'-v1';
+const LIMIT=45*60;
+let state={answers:{},checked:{},timerStart:null};
+try{const raw=localStorage.getItem(KEY); if(raw){const s=JSON.parse(raw); if(s&&typeof s==='object') state=Object.assign(state,s);}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function norm(s){return String(s).toLowerCase().trim().replace(/[$,\s¢]/g,'').replace(/\.00$/,'');}
+function checkOne(n,showAlways){
+  const p=PROBLEMS.find(x=>x.n===n);
+  const inp=document.getElementById('in'+n);
+  const fb=document.getElementById('fb'+n);
+  const card=document.getElementById('p'+n);
+  const v=norm(inp.value);
+  if(!v){card.classList.remove('correct','wrong');fb.textContent='';state.checked[n]=false;save();return false;}
+  const ok=v===p.a;
+  card.classList.toggle('correct',ok);card.classList.toggle('wrong',!ok);
+  fb.textContent= ok ? '✅ Correct!' : '❌ Not quite. The correct answer is '+p.disp+'.';
+  state.checked[n]=true;save();return ok;
+}
+function checkAll(){
+  let c=0;
+  PROBLEMS.forEach(p=>{const inp=document.getElementById('in'+p.n); if(norm(inp.value)!==''){ if(checkOne(p.n,true)) c++; }});
+  const panel=document.getElementById('scorePanel');
+  const answered=PROBLEMS.filter(p=>norm(document.getElementById('in'+p.n).value)!=='').length;
+  panel.style.display='block';
+  panel.innerHTML='You got <b>'+c+'</b> of 20 correct'+(answered<20?' ('+(20-answered)+' left blank)':'')+'. Noetic score: '+c+' × 5 = <b>'+(c*5)+'</b> points.';
+  const best=JSON.parse(localStorage.getItem(KEY+':best')||'0');
+  if(c>best){localStorage.setItem(KEY+':best',String(c));}
+  panel.scrollIntoView({behavior:'smooth'});
+}
+function resetAnswers(){
+  if(!confirm('Clear all your answers for this test?'))return;
+  state.answers={};state.checked={};save();
+  PROBLEMS.forEach(p=>{document.getElementById('in'+p.n).value='';document.getElementById('fb'+p.n).textContent='';document.getElementById('p'+p.n).classList.remove('correct','wrong');});
+  document.getElementById('scorePanel').style.display='none';
+}
+function fmt(s){const m=Math.floor(s/60),r=s%60;return m+':'+String(r).padStart(2,'0');}
+function tick(){
+  const clock=document.getElementById('clock');
+  if(!state.timerStart){clock.textContent='45:00';return;}
+  const elapsed=Math.floor((Date.now()-state.timerStart)/1000);
+  const left=LIMIT-elapsed;
+  if(left<=0){clock.textContent='0:00';clock.className='done';document.getElementById('timeup').style.display='block';return;}
+  clock.textContent=fmt(left);
+  clock.className=left<=300?'warn':'';
+}
+function startTimer(){
+  if(!state.timerStart){state.timerStart=Date.now();save();}
+  document.getElementById('startBtn').style.display='none';
+  document.getElementById('resetTimerBtn').style.display='';
+  tick();
+}
+function resetTimer(){
+  if(!confirm('Restart the 45-minute timer?'))return;
+  state.timerStart=Date.now();save();
+  document.getElementById('timeup').style.display='none';
+  document.getElementById('clock').className='';
+  tick();
+}
+window.addEventListener('load',()=>{
+  PROBLEMS.forEach(p=>{
+    const inp=document.getElementById('in'+p.n);
+    if(state.answers[p.n]!=null) inp.value=state.answers[p.n];
+    inp.addEventListener('input',()=>{
+      state.answers[p.n]=inp.value;
+      state.checked[p.n]=false;
+      document.getElementById('p'+p.n).classList.remove('correct','wrong');
+      document.getElementById('fb'+p.n).textContent='';
+      save();
+    });
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkOne(p.n,true);});
+  });
+  if(state.timerStart){document.getElementById('startBtn').style.display='none';document.getElementById('resetTimerBtn').style.display='';}
+  tick();setInterval(tick,1000);
+});
+</script>
+</body></html>
