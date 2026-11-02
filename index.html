@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Suvir's Brain Quest - Oct 31-Nov 1 Weekend Multiplication Grid</title>
+<title>Suvir's Brain Quest - Week of Nov 2</title>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html { font-size: 17px; }
@@ -129,68 +129,1087 @@
   .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
   .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
   .daily-math .optionalWork {margin-top:8px;}
-
-body{padding-bottom:24px;}nav#tabs{justify-content:center;flex-wrap:wrap;overflow:visible;}nav#tabs button{min-height:48px;flex:1 1 72px;max-width:120px;}main{max-width:760px;} .problem input{width:100%;min-height:48px;padding:12px;font:inherit;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 0;}button{min-height:44px;} .checkOne,.retry{padding:11px 16px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;} .problem{border-left:4px solid #ffd54a;} .problem.correct{border-color:#42d77d;} .problem.wrong{border-color:#ff8a8a;} .feedback{margin:10px 0 0;font-weight:700;} .correct .feedback{color:#a6ff7e;} .wrong .feedback{color:#ffb8b8;} .math-note{margin:10px 0;color:#d7eeff;font-size:1rem;overflow-wrap:anywhere;} math{font-size:1.08em;max-width:100%;} .day-summary{background:#214956;padding:12px;border-radius:12px;margin:12px 0;} .day.active{animation:none;} .badge{display:inline-block;color:#ffd54a;font-size:.8rem;margin-bottom:6px;} .optional{color:#bfe3ff;font-size:.85rem;} footer a{color:#bfe3ff;} a{overflow-wrap:anywhere;}@media(max-width:420px){html{font-size:16px;}header h1{font-size:1.5rem;}nav#tabs{gap:5px;padding:8px;}nav#tabs button{padding:9px 6px;flex-basis:54px;min-width:50px;}main{padding:12px;} .card{padding:14px;} .math-note{font-size:.95rem;}}
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } }
-  .cell { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 12px; }
-  .cell h4 { margin: 0 0 6px; font-size: .9rem; color: #ffd54a; }
-  .cell p.q { margin: 0 0 8px; font-size: .92rem; line-height: 1.45; }
-  .cell .math-note { font-size: .78rem; color: #9fd0ea; background: rgba(66,165,245,.12); border-radius: 8px; padding: 6px 8px; margin: 6px 0 8px; }
-  .cell details.hint summary { cursor: pointer; font-size: .8rem; font-weight: 700; color: #8fc7ec; list-style: none; display: inline-block; padding: 4px 10px; border: 1px dashed rgba(143,199,236,.5); border-radius: 8px; user-select: none; -webkit-user-select: none; }
-  .cell details.hint summary::-webkit-details-marker { display: none; }
-  .cell details.hint[open] summary { color: #ffd54a; border-color: rgba(255,213,74,.5); }
-  .cell input { width: 100%; font: inherit; padding: 9px 10px; border-radius: 9px; border: 2px solid rgba(255,255,255,.25); background: rgba(0,0,0,.25); color: #fff; margin-bottom: 7px; }
-  .cell input:focus { outline: none; border-color: #ffd54a; }
-  .cell .checkOne { width: 100%; padding: 8px; border: 0; border-radius: 8px; background: #ffd54a; color: #142536; font: inherit; font-weight: 700; cursor: pointer; }
-  .cell .feedback { margin: 8px 0 0; font-weight: 700; font-size: .85rem; }
-  .cell.correct { border-left: 5px solid #42d77d; }
-  .cell.correct .feedback { color: #a6ff7e; }
-  .cell.wrong { border-left: 5px solid #ff8a8a; }
-  .cell.wrong .feedback { color: #ffb8b8; }
-  .big-btn { display:block; width:100%; max-width: 640px; margin: 6px auto 18px; padding: 13px; border:0; border-radius: 12px; background: linear-gradient(135deg,#ff8a3c,#ff5e62); color:#fff; font: inherit; font-weight: 800; cursor:pointer; }
-  #storageNotice { text-align:center; font-size:.75rem; color:#9fd0ea; margin: 10px 0 0; }
-  .links-card a { color:#ffd54a; }
+  .links-card a { color:#ffd54a; font-weight:700; }
 </style>
 </head>
 <body>
-<header><h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1><p class="sub">Oct 31-Nov 1, 2026 · Halloween Weekend Multiplication Grid</p></header>
-<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel"></div></div>
-<main>
-<section class="card"><h3>🎃 50 puzzles, one giant grid.</h3>
-<p>Every puzzle is a two-step story, and hiding inside each one is a ×6, ×7, ×8, ×9 or ×10 fact (products up to 144). Read twice, find the hidden multiplication first, then finish the second step. Draw a bar model if it helps. Type your answer and tap <b>Check answer</b> - feedback appears right in the cell. For money answers, type dollars and cents like 7.00. Commas are OK for big numbers.</p>
-<p>Try each puzzle on your own first - the hint stays hidden unless you tap <b>Show hint</b>. Your answers save on this device, so you can split the grid across Saturday and Sunday.</p></section>
-<button class="big-btn" id="checkAll" type="button">Check all my answers</button>
-<div class="grid" id="grid"></div>
-<p id="storageNotice" role="status"></p>
-</main>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Oct 26-30 · Big Numbers Week</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 5 days done</div>
+</div>
+
+<nav id="tabs"></nav>
+<main id="daysRoot"></main>
 <main><section class="card links-card"><h3><span class="emoji">🏆</span>Noetic Contest Practice</h3>
 <p><a href="noetic/index.html">Five practice tests for the Nov 13 Noetic contest</a> - 20 problems each, optional 45-minute timer, score = correct × 5.</p></section><section class="card links-card"><h3><span class="emoji">📚</span>Earlier weeks</h3>
-<p><a href="week-oct26-30.html">Week of Oct 26-30</a> · <a href="weekend-oct24-25.html">Weekend Sprint Oct 24-25</a> · <a href="week-oct19-23.html">Week of Oct 19-23</a> · <a href="enrichment-grade3.html">Grade 3 Enrichment</a></p></section></main>
-<footer>Made for Suvir with ❤️ · Oct 2026</footer>
+<p><a href="weekend-oct31-nov1.html">Weekend Sprint - Oct 31-Nov 1</a> · <a href="week-oct26-30.html">Week of Oct 26-30</a> · <a href="weekend-oct24-25.html">Weekend Sprint - Oct 24-25</a> · <a href="week-oct19-23.html">Week of Oct 19-23</a> · <a href="enrichment-grade3.html">Grade 3 Enrichment</a></p></section></main>
+
+<div id="mathFab"><button id="openMath">⚡ Daily Math Facts (30 facts)</button></div>
+
+<div id="mathModal">
+  <div class="inner">
+    <button class="close" id="closeMath">✕</button>    <h2>⚡ Math Facts Training</h2>
+    <p style="color:#9fd0ea;margin-top:2px;">Gifted track, one grade ahead: Singapore Math style (number bonds, bar models, mental math) + Greg Tang fluency. Practice every day and watch your score climb!</p>
+
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.35rem;font-weight:900;color:#ffd54a;">30 facts · no timer · about 5-7 min</div>
+      <p style="color:#9fd0ea;margin:6px 0 0;">Take your time, use a smart strategy, and finish all 30.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚡ Fact Dash - 30 Mixed Problems</h3>
+      <p style="color:#9fd0ea;margin:0 0 4px;font-size:.85rem;text-align:center;">Addition, subtraction, multiplication and division, all mixed up. Type your answer on the keyboard and hit Enter!</p>
+      <div class="math-tip" id="mathTip" style="font-size:.8rem;color:#ffd54a;margin:2px 0 0;text-align:center;">&#128161; Tip: number bonds - break 8 + 5 into 8 + 2 + 3 to make a ten!</div>
+      <div class="math-score" id="mathScore">Score: 0 · Best: 0</div>
+      <div class="math-q" id="mathQ">Press New Fact to begin!</div>
+      <div class="math-entry">
+        <input id="mathInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="type answer" autocomplete="off">
+        <button class="go" id="mathGo">✔</button>
+      </div>
+      <div class="math-fb" id="mathFb"></div>
+      <div class="row" style="margin-top:10px;"><button class="go" id="newFact">New Fact</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Nov 2026</footer>
+
 <script>
-const PROBLEMS=[{"n": 1, "q": "Halloween candy: 6 treat bags hold 8 candies each. Suvir eats 5 candies. How many candies are left?", "hint": "Multiply first: 6 groups of 8. Then take away the eaten ones.", "answer": 43, "display": "43", "money": false}, {"n": 2, "q": "A sticker book has 7 sheets with 9 stickers on each sheet. Suvir gives 12 stickers to a friend. How many stickers does he have left?", "hint": "7 groups of 9, then subtract the gift.", "answer": 51, "display": "51", "money": false}, {"n": 3, "q": "8 boxes hold 12 crayons each. 7 crayons are broken. How many good crayons are there?", "hint": "8 groups of 12, then take away the broken ones.", "answer": 89, "display": "89", "money": false}, {"n": 4, "q": "For a party, 9 rows have 8 chairs each, and 6 folding chairs are added. How many chairs are there in all?", "hint": "Multiply the rows, then add the extra chairs.", "answer": 78, "display": "78", "money": false}, {"n": 5, "q": "A farm stand has 10 crates with 9 pumpkins in each crate. It sells 25 pumpkins. How many pumpkins are left?", "hint": "10 groups of 9, then subtract what was sold.", "answer": 65, "display": "65", "money": false}, {"n": 6, "q": "6 jars hold 11 marbles each. Suvir loses 8 marbles. How many marbles remain?", "hint": "6 groups of 11, then subtract the lost ones.", "answer": 58, "display": "58", "money": false}, {"n": 7, "q": "Suvir collects 6 packs of 7 baseball cards and 8 packs of 5 football cards. How many cards does he collect in all?", "hint": "Two multiplications, then add them together.", "answer": 82, "display": "82", "money": false}, {"n": 8, "q": "A bookcase has 9 shelves with 8 books on each shelf. 17 books are checked out. How many books stay on the shelves?", "hint": "9 groups of 8, then subtract the checked-out books.", "answer": 55, "display": "55", "money": false}, {"n": 9, "q": "7 ride tickets cost $9 each. Suvir pays with $70. How much change does he get?", "hint": "Multiply 7 by 9, then subtract from $70. Type dollars like 7.00.", "answer": 7, "display": "$7.00", "money": true}, {"n": 10, "q": "9 spiders spin webs in a barn. Each spider has 8 legs. Then 2 spiders crawl away. How many spider legs are still in the barn?", "hint": "Find the legs at first, then subtract the legs that left.", "answer": 56, "display": "56", "money": false}, {"n": 11, "q": "Sam scores 12 points. Tara scores 6 times as many points. How many points do they score together?", "hint": "Tara has 6 groups of 12. Then add BOTH players.", "answer": 84, "display": "84", "money": false}, {"n": 12, "q": "96 candies are packed into bags with 8 candies in each bag. How many bags are filled?", "hint": "Think: 8 times what number makes 96?", "answer": 12, "display": "12", "money": false}, {"n": 13, "q": "After filling 8 boxes with 10 ornaments in each box, 14 ornaments were still left over. How many ornaments were there at the start?", "hint": "Find the ornaments in the boxes first, then add the leftovers.", "answer": 94, "display": "94", "money": false}, {"n": 14, "q": "Suvir has $100. He buys 9 spooky shirts that cost $8 each. How much money does he have left?", "hint": "9 groups of 8, then subtract from $100. Type like 28.00.", "answer": 28, "display": "$28.00", "money": true}, {"n": 15, "q": "A bakery makes 6 trays with 12 cupcakes on each tray. A class eats 45 cupcakes. How many cupcakes are left?", "hint": "6 groups of 12, then subtract what the class ate.", "answer": 27, "display": "27", "money": false}, {"n": 16, "q": "7 bunches of balloons have 9 balloons in each bunch. 13 balloons pop. How many balloons are left?", "hint": "7 groups of 9, then take away the popped ones.", "answer": 50, "display": "50", "money": false}, {"n": 17, "q": "The Red team scores 8 rounds of 7 points. The Blue team scores 9 rounds of 6 points. How many MORE points does the winning team have?", "hint": "Find both totals, then compare them.", "answer": 2, "display": "2", "money": false}, {"n": 18, "q": "A bus has 10 rows with 9 seats in each row. 3 seats are broken. How many seats can be used?", "hint": "10 groups of 9, then subtract the broken seats.", "answer": 87, "display": "87", "money": false}, {"n": 19, "q": "12 caves hide 9 bats each. Then 16 more bats fly in. How many bats are there now?", "hint": "12 groups of 9, then add the newcomers.", "answer": 124, "display": "124", "money": false}, {"n": 20, "q": "Suvir earns $10 for each lawn he rakes. He rakes 6 lawns, then spends $24 on a game. How much money does he have left?", "hint": "6 groups of 10, then subtract the game. Type like 36.00.", "answer": 36, "display": "$36.00", "money": true}, {"n": 21, "q": "8 baskets hold 11 apples each. 22 apples are rotten. How many good apples are there?", "hint": "8 groups of 11, then subtract the rotten ones.", "answer": 66, "display": "66", "money": false}, {"n": 22, "q": "A stamp album needs 120 stamps to be full. Suvir fills 9 pages with 10 stamps each. How many more stamps does he need?", "hint": "Find what he has, then find what is missing.", "answer": 30, "display": "30", "money": false}, {"n": 23, "q": "A baker makes 6 dozen cookies. He packs them into boxes of 8. How many full boxes does he pack?", "hint": "6 dozen is 6 groups of 12. Then split into groups of 8.", "answer": 9, "display": "9", "money": false}, {"n": 24, "q": "Suvir trick-or-treats on 7 streets with 8 houses on each street. 5 houses are dark. At how many houses does he get candy?", "hint": "Find all the houses first, then subtract the dark ones.", "answer": 51, "display": "51", "money": false}, {"n": 25, "q": "A LEGO build uses 10 bags with 9 pieces in each bag. 14 pieces roll under the couch. How many pieces are left to build with?", "hint": "10 groups of 9, then subtract the lost pieces.", "answer": 76, "display": "76", "money": false}, {"n": 26, "q": "Suvir reads 8 pages every day for 9 days. His goal is 100 pages. How many pages short of his goal is he?", "hint": "8 groups of 9, then compare with the goal.", "answer": 28, "display": "28", "money": false}, {"n": 27, "q": "A costume shop sells capes for $28 each. Suvir buys 1 cape and 6 masks at $2 each. How much does he spend in all?", "hint": "Multiply the masks first, then add the cape. Type like 40.00.", "answer": 40, "display": "$40.00", "money": true}, {"n": 28, "q": "7 cartons hold 12 eggs each. A chef uses 35 eggs. How many eggs are left?", "hint": "7 groups of 12, then subtract the eggs used.", "answer": 49, "display": "49", "money": false}, {"n": 29, "q": "9 teams have 7 players each. On game day, 4 players are absent. How many players are at the game?", "hint": "9 groups of 7, then subtract the absent players.", "answer": 59, "display": "59", "money": false}, {"n": 30, "q": "10 go-kart rides cost $6 each. Suvir has $85. How much money does he have left after riding all 10?", "hint": "10 groups of 6, then subtract from $85. Type like 25.00.", "answer": 25, "display": "$25.00", "money": true}, {"n": 31, "q": "A store has 8 shelves with 9 games each. Another store has 6 shelves with 10 games each. How many more games does the first store have?", "hint": "Find both totals, then compare.", "answer": 12, "display": "12", "money": false}, {"n": 32, "q": "6 pitchers hold 8 cups of juice each. At lunch, kids drink 29 cups. How many cups of juice are left?", "hint": "6 groups of 8, then subtract what was drunk.", "answer": 19, "display": "19", "money": false}, {"n": 33, "q": "A garden has 12 rows with 7 corn plants in each row. The farmer harvests 50 plants. How many plants are still growing?", "hint": "12 groups of 7, then subtract the harvest.", "answer": 34, "display": "34", "money": false}, {"n": 34, "q": "At an arcade, Suvir wins 8 rounds with 9 prize tickets in each round. He spends 45 tickets on a prize. How many tickets does he keep?", "hint": "8 groups of 9, then subtract what he spent.", "answer": 27, "display": "27", "money": false}, {"n": 35, "q": "7 boxes hold 63 apples in all. Each box holds the same number. How many apples are in each box?", "hint": "Think: 7 times what number makes 63?", "answer": 9, "display": "9", "money": false}, {"n": 36, "q": "10 strings have 8 beads each. Suvir uses 35 beads for a craft. How many beads are left?", "hint": "10 groups of 8, then subtract the beads used.", "answer": 45, "display": "45", "money": false}, {"n": 37, "q": "A bakery bakes 9 trays with 6 ghost cookies on each tray. 18 cookies are sold. How many ghost cookies are left?", "hint": "9 groups of 6, then subtract the sold ones.", "answer": 36, "display": "36", "money": false}, {"n": 38, "q": "A parking lot has 8 rows with 12 spaces in each row. 77 spaces are taken. How many spaces are free?", "hint": "8 groups of 12, then subtract the taken spaces.", "answer": 19, "display": "19", "money": false}, {"n": 39, "q": "Suvir has 6 piggy banks with $9 in each. He gets $13 more for his birthday. How much money does he have now?", "hint": "6 groups of 9, then add the birthday money. Type like 67.00.", "answer": 67, "display": "$67.00", "money": true}, {"n": 40, "q": "A library shelf cart has 7 shelves with 11 books on each shelf. The librarian moves 12 books to another cart. How many books stay?", "hint": "7 groups of 11, then subtract the moved books.", "answer": 65, "display": "65", "money": false}, {"n": 41, "q": "Anya practices piano 8 times for 6 minutes each time. Ben practices 7 times for 7 minutes each time. Who practices longer, and by how many minutes?", "hint": "Find both totals, then compare them.", "answer": 1, "display": "1", "money": false}, {"n": 42, "q": "10 jars hold 12 candy corns each. A party uses 85 candy corns. How many candy corns are left?", "hint": "10 groups of 12, then subtract what the party used.", "answer": 35, "display": "35", "money": false}, {"n": 43, "q": "A sticker album page has 9 rows of 9 sticker spots. Suvir has placed 58 stickers. How many spots are still empty?", "hint": "9 groups of 9, then subtract the filled spots.", "answer": 23, "display": "23", "money": false}, {"n": 44, "q": "A farm has 8 pens with 7 goats in each pen. Then 9 baby goats are born. How many goats are on the farm now?", "hint": "8 groups of 7, then add the new babies.", "answer": 65, "display": "65", "money": false}, {"n": 45, "q": "Suvir saves $8 every week for 6 weeks. Then he earns $15 washing a car. How much money does he have in all?", "hint": "6 groups of 8, then add the car-wash money. Type like 63.00.", "answer": 63, "display": "$63.00", "money": true}, {"n": 46, "q": "12 jars hold 6 fireflies each. Suvir releases 25 fireflies. How many fireflies are left?", "hint": "12 groups of 6, then subtract the released ones.", "answer": 47, "display": "47", "money": false}, {"n": 47, "q": "7 muffin tins hold 12 muffins each. A school buys 50 muffins. How many muffins are left?", "hint": "7 groups of 12, then subtract what the school bought.", "answer": 34, "display": "34", "money": false}, {"n": 48, "q": "9 friends buy movie tickets for $10 each. The group pays with $100. How much change do they get back?", "hint": "9 groups of 10, then subtract from $100. Type like 10.00.", "answer": 10, "display": "$10.00", "money": true}, {"n": 49, "q": "48 pencils are shared equally among 8 kids. How many pencils does each kid get?", "hint": "Think: 8 times what number makes 48?", "answer": 6, "display": "6", "money": false}, {"n": 50, "q": "🚀 A haunted house hides treats in 12 rooms with 12 treats in each room. A class finds 9 rooms of 8 treats. How many treats are still hidden?", "hint": "Find the hidden total (12 groups of 12), find what the class found (9 groups of 8), then subtract.", "answer": 72, "display": "72", "money": false}];
-const LS='suvir-weekend-oct31-nov1-v1';
-let state={answers:{},checked:{}};let storageOK=true;
-try{const saved=JSON.parse(localStorage.getItem(LS)||'null');if(saved&&typeof saved==='object'){state.answers=saved.answers||{};state.checked=saved.checked||{};}}catch(e){storageOK=false;}
-function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){storageOK=false;}document.getElementById('storageNotice').textContent=storageOK?'Saved on this device.':'Saving is unavailable in this browser. Keep the page open to retain this session.';}
-function normalized(value){let text=String(value).trim().replace(/[$\s]/g,'').replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');if(!/^\d+(?:\.\d{1,2})?$/.test(text))return null;return Number(text);}
-function fmt(p){return p.money?p.display:p.answer.toLocaleString('en-US');}
-function matches(p,v){return v!==null&&Math.abs(v-p.answer)<0.005;}
-const grid=document.getElementById('grid');
-PROBLEMS.forEach((p,n)=>{
- const cell=document.createElement('article');cell.className='cell';cell.id='cell-'+n;
- cell.innerHTML='<h4>#'+(n+1)+'</h4><p class="q">'+p.q+'</p><details class="hint"><summary>💡 Show hint</summary><div class="math-note">'+p.hint+'</div></details><label for="answer-'+n+'">Your answer <span class="optional">'+(p.money?'(dollars and cents, like 7.00)':'(number only)')+'</span></label><input id="answer-'+n+'" inputmode="'+(p.money?'decimal':'numeric')+'" autocomplete="off" aria-describedby="feedback-'+n+'"><button class="checkOne" type="button">Check answer</button><p class="feedback" id="feedback-'+n+'" role="status" aria-live="polite" hidden></p>';
- const input=cell.querySelector('input');input.value=state.answers[n]||'';
- input.addEventListener('input',()=>{state.answers[n]=input.value;delete state.checked[n];cell.classList.remove('correct','wrong');cell.querySelector('.feedback').hidden=true;save();refresh();});
- input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check(n);}});
- cell.querySelector('button').addEventListener('click',()=>check(n));
- grid.appendChild(cell);
+var DAYS = [
+  {
+    "tab": "Mon",
+    "date": "Nov 2",
+    "emoji": "🧭",
+    "title": "Explorers Set Sail",
+    "read": "<p>Long ago, nobody had a good map of the whole world. Still, some sailors climbed into wooden ships and pointed them toward the unknown. These explorers had many reasons to sail. Kings and queens paid for ships because they wanted new <b>trade routes</b> to buy spices, silk, and gold. Some sailors wanted fame. Others were simply curious about what lay past the horizon. Sailing was dangerous. Storms snapped masts. Food went rotten, and fresh water ran low. To find their way, sailors used a compass, measured the height of the sun and stars, and studied the wind. When explorers reached new lands, they met people already living there, and they drew maps so others could follow. Their journeys changed the world - for better and for worse - connecting continents that had been apart for thousands of years.</p><p><b>Read closely:</b> Give two reasons explorers sailed. What three tools or skills helped them find their way? What did they make so others could follow?</p><p><b>Word:</b> navigate - to find and follow a path, often across water.</p><details><summary>Check your thinking after answering</summary><p>Explorers sailed for trade routes to buy spices and gold, for fame, and out of curiosity. They used a compass, the sun and stars, and the wind. They drew maps so others could follow.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"0\"></div>",
+    "reward": {
+      "label": "Mark Rober - Backyard Squirrel Maze 1.0",
+      "url": "https://www.youtube.com/watch?v=hFZFjoX2cGg"
+    },
+    "watch": [
+      {
+        "label": "Bite Sized History - Age of Exploration for Kids",
+        "url": "https://www.youtube.com/watch?v=x0S_5pViw40"
+      }
+    ],
+    "doHtml": "<p><b>School this week:</b> your class starts a new unit on explorers, and Kate DiCamillo book clubs continue. Tell your teacher one explorer fact you learn here!</p><p><b>Mission - Map Maker:</b> Draw a treasure map of your house or yard. Add a compass rose (N, S, E, W), draw a route with a dotted line, and mark an X. 🚀 Stretch: write 3 clues that use direction words, like 'walk 5 steps north.'</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch &amp; Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What is this passage mostly about?",
+        "opts": [
+          "Pirate treasure",
+          "Why explorers sailed and how they found their way",
+          "How to build a wooden ship",
+          "Ocean animals"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which reason did kings and queens pay for ships?",
+        "opts": [
+          "To win races",
+          "They wanted new trade routes for spices, silk, and gold",
+          "To escape storms",
+          "To go fishing"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which of these helped sailors navigate?",
+        "opts": [
+          "A telescope only",
+          "A compass, the sun and stars, and the wind",
+          "Radio signals",
+          "Road signs"
+        ],
+        "a": 1
+      },
+      {
+        "q": "To navigate means...",
+        "opts": [
+          "to build a ship",
+          "to swim fast",
+          "to find and follow a path",
+          "to draw a treasure"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Daniel Boone, born on November 2, was a famous American...",
+        "opts": [
+          "explorer and frontiersman",
+          "president",
+          "inventor",
+          "pirate"
+        ],
+        "a": 0
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Four explorer ships each carry 6 sailors. How many sailors are there in all?",
+        "answer": "24"
+      },
+      {
+        "kind": "C",
+        "q": "Skip count by 7s: 7, 14, 21, ... What is the 6th number in the pattern?",
+        "answer": "42"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir lines up his explorer stickers in an array with 3 rows of 8. How many stickers does he have?",
+        "answer": "24"
+      },
+      {
+        "kind": "C",
+        "q": "Write 9 + 9 + 9 + 9 as a multiplication, then solve it. Type the answer.",
+        "answer": "36"
+      },
+      {
+        "kind": "C",
+        "q": "A ship has 5 sails, and each sail needs 7 ropes. How many ropes are needed in all?",
+        "answer": "35"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir finds 8 nickels in a treasure chest. How many cents is that?",
+        "answer": "40"
+      },
+      {
+        "kind": "C",
+        "q": "Six treasure chests hold 5 maps each. How many maps are there in all?",
+        "answer": "30"
+      },
+      {
+        "kind": "C",
+        "q": "Double it! What is 2 × 12?",
+        "answer": "24"
+      },
+      {
+        "kind": "C",
+        "q": "A crew rows 7 hours a day for 6 days. How many hours do they row in all?",
+        "answer": "42"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 Use a number bond: 9 × 8 is the same as 10 × 8 minus one more 8. What is 9 × 8?",
+        "answer": "72"
+      }
+    ],
+    "world": {
+      "emoji": "🧭",
+      "kind": "History",
+      "html": "<p>On <b>November 2, 1734</b>, Daniel Boone was born. He became one of America's most famous explorers, finding trails through the Appalachian Mountains into Kentucky - long before there were roads! <b>Question:</b> What landform did Boone find trails through?</p>"
+    }
+  },
+  {
+    "tab": "Tue",
+    "date": "Nov 3",
+    "emoji": "🗣️",
+    "title": "Pronoun Power",
+    "read": "<p>Maya built a robot out of a cardboard box, and she named it Zap. It had button eyes and a pipe-cleaner antenna. Every morning, Maya wound up a key on its back, and it marched across her room. One day, Zap marched straight into a laundry basket and tipped over. \"Are you okay?\" Maya asked it. She picked up her robot and gave it a careful inspection. Its antenna was bent, so she straightened it. \"There,\" Maya said. \"Now we are ready for the science fair.\" At the fair, the judges loved Zap. They gave Maya and her robot a blue ribbon, and it hung on Zap's box like a tiny door. Maya was proud, but she said the best prize was building something with her own two hands.</p><p><b>Read closely:</b> In the sentence 'She picked up her robot,' who does <b>she</b> stand for? In 'she straightened it,' what does <b>it</b> stand for? What does Maya say is the best prize?</p><p><b>Word:</b> pronoun - a word like he, she, it, or they that takes the place of a noun.</p><details><summary>Check your thinking after answering</summary><p>She stands for Maya. It stands for the antenna. Maya says the best prize is building something with her own two hands.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"1\"></div>",
+    "reward": {
+      "label": "Mark Rober - World's Largest Devil's Toothpaste",
+      "url": "https://www.youtube.com/watch?v=BHiWygziyso"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Multi-Digit Multiplication Pt 1",
+        "url": "https://www.youtube.com/watch?v=FJ5qLWP3Fqo"
+      }
+    ],
+    "doHtml": "<p><b>Mission - Pronoun Detective:</b> Open a favorite book to any page. Hunt for 10 pronouns (he, she, it, they, we, his, her, its, their, us). For 3 of them, write the noun the pronoun replaces. 🚀 Stretch: rewrite one sentence, swapping every noun for a pronoun. Does it still make sense?</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch &amp; Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "In 'Maya wound up a key on its back,' what does 'its' stand for?",
+        "opts": [
+          "the laundry basket",
+          "the robot Zap",
+          "the science fair",
+          "the ribbon"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which word is a pronoun?",
+        "opts": [
+          "robot",
+          "marched",
+          "they",
+          "blue"
+        ],
+        "a": 2
+      },
+      {
+        "q": "A pronoun takes the place of...",
+        "opts": [
+          "a verb",
+          "a noun",
+          "an adjective",
+          "a period"
+        ],
+        "a": 1
+      },
+      {
+        "q": "In 'she straightened it,' what does 'it' stand for?",
+        "opts": [
+          "the antenna",
+          "the ribbon",
+          "the key",
+          "the box"
+        ],
+        "a": 0
+      },
+      {
+        "q": "Suvir draws an array with 3 rows and 9 columns. How many squares are in it?",
+        "opts": [
+          "12",
+          "27",
+          "30",
+          "18"
+        ],
+        "a": 1
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "A muffin tray has 3 rows of 9 muffins. How many muffins are there?",
+        "answer": "27"
+      },
+      {
+        "kind": "C",
+        "q": "6 × 4 and 4 × 6 give the same answer. What is it?",
+        "answer": "24"
+      },
+      {
+        "kind": "C",
+        "q": "Seven friends each get 5 crackers. How many crackers are given out in all?",
+        "answer": "35"
+      },
+      {
+        "kind": "C",
+        "q": "A spider web has 8 rows with 3 dew drops in each row. How many dew drops are there?",
+        "answer": "24"
+      },
+      {
+        "kind": "C",
+        "q": "What is 5 × 9?",
+        "answer": "45"
+      },
+      {
+        "kind": "C",
+        "q": "Use doubling: 4 × 7 is the same as 2 × 14. What is 4 × 7?",
+        "answer": "28"
+      },
+      {
+        "kind": "C",
+        "q": "What is 11 × 5?",
+        "answer": "55"
+      },
+      {
+        "kind": "C",
+        "q": "Three boxes each hold 12 crayons. How many crayons are there in all?",
+        "answer": "36"
+      },
+      {
+        "kind": "C",
+        "q": "A garden bed has 6 rows of 6 carrot plants. How many carrot plants are there?",
+        "answer": "36"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 Break it apart: 12 × 8 is 10 × 8 plus 2 × 8. What is 12 × 8?",
+        "answer": "96"
+      }
+    ],
+    "world": {
+      "emoji": "🐰",
+      "kind": "Science History",
+      "html": "<p>On <b>November 3, 1957</b>, a dog named Laika became the first animal to orbit Earth. She flew on the Soviet spacecraft Sputnik 2, just one month after the very first satellite. Her trip taught scientists that living things could survive a rocket launch. <b>Question:</b> What was Laika the first animal to do?</p>"
+    }
+  },
+  {
+    "tab": "Wed",
+    "date": "Nov 4",
+    "emoji": "✏️",
+    "title": "Long E Detective",
+    "read": "<p>The Green Team met at the beach after school. Their plan was to clean the sand before the weekend. Pete grabbed a green bag, and Jean carried a long rake. Near a big tree, they found candy wrappers, a cracked wheel, and a heap of dry leaves. \"This is not easy,\" said Pete, wiping his forehead. \"But look how much we have already done!\" said Jean. By three o'clock, the team had filled six bags. They could see shells and seaweed on the clean sand again. A happy breeze cooled their faces, and even the seagulls seemed pleased. Before they left, Jean planted a little sign by the path. It read: \"Keep it clean!\" The team agreed to meet again next week, because keeping a beach clean is not a one-day job.</p><p><b>Read closely:</b> What does the Green Team do at the beach? Find three words with the long e sound. What does Jean's sign say?</p><p><b>Word:</b> pattern - something that repeats in a regular way, like ee and ea both making the long e sound.</p><details><summary>Check your thinking after answering</summary><p>The Green Team cleans the beach. Long e words include team, beach, clean, green, Jean, Pete, tree, leaves, three, see, seaweed, breeze, pleased, read, week (any three). The sign says 'Keep it clean!'</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"2\"></div>",
+    "reward": {
+      "label": "Nat Geo Kids - Gentoo Penguin",
+      "url": "https://www.youtube.com/watch?v=xnu5htZpruE"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Place Value",
+        "url": "https://www.youtube.com/watch?v=T5Qf0qSSJFI"
+      }
+    ],
+    "doHtml": "<p><b>School note:</b> your spelling assessment is <b>tomorrow, Thursday</b> - tonight is the night to practice your long e patterns (ee, ea, ie, and y at the end like happy).</p><p><b>Mission - Long E Word Hunt:</b> Find 8 long e words in books or around your home. Sort them by pattern: ee (green), ea (beach), ie (field), or ending y (happy). Write each word under its pattern. 🚀 Stretch: write two sentences using four of your words.</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch &amp; Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What is the Green Team's plan?",
+        "opts": [
+          "Build a sandcastle",
+          "Clean the beach before the weekend",
+          "Have a picnic",
+          "Catch seagulls"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which word has the long e sound?",
+        "opts": [
+          "sand",
+          "bag",
+          "bead",
+          "rock"
+        ],
+        "a": 2
+      },
+      {
+        "q": "What does Jean's sign say?",
+        "opts": [
+          "Meet next week",
+          "Green Team rules",
+          "Keep it clean!",
+          "Beach closed"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Which spelling pattern makes the long e sound in 'happy'?",
+        "opts": [
+          "ee",
+          "ea",
+          "ie",
+          "ending y"
+        ],
+        "a": 3
+      },
+      {
+        "q": "King Tut's tomb was found in Egypt in 1922 by...",
+        "opts": [
+          "Howard Carter",
+          "Daniel Boone",
+          "Laika",
+          "Mark Rober"
+        ],
+        "a": 0
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Twenty-four apples are shared equally into 4 bags. How many apples go in each bag?",
+        "answer": "6"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir buys 6 packs of 7 crayons, then gives 5 crayons to a friend. How many crayons does he have left?",
+        "answer": "37"
+      },
+      {
+        "kind": "C",
+        "q": "Forty-five stickers are shared equally among 5 kids. How many stickers does each kid get?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "Three shelves hold 8 books each, and 6 more books sit on the floor. How many books are there in all?",
+        "answer": "30"
+      },
+      {
+        "kind": "C",
+        "q": "What is 9 × 4?",
+        "answer": "36"
+      },
+      {
+        "kind": "C",
+        "q": "Think: 8 times what number makes 56?",
+        "answer": "7"
+      },
+      {
+        "kind": "C",
+        "q": "A theater has 7 rows of 4 chairs, but 2 chairs are broken. How many good chairs are there?",
+        "answer": "26"
+      },
+      {
+        "kind": "C",
+        "q": "Break it apart: 12 × 6 is 10 × 6 plus 2 × 6. What is 12 × 6?",
+        "answer": "72"
+      },
+      {
+        "kind": "C",
+        "q": "Sixty-three pages are split equally across 7 chapters. How many pages are in each chapter?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 A farmer plants 9 rows of 9 pumpkin plants. Then 18 plants are harvested. How many plants are still growing?",
+        "answer": "63"
+      }
+    ],
+    "world": {
+      "emoji": "🏺",
+      "kind": "History",
+      "html": "<p>On <b>November 4, 1922</b>, archaeologist Howard Carter found stone steps buried in Egypt's sand. They led down to the tomb of King Tutankhamun - a pharaoh's tomb still packed with golden treasures after more than 3,000 years! <b>Question:</b> Whose tomb did Carter find?</p>"
+    }
+  },
+  {
+    "tab": "Thu",
+    "date": "Nov 5",
+    "emoji": "🎯",
+    "title": "Spelling Test Day",
+    "read": "<p>Today, every grown-up citizen in America can vote. But it was not always that way. When the country was young, only some men could vote - no women at all. Susan B. Anthony believed that was unfair. She gave speeches, wrote letters, and traveled from town to town asking people to change the law. In 1872, she did something bold: she walked into a voting place and cast a ballot, even though the law said she could not. She was arrested and fined one hundred dollars. She refused to pay. Susan B. Anthony died before women won the vote in 1920, but her work made it happen. Today a one-dollar coin carries her face, reminding us that one brave person can help change the rules for everyone.</p><p><b>Read closely:</b> What did Susan B. Anthony believe was unfair? What bold thing did she do in 1872? Where can you see her face today?</p><p><b>Word:</b> citizen - a person who officially belongs to a country.</p><details><summary>Check your thinking after answering</summary><p>She believed it was unfair that women could not vote. In 1872 she cast a ballot even though it was against the law. Her face is on a one-dollar coin.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"3\"></div>",
+    "reward": {
+      "label": "Mark Rober - Squirrel Maze 2.0: The Walnut Heist",
+      "url": "https://www.youtube.com/watch?v=DTvS9lvRxZ8"
+    },
+    "watch": [
+      {
+        "label": "Math Antics - Multi-Digit Subtraction",
+        "url": "https://www.youtube.com/watch?v=Y6M89-6106I"
+      }
+    ],
+    "doHtml": "<p><b>School today:</b> spelling assessment on the long e patterns. You practiced - go show what you know!</p><p><b>Mission - Teach-Back:</b> After school, teach someone at home the four long e patterns (ee, ea, ie, ending y) with one example word for each. Teaching a skill is the best way to lock it in. 🚀 Stretch: quiz your grown-up with 5 long e words and check their spelling.</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch &amp; Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What did Susan B. Anthony believe was unfair?",
+        "opts": [
+          "School lunches",
+          "Women could not vote",
+          "Fines were too small",
+          "Coins were too heavy"
+        ],
+        "a": 1
+      },
+      {
+        "q": "What happened after she voted in 1872?",
+        "opts": [
+          "She won a prize",
+          "She was arrested and fined",
+          "She moved to Egypt",
+          "She became president"
+        ],
+        "a": 1
+      },
+      {
+        "q": "A citizen is...",
+        "opts": [
+          "a person who officially belongs to a country",
+          "a kind of coin",
+          "a voting machine",
+          "a speech"
+        ],
+        "a": 0
+      },
+      {
+        "q": "Which is a pronoun?",
+        "opts": [
+          "Susan",
+          "vote",
+          "she",
+          "brave"
+        ],
+        "a": 2
+      },
+      {
+        "q": "What is 8 × 8?",
+        "opts": [
+          "56",
+          "64",
+          "72",
+          "48"
+        ],
+        "a": 1
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Thirty-six cards are dealt equally to 4 players. How many cards does each player get?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "What is 7 × 8?",
+        "answer": "56"
+      },
+      {
+        "kind": "C",
+        "q": "Think: 6 times what number makes 48?",
+        "answer": "8"
+      },
+      {
+        "kind": "C",
+        "q": "Fact family check: 5 × 9 = 45, so 45 ÷ 5 = ?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "A chessboard has 8 rows of 8 squares. How many squares are there in all?",
+        "answer": "64"
+      },
+      {
+        "kind": "C",
+        "q": "Seventy-two crayons come in boxes of 9. How many boxes is that?",
+        "answer": "8"
+      },
+      {
+        "kind": "C",
+        "q": "6 × 7 = 42. So what is 42 ÷ 7?",
+        "answer": "6"
+      },
+      {
+        "kind": "C",
+        "q": "Twelve months in a year, and Suvir has read 4 books each month. How many books has he read this year?",
+        "answer": "48"
+      },
+      {
+        "kind": "C",
+        "q": "Fifty-four cookies are shared equally by 6 friends. How many cookies does each friend get?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 Think: 7 times what number makes 84?",
+        "answer": "12"
+      }
+    ],
+    "world": {
+      "emoji": "🗳️",
+      "kind": "History",
+      "html": "<p>On <b>November 5, 1872</b>, Susan B. Anthony voted in a presidential election - at a time when the law did not allow women to vote. She was arrested, but her courage pushed the country toward change. Women won the right to vote in 1920. <b>Question:</b> In what year did women finally win the right to vote?</p>"
+    }
+  },
+  {
+    "tab": "Fri",
+    "date": "Nov 6",
+    "emoji": "🏆",
+    "title": "Contest Warm-Up",
+    "read": "<p>Leo loved puzzles, so he entered the school Puzzle Race. On the first problem, he froze. His brain felt stuck, and other kids were already scribbling. Then Leo remembered what his coach said: a puzzle is not a test of what you know - it is a chance to grow. He took a slow breath and tried a <b>strategy</b>: he drew a picture of the problem. Suddenly the answer popped into view. On the next problem he made a mistake, but he did not quit. Mistakes, his coach always said, are proof that your brain is stretching. Leo did not win the race - he came in third - but he solved more problems than he ever had before. That night he told his dad, \"Third place, and my brain grew three sizes.\" His dad laughed and said that sounded like first place to him.</p><p><b>Read closely:</b> What strategy helps Leo with the first problem? What does his coach say about mistakes? Why does Leo feel like a winner even though he came in third?</p><p><b>Word:</b> strategy - a plan for solving a problem.</p><details><summary>Check your thinking after answering</summary><p>Leo slows down and draws a picture of the problem. His coach says mistakes are proof your brain is stretching. Leo feels like a winner because he solved more problems than ever before - he grew, and growth was the real prize.</p></details>",
+    "word": "<p><b>10 Word Problems · about 15 minutes</b> · type just your answer. Tap <b>Check answer</b> beside a question, or <b>Check answers</b> for the set. Feedback appears right under each question, with the correct answer if you miss. Reach the 🚀 rocket problems for a stretch. Use paper for a bar model or number bond if helpful. No countdown.</p><div class=\"daily-math\" data-day=\"4\"></div>",
+    "reward": {
+      "label": "SciShow Kids - How Does a Seed Become a Plant?",
+      "url": "https://www.youtube.com/watch?v=tkFPyue5X3Q"
+    },
+    "watch": [
+      {
+        "label": "Noetic Learning - Using Boxes to Show Numbers (bar models)",
+        "url": "https://www.youtube.com/watch?v=11wOd0Wjy98"
+      }
+    ],
+    "doHtml": "<p><b>Coming up:</b> the Noetic math contest is <b>one week from today - Friday, November 13</b>. You are ready for it.</p><p><b>Mission - Contest Trainer:</b> This weekend, take one practice test on your <a href=\"noetic/index.html\" style=\"color:#ffd54a\">Noetic practice page</a> (Test 1 is a great start). Try it with the 45-minute timer to feel the real thing. 🚀 Stretch: after you finish, explain to a grown-up how you solved the problem you found hardest.</p><p style=\"color:#9fd0ea;font-size:.8rem\">Reading is the priority; Watch &amp; Learn and World Smarts are optional extras after the 20-30 minute core. Fact Dash goal: 5-7 minutes; word problems: about 15 minutes. All passages are original home-practice passages.</p>",
+    "quiz": [
+      {
+        "q": "What is Leo's strategy when he gets stuck?",
+        "opts": [
+          "Guess quickly",
+          "Take a slow breath and draw a picture",
+          "Copy a neighbor",
+          "Skip the problem"
+        ],
+        "a": 1
+      },
+      {
+        "q": "What does Leo's coach say about mistakes?",
+        "opts": [
+          "They are embarrassing",
+          "They are proof your brain is stretching",
+          "They mean you should quit",
+          "They only happen to beginners"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Why does Leo feel like a winner in third place?",
+        "opts": [
+          "He got a trophy",
+          "He solved more problems than ever before",
+          "The race was canceled",
+          "His dad paid him"
+        ],
+        "a": 1
+      },
+      {
+        "q": "A strategy is...",
+        "opts": [
+          "a plan for solving a problem",
+          "a kind of puzzle",
+          "a race rule",
+          "a lucky guess"
+        ],
+        "a": 0
+      },
+      {
+        "q": "The pattern 3, 6, 12, 24, ... doubles each step. What comes next?",
+        "opts": [
+          "36",
+          "42",
+          "48",
+          "30"
+        ],
+        "a": 2
+      }
+    ],
+    "mathProblems": [
+      {
+        "kind": "C",
+        "q": "Number pattern: 3, 6, 12, 24, ... Each step doubles. What is the next number?",
+        "answer": "48"
+      },
+      {
+        "kind": "C",
+        "q": "What is 8 × 7?",
+        "answer": "56"
+      },
+      {
+        "kind": "C",
+        "q": "Mystery number: 6 × ▲ = 54. What is ▲?",
+        "answer": "9"
+      },
+      {
+        "kind": "C",
+        "q": "Add the digits of 99. What do you get?",
+        "answer": "18"
+      },
+      {
+        "kind": "C",
+        "q": "What is 5 more than 9 × 6?",
+        "answer": "59"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir has 100 points and spends 64. He splits the rest equally into 6 prize piles. How many points are in each pile?",
+        "answer": "6"
+      },
+      {
+        "kind": "C",
+        "q": "A square has sides of 7 inches. What is its perimeter (the distance all the way around)?",
+        "answer": "28"
+      },
+      {
+        "kind": "C",
+        "q": "How many eggs are in 3 dozen?",
+        "answer": "36"
+      },
+      {
+        "kind": "C",
+        "q": "Suvir practices 7 problems a day for 8 days. How many problems does he practice in all?",
+        "answer": "56"
+      },
+      {
+        "kind": "C",
+        "q": "🚀 Mystery number: if you double a number and add 6, you get 26. What is the number?",
+        "answer": "10"
+      }
+    ],
+    "world": {
+      "emoji": "🏛️",
+      "kind": "History",
+      "html": "<p>On <b>November 6, 1860</b>, Abraham Lincoln was elected president of the United States. He had lost earlier elections but kept trying - and became one of the most famous presidents in history. <b>Question:</b> What office did Lincoln win on this day?</p>"
+    }
+  },
+  {
+    "weekly": true,
+    "tab": "Quiz",
+    "date": "All week",
+    "emoji": "🏆",
+    "title": "Weekly Brain Quest Quiz",
+    "reward": {
+      "label": "",
+      "url": ""
+    },
+    "watch": [],
+    "doHtml": "",
+    "quiz": [
+      {
+        "q": "Explorers sailed to find new trade routes for goods like...",
+        "opts": [
+          "pizza and soda",
+          "spices, silk, and gold",
+          "toys and games",
+          "cars and trucks"
+        ],
+        "a": 1
+      },
+      {
+        "q": "A pronoun takes the place of...",
+        "opts": [
+          "a verb",
+          "a noun",
+          "a number",
+          "a sound"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Which word has the long e sound?",
+        "opts": [
+          "map",
+          "bead",
+          "cup",
+          "sit"
+        ],
+        "a": 1
+      },
+      {
+        "q": "Laika was the first animal to...",
+        "opts": [
+          "swim the ocean",
+          "climb a mountain",
+          "orbit Earth",
+          "win a race"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Howard Carter found King Tut's tomb in...",
+        "opts": [
+          "1722",
+          "1822",
+          "1922",
+          "2022"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Susan B. Anthony voted in 1872 and was...",
+        "opts": [
+          "rewarded with gold",
+          "arrested and fined",
+          "made president",
+          "sent to Egypt"
+        ],
+        "a": 1
+      },
+      {
+        "q": "What is 12 × 8?",
+        "opts": [
+          "86",
+          "88",
+          "96",
+          "108"
+        ],
+        "a": 2
+      },
+      {
+        "q": "Think: 7 times what number makes 84?",
+        "opts": [
+          "11",
+          "12",
+          "13",
+          "14"
+        ],
+        "a": 1
+      },
+      {
+        "q": "In 'The Puzzle Race,' Leo's coach says mistakes are...",
+        "opts": [
+          "proof your brain is stretching",
+          "a reason to stop",
+          "bad luck",
+          "only for beginners"
+        ],
+        "a": 0
+      },
+      {
+        "q": "What is 9 × 8?",
+        "opts": [
+          "71",
+          "72",
+          "81",
+          "64"
+        ],
+        "a": 1
+      }
+    ]
+  }
+];
+
+
+var LS = "suvir-brain-quest-week-nov2-6-v1";
+var state = { done: {}, quizBest: {}, mathBest: 0, mathWork: {} };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+function quizHtml(d, i) {
+  var h = '<div class="quiz" data-day="' + i + '">';
+  d.quiz.forEach(function (q, qi) {
+    h += '<div class="quiz-q"><div class="q">' + (qi + 1) + ". " + q.q + "</div>";
+    q.opts.forEach(function (o, oi) {
+      h += '<button class="opt" data-day="' + i + '" data-q="' + qi + '" data-o="' + oi + '">' + o + "</button>";
+    });
+    h += "</div>";
+  });
+  h += '<div class="quiz-score" id="quizScore-' + i + '"></div></div>';
+  return h;
+}
+
+var tabsEl = document.getElementById("tabs");
+var root = document.getElementById("daysRoot");
+
+DAYS.forEach(function (d, i) {
+  var b = document.createElement("button");
+  b.innerHTML = d.emoji + " " + d.tab + '<span class="d">' + d.date + '</span>';
+  b.addEventListener("click", function () { showDay(i); });
+  tabsEl.appendChild(b);
+
+  var sec = document.createElement("section");
+  sec.className = "day";
+  var html = '<h2 class="day-title">' + d.emoji + " " + d.title + "</h2>" +
+    '<p class="day-date">' + (d.weekly ? "Unlocks when all 5 days are done" : d.tab + ", " + d.date + ", 2026") + '</p>';
+
+  if (d.weekly) {
+    html += '<div class="card" id="weeklyLock"><h3><span class="emoji">🔒</span>Locked for now</h3>' +
+      "<p>Finish all 5 days - missions, quizzes, everything - and the big Weekly Quiz unlocks. 10 questions, the whole week, one champion: you.</p></div>";
+    html += '<div class="card" id="weeklyQuizCard" style="display:none;"><h3><span class="emoji">🏆</span>Weekly Brain Quest Quiz</h3>' + quizHtml(d, i) + "</div>";
+  } else {
+    html += '<div class="card"><h3><span class="emoji">📺</span>Watch & Learn</h3>';
+    d.watch.forEach(function (w) {
+      html += '<a class="link-btn" href="' + w.url + '" target="_blank" rel="noopener">' + w.label + "</a>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">📖</span>Reading Quest</h3>' + d.read + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🎯</span>Your Mission</h3>' + d.doHtml + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">' + d.world.emoji + '</span>World Smarts · ' + d.world.kind + "</h3>" + d.world.html + "</div>";
+    html += '<div class="card"><h3><span class="emoji">🧩</span>Word Problems</h3>' + d.word + "</div>";
+
+    html += '<div class="card"><h3><span class="emoji">🧠</span>Quiz Time!</h3>' + quizHtml(d, i) + "</div>";
+
+    html += '<div class="card reward-card" id="rewardCard-' + i + '"></div>';
+
+    html += '<button class="big-btn" data-done="' + i + '">Mark Today Complete 🎉</button>';
+  }
+  sec.innerHTML = html;
+  root.appendChild(sec);
 });
-document.getElementById('checkAll').addEventListener('click',()=>{PROBLEMS.forEach((_,n)=>check(n));});
-function check(n){const cell=document.getElementById('cell-'+n),input=cell.querySelector('input'),fb=cell.querySelector('.feedback');state.answers[n]=input.value;cell.classList.remove('correct','wrong');fb.hidden=false;const p=PROBLEMS[n];
- const value=normalized(input.value);if(value===null){fb.textContent='Type your answer as a number, then check. For money use dollars and cents like 7.00. Commas are OK.';delete state.checked[n];save();refresh();return;}
- const correct=matches(p,value);cell.classList.add(correct?'correct':'wrong');fb.textContent=correct?'✓ Correct!':'✗ Not quite. Correct answer: '+fmt(p)+'. You can edit and try again.';state.checked[n]=true;save();refresh();}
-function refresh(){let solved=0,attempted=0;PROBLEMS.forEach((p,n)=>{if(state.checked[n]){attempted++;if(matches(p,normalized(state.answers[n])))solved++;}});document.getElementById('progressFill').style.width=(solved/50*100)+'%';document.getElementById('progressLabel').textContent=solved+' of 50 puzzles solved'+(solved===50?' · Grid complete! 🏆🎃':'');}
-PROBLEMS.forEach((_,n)=>{if(state.checked[n])check(n);});refresh();save();
-</script></body></html>
+
+
+// Daily math: feedback stays beside each question; no required written-work entry.
+function mathTokens(value) {
+  var text=String(value).toLowerCase().replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');
+  return {numbers:(text.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number), words:(text.match(/[a-z]+/g)||[])};
+}
+function mathAnswerMatches(value,expected){
+  var got=mathTokens(value),want=mathTokens(expected);
+  var allowed=['cm','m','mm','l','ml','dollar','dollars','cent','cents','book','books','card','cards','tree','trees','word','words','straw','straws','sheet','sheets','page','pages','leaf','leaves','bus','buses','seat','seats','bookmark','bookmarks','and','budget','remains','remain','left','empty','larger','by','is','the','answer'];
+  if(got.words.some(function(w){return allowed.indexOf(w)<0&&want.words.indexOf(w)<0;}))return false;
+  var units=['cm','m','mm','l','ml'];
+  if(got.words.some(function(w){return units.indexOf(w)>=0&&want.words.indexOf(w)<0;}))return false;
+  if(String(expected).indexOf('+')>=0){got.numbers.sort(function(a,b){return a-b;});want.numbers.sort(function(a,b){return a-b;});}
+  return got.numbers.length===want.numbers.length&&got.numbers.every(function(n,i){return n===want.numbers[i];});
+}
+DAYS.slice(0,5).forEach(function(d,day){
+  var box=document.querySelector('.daily-math[data-day="'+day+'"]');if(!box)return;
+  var stored=(state.mathWork||{})[day]||{};
+  var previousChecks=(state.mathFeedback||{})[day]||{};
+  d.mathProblems.forEach(function(p,n){
+    var row=document.createElement('div');row.className='problem';
+    var typ=p.kind==='A'?'Quick pick':p.kind==='B'?'Short answer':'🚀 Reasoning word problem';
+    var prompt='<label for="math-'+day+'-'+n+'">'+(n+1)+'. '+typ+': '+p.q+'</label>';
+    if(p.kind==='A'){
+      var num=Number(p.answer.replace(/,/g,'')),vals=[num,num+10,num+1,Math.max(0,num-10)].map(String),unique=[];
+      vals.forEach(function(v){if(unique.indexOf(v)<0)unique.push(v);});while(unique.length<4)unique.push(String(num+unique.length+2));
+      var shift=(day*3+n)%4;unique=unique.slice(shift).concat(unique.slice(0,shift));
+      prompt+='<div class="choices">'+unique.map(function(v,j){return '<label><input type="radio" name="pick-'+day+'-'+n+'" value="'+v+'"> '+String.fromCharCode(65+j)+'. '+v+'</label>';}).join('')+'</div>';
+    }else prompt+='<input id="math-'+day+'-'+n+'" aria-label="Answer for problem '+(n+1)+'" placeholder="Your answer (units optional)" autocomplete="off">';
+    prompt+='<button type="button" class="checkOne">Check answer</button><p class="mathResult" role="status" aria-live="polite" hidden></p>';
+
+    row.innerHTML=prompt;box.appendChild(row);
+    var old=stored[n]||{},inp=row.querySelector('input:not([type=radio])');
+    if(inp)inp.value=old.answer||'';
+    if(old.answer&&p.kind==='A'){var found=Array.prototype.find.call(row.querySelectorAll('input[type=radio]'),function(x){return x.value===old.answer;});if(found)found.checked=true;}
+    row.querySelector('.checkOne').addEventListener('click',function(){checkRow(n);persist();summary();});
+    row.addEventListener('input',function(){row.querySelector('.mathResult').hidden=true;row.classList.remove('mathCorrect','mathIncorrect');var detail=row.querySelector('.optionalWork');if(detail){detail.hidden=true;detail.open=false;}state.mathFeedback=state.mathFeedback||{};state.mathFeedback[day]=state.mathFeedback[day]||{};delete state.mathFeedback[day][n];state.mathChecked=state.mathChecked||{};state.mathChecked[day]=false;persist();summary();});
+  });
+  var button=document.createElement('button');button.type='button';button.className='checkMath';button.textContent='Check answers';box.appendChild(button);
+  var notice=document.createElement('p');notice.setAttribute('role','status');box.appendChild(notice);
+  function answerAt(n){var row=box.querySelectorAll('.problem')[n],pick=row.querySelector('input[type=radio]:checked'),inp=row.querySelector('input:not([type=radio])');return pick?pick.value:inp?inp.value.trim():'';}
+  function checkRow(n){
+    var row=box.querySelectorAll('.problem')[n],value=answerAt(n),result=row.querySelector('.mathResult');
+    result.hidden=false;row.classList.remove('mathCorrect','mathIncorrect');
+    if(!value){result.textContent='Enter an answer, then check it here.';var detail=row.querySelector('.optionalWork');if(detail)detail.hidden=true;return;}
+    var correct=mathAnswerMatches(value,d.mathProblems[n].answer);row.classList.add(correct?'mathCorrect':'mathIncorrect');
+    result.textContent=correct?'✓ Correct!':'✗ Not quite. Correct answer: '+d.mathProblems[n].answer+'. You can edit and check again.';
+    var detail=row.querySelector('.optionalWork');if(detail)detail.hidden=false;
+    state.mathFeedback=state.mathFeedback||{};state.mathFeedback[day]=state.mathFeedback[day]||{};state.mathFeedback[day][n]=true;
+  }
+  function summary(){
+    var rows=Array.prototype.slice.call(box.querySelectorAll('.problem')),answered=rows.filter(function(_,n){return !!answerAt(n);}).length,checked=rows.filter(function(row){return !row.querySelector('.mathResult').hidden&&!!row.className.match(/mathCorrect|mathIncorrect/);}).length,correct=rows.filter(function(row){return row.classList.contains('mathCorrect');}).length;
+    state.mathChecked=state.mathChecked||{};state.mathChecked[day]=answered===d.mathProblems.length&&checked===d.mathProblems.length;
+    notice.textContent=checked?correct+' correct of '+checked+' checked. '+answered+' of '+d.mathProblems.length+' answered. Feedback is beside each question.':'';save();
+  }
+  function persist(){state.mathWork=state.mathWork||{};state.mathWork[day]=state.mathWork[day]||{};d.mathProblems.forEach(function(_,n){var old=state.mathWork[day][n]||{};state.mathWork[day][n]={answer:answerAt(n),work:old.work||''};});save();}
+  button.addEventListener('click',function(){d.mathProblems.forEach(function(_,n){checkRow(n);});persist();summary();});
+  d.mathProblems.forEach(function(_,n){if(previousChecks[n]||(state.mathChecked&&state.mathChecked[day]&&answerAt(n)))checkRow(n);});summary();
+});
+
+function showDay(i) {
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) { b.classList.toggle("active", bi === i); });
+  Array.prototype.forEach.call(root.children, function (s, si) { s.classList.toggle("active", si === i); });
+}
+function refreshProgress() {
+  var n = 0, totalDays = 0;
+  for (var i = 0; i < DAYS.length; i++) {
+    if (DAYS[i].weekly) continue;
+    totalDays++;
+    if (state.done[i]) n++;
+  }
+  document.getElementById("progressFill").style.width = (n / totalDays * 100) + "%";
+  document.getElementById("progressLabel").textContent = n + " of " + totalDays + " days done";
+  Array.prototype.forEach.call(tabsEl.children, function (b, bi) {
+    b.classList.toggle("done", DAYS[bi].weekly ? n === totalDays : !!state.done[bi]);
+    var btn = root.children[bi].querySelector("[data-done]");
+    if (btn) { btn.disabled = !!state.done[bi]; btn.textContent = state.done[bi] ? "Day Complete ✅" : "Mark Today Complete 🎉"; }
+  });
+  for (var j = 0; j < DAYS.length; j++) {
+    if (DAYS[j].weekly) continue;
+    var rc = document.getElementById("rewardCard-" + j);
+    if (!rc) continue;
+    if (state.done[j]) {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video - Unlocked!</h3>' +
+        '<a class="link-btn" href="' + DAYS[j].reward.url + '" target="_blank" rel="noopener">' + DAYS[j].reward.label + "</a>" +
+        "<p>You earned it, superstar! ⭐</p>";
+    } else {
+      rc.innerHTML = '<h3><span class="emoji">🎁</span>Reward Video</h3>' +
+        "<p>🔒 Finish today's mission + quiz, tap <b>Mark Today Complete</b>, and a fun surprise video unlocks right here!</p>";
+    }
+  }
+  var wl = document.getElementById("weeklyLock"), wq = document.getElementById("weeklyQuizCard");
+  if (wl && wq) {
+    var allDone = n === totalDays;
+    wl.style.display = allDone ? "none" : "block";
+    wq.style.display = allDone ? "block" : "none";
+  }
+}
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t.classList && t.classList.contains("opt")) {
+    var day = +t.getAttribute("data-day"), q = +t.getAttribute("data-q"), o = +t.getAttribute("data-o");
+    var qBox = t.closest(".quiz-q");
+    if (qBox.getAttribute("data-answered")) return;
+    qBox.setAttribute("data-answered", "1");
+    var correct = DAYS[day].quiz[q].a;
+    Array.prototype.forEach.call(qBox.querySelectorAll(".opt"), function (btn) {
+      btn.disabled = true;
+      var oi = +btn.getAttribute("data-o");
+      if (oi === correct) btn.classList.add("correct");
+      else if (oi === o) btn.classList.add("wrong");
+    });
+    var box = document.querySelector('.quiz[data-day="' + day + '"]');
+    var answered = box.querySelectorAll(".quiz-q[data-answered]").length;
+    var total = DAYS[day].quiz.length;
+    if (answered === total) {
+      var score = box.querySelectorAll(".opt.correct").length - countWrong(box);
+      score = 0;
+      box.querySelectorAll(".quiz-q").forEach(function (qb) {
+        var correctIdx = DAYS[day].quiz[+qb.querySelector(".opt").getAttribute("data-q")].a;
+        var picked = qb.querySelector(".opt.wrong");
+        if (!picked) score++;
+      });
+      var msg = "You got " + score + " / " + total + (score === total ? " - PERFECT! 🏆" : score >= total - 1 ? " - Great job! 🌟" : " - Good practice! 💪");
+      document.getElementById("quizScore-" + day).textContent = msg;
+      if (!state.quizBest[day] || score > state.quizBest[day]) { state.quizBest[day] = score; save(); }
+    }
+  }
+  if (t.getAttribute && t.getAttribute("data-done") !== null) {
+    var di = +t.getAttribute("data-done");
+    var quizBox=document.querySelector('.quiz[data-day="'+di+'"]');
+    var mathBox=document.querySelector('.daily-math[data-day="'+di+'"]');
+    if(quizBox.querySelectorAll('.quiz-q[data-answered]').length<DAYS[di].quiz.length){
+      alert("Finish today's five quiz questions before unlocking the reward.");return;
+    }
+    if(!state.mathChecked||!state.mathChecked[di]){
+      alert('Answer and check all 15 math questions before unlocking the reward. Written workings are optional.');return;
+    }
+    state.done[di] = true; save(); refreshProgress();
+    var c = document.getElementById("confetti");
+    c.classList.add("show");
+    setTimeout(function () { c.classList.remove("show"); }, 1400);
+  }
+});
+function countWrong(box) { return box.querySelectorAll(".opt.wrong").length; }
+
+// ---------- Math modal ----------
+var modal = document.getElementById("mathModal");
+document.getElementById("openMath").addEventListener("click", function () { modal.classList.add("open"); setTimeout(function () { document.getElementById("mathInput").focus(); }, 150); });
+document.getElementById("closeMath").addEventListener("click", function () { modal.classList.remove("open"); });
+
+// Fact dash
+var cur = null, mScore = 0, mCount = 0;
+var TIPS = [
+  "number bonds: break 8 + 5 into 8 + 2 + 3 to make a ten!",
+  "make 100 first: 47 + 53 = 47 + 50 + 3. Friendly numbers win!",
+  "doubles plus one: 7 + 8 is 7 + 7 + 1 = 15.",
+  "\u00d7 4 is double-double: 6 \u00d7 4 = double 6, then double again = 24.",
+  "\u00f7 is \u00d7 backwards: 24 \u00f7 6? Think 6 \u00d7 ? = 24.",
+  "bar model: draw the whole bar, split it into parts, and the answer pops out.",
+  "\u00d7 9 trick: 9 = 10 - 1, so 7 \u00d7 9 = 70 - 7 = 63.",
+  "skip-count by the second number: 4 \u00d7 6 = 6, 12, 18, 24."
+];
+function newFact() {
+  if (mCount >= 30) { mCount = 0; mScore = 0; document.getElementById("newFact").textContent = "New Fact"; }
+  var a, b, q, ans, mx;
+  var pick = ri(1, 4);
+  if (pick === 1) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(1, mx); b = ri(1, mx); if (a + b > mx) { a = ri(1, Math.max(1, mx - 1)); b = ri(1, mx - a); } q = a + " + " + b + " = ?"; ans = a + b; }
+  else if (pick === 2) { mx = Math.random() < 0.5 ? 20 : 100; a = ri(2, mx); b = ri(1, a); q = a + " - " + b + " = ?"; ans = a - b; }
+  else if (pick === 3) { a = ri(2, 9); b = ri(2, 9); if (a * b > 60) { b = Math.max(2, Math.floor(60 / a)); } q = a + " × " + b + " = ?"; ans = a * b; }
+  else { b = ri(2, 9); ans = ri(2, 9); if (b * ans > 60) { ans = Math.max(2, Math.floor(60 / b)); } a = b * ans; q = a + " ÷ " + b + " = ?"; }
+  cur = { q: q, ans: ans };
+  var mi = document.getElementById("mathInput");
+  mi.value = "";
+  document.getElementById("mathQ").textContent = cur.q;
+  document.getElementById("mathFb").textContent = "";
+  document.getElementById("mathScore").textContent = "Problem " + (mCount + 1) + " of 30 \u00b7 Score: " + mScore + " \u00b7 Best: " + state.mathBest;
+  var tipEl = document.getElementById("mathTip");
+  if (tipEl) tipEl.textContent = "\ud83d\udca1 Tip: " + TIPS[ri(0, TIPS.length - 1)];
+  setTimeout(function () { mi.focus(); }, 50);
+}
+function submitFact() {
+  if (!cur) return;
+  var mi = document.getElementById("mathInput");
+  if (mi.value === "") return;
+  var val = parseInt(mi.value, 10);
+  mCount++;
+  var fb = document.getElementById("mathFb");
+  if (val === cur.ans) { mScore++; fb.textContent = "✅ Correct!"; fb.className = "math-fb good"; }
+  else { fb.textContent = "❌ It was " + cur.ans + " - next one!"; fb.className = "math-fb bad"; }
+  if (mScore > state.mathBest) { state.mathBest = mScore; save(); }
+  cur = null;
+  if (mCount >= 30) {
+    document.getElementById("mathScore").textContent = "Session done! Final: " + mScore + " / 30 \u00b7 Best: " + state.mathBest;
+    document.getElementById("mathQ").textContent = mScore >= 27 ? "\ud83c\udfc6 MATH CHAMPION!" : mScore >= 21 ? "\ud83c\udf1f Great work!" : "\ud83d\udcaa Good practice!";
+    fb.textContent += " Hit Start New 30 for another round!";
+    document.getElementById("newFact").textContent = "Start New 30";
+  } else {
+    setTimeout(newFact, 900);
+  }
+}
+function ri(lo, hi) { return Math.floor(Math.random() * (hi - lo + 1)) + lo; }
+document.getElementById("newFact").addEventListener("click", newFact);
+document.getElementById("mathGo").addEventListener("click", submitFact);
+document.getElementById("mathInput").addEventListener("keydown", function (e) { if (e.key === "Enter") submitFact(); });
+document.getElementById("mathScore").textContent = "Problem 0 of 30 \u00b7 Score: 0 \u00b7 Best: " + state.mathBest;
+
+showDay(0);
+refreshProgress();
+</script>
+</body>
+</html>
