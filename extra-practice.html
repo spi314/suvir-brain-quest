@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Word Problem Gym - Suvir Brain Quest</title>
+<style>
+:root{color-scheme:dark;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0f2027,#203a43 40%,#2c5364);color:#eef7ff;min-height:100vh;}
+header{padding:18px 16px 8px;text-align:center;}
+header h1{margin:0 0 4px;font-size:1.7rem;color:#ffd54a;}
+header p{margin:4px 0;color:#cfe8ff;}
+a{color:#ffd54a;}
+nav.top{padding:0 16px 10px;text-align:center;font-size:.95rem;}
+main{max-width:680px;margin:0 auto;padding:0 12px 40px;}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:12px 0;}
+.card p,.card li{color:#e8f4ff;font-size:.95rem;line-height:1.5;}
+button{min-height:44px;padding:11px 18px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;cursor:pointer;}
+button.ghost{background:#2a5578;color:#dff1ff;}
+.problem{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-left:4px solid #ffd54a;border-radius:14px;padding:14px;margin:12px 0;}
+.problem.correct{border-left-color:#42d77d;}
+.problem.wrong{border-left-color:#ff8a8a;}
+.problem .qline{font-size:1rem;line-height:1.55;}
+.problem .qnum{display:inline-block;background:#ffd54a;color:#142536;font-weight:800;border-radius:8px;padding:2px 9px;margin-right:8px;}
+.problem input{width:100%;max-width:280px;min-height:48px;padding:12px;font:inherit;font-size:1.05rem;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 8px 0 0;}
+.problem .feedback{margin:10px 0 0;font-weight:700;}
+.problem.correct .feedback{color:#a6ff7e;}
+.problem.wrong .feedback{color:#ffb8b8;}
+details.hint{margin:8px 0 0;font-size:.9rem;}
+details.hint summary{cursor:pointer;color:#9fd0ea;font-weight:700;}
+details.hint p{margin:6px 0 0;color:#ffe9a8;}
+.tbtn{margin:6px 4px 0;}
+#scorePanel{text-align:center;font-size:1.1rem;font-weight:700;color:#a6ff7e;display:none;}
+footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
+</style></head><body>
+<header><h1>⚡ Word Problem Gym</h1>
+<p>20 two-step word problems &bull; no timer &bull; answers save on this iPad</p></header>
+<nav class="top"><a href="index.html">🏠 Brain Quest home</a></nav>
+<main>
+<section class="card"><p><b>How to play:</b> read each problem twice, find the hidden multiplication first, then finish the second step. Try it yourself before tapping <b>Show hint</b>. Draw a bar model on paper if it helps. Type your answer and tap <b>Check</b>.</p></section>
+<div class="problem" id="p1"><div class="qline"><span class="qnum">1</span>Seven bags hold 8 marbles each. Suvir gives away 9 marbles. How many marbles does he have left?</div>
+<details class="hint"><summary>Show hint</summary><p>Multiply first: 7 groups of 8. Then take away 9.</p></details>
+<div><input id="in1" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 1"><button class="tbtn" onclick="checkOne(1)">Check</button></div>
+<div class="feedback" id="fb1"></div></div>
+<div class="problem" id="p2"><div class="qline"><span class="qnum">2</span>The library has 6 shelves with 12 books on each shelf. 15 books are checked out. How many books are still on the shelves?</div>
+<details class="hint"><summary>Show hint</summary><p>6 groups of 12, then subtract the checked-out books.</p></details>
+<div><input id="in2" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 2"><button class="tbtn" onclick="checkOne(2)">Check</button></div>
+<div class="feedback" id="fb2"></div></div>
+<div class="problem" id="p3"><div class="qline"><span class="qnum">3</span>Suvir scores 9 rounds of 6 points in a game, then loses 8 points. What is his final score?</div>
+<details class="hint"><summary>Show hint</summary><p>9 groups of 6, then subtract 8.</p></details>
+<div><input id="in3" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 3"><button class="tbtn" onclick="checkOne(3)">Check</button></div>
+<div class="feedback" id="fb3"></div></div>
+<div class="problem" id="p4"><div class="qline"><span class="qnum">4</span>Suvir goes to 5 soccer practices a week for 4 weeks, plus 3 extra Saturday practices. How many practices is that in all?</div>
+<details class="hint"><summary>Show hint</summary><p>Multiply 5 by 4, then add the 3 extra.</p></details>
+<div><input id="in4" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 4"><button class="tbtn" onclick="checkOne(4)">Check</button></div>
+<div class="feedback" id="fb4"></div></div>
+<div class="problem" id="p5"><div class="qline"><span class="qnum">5</span>Movie tickets cost $7 each. Suvir buys 8 tickets and pays with $60. How much change does he get?</div>
+<details class="hint"><summary>Show hint</summary><p>8 groups of 7, then subtract from 60.</p></details>
+<div><input id="in5" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 5"><button class="tbtn" onclick="checkOne(5)">Check</button></div>
+<div class="feedback" id="fb5"></div></div>
+<div class="problem" id="p6"><div class="qline"><span class="qnum">6</span>A bus has 11 rows with 5 seats in each row, but 4 seats are broken. How many seats can be used?</div>
+<details class="hint"><summary>Show hint</summary><p>11 groups of 5, then subtract the 4 broken seats.</p></details>
+<div><input id="in6" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 6"><button class="tbtn" onclick="checkOne(6)">Check</button></div>
+<div class="feedback" id="fb6"></div></div>
+<div class="problem" id="p7"><div class="qline"><span class="qnum">7</span>Three boxes hold 9 apples each, and 6 more apples sit in a bowl. How many apples are there in all?</div>
+<details class="hint"><summary>Show hint</summary><p>3 groups of 9, then add 6.</p></details>
+<div><input id="in7" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 7"><button class="tbtn" onclick="checkOne(7)">Check</button></div>
+<div class="feedback" id="fb7"></div></div>
+<div class="problem" id="p8"><div class="qline"><span class="qnum">8</span>Suvir reads 9 pages every day for 7 days. His goal is 80 pages. How many pages short of his goal is he?</div>
+<details class="hint"><summary>Show hint</summary><p>9 groups of 7, then compare with 80.</p></details>
+<div><input id="in8" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 8"><button class="tbtn" onclick="checkOne(8)">Check</button></div>
+<div class="feedback" id="fb8"></div></div>
+<div class="problem" id="p9"><div class="qline"><span class="qnum">9</span>Forty-eight crayons are shared equally into 6 cups. How many crayons go in each cup?</div>
+<details class="hint"><summary>Show hint</summary><p>Think: 6 times what number makes 48?</p></details>
+<div><input id="in9" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 9"><button class="tbtn" onclick="checkOne(9)">Check</button></div>
+<div class="feedback" id="fb9"></div></div>
+<div class="problem" id="p10"><div class="qline"><span class="qnum">10</span>A party shop blows up 6 bunches of 8 balloons. Then 13 balloons pop. How many balloons are left?</div>
+<details class="hint"><summary>Show hint</summary><p>6 groups of 8, then take away the popped ones.</p></details>
+<div><input id="in10" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 10"><button class="tbtn" onclick="checkOne(10)">Check</button></div>
+<div class="feedback" id="fb10"></div></div>
+<div class="problem" id="p11"><div class="qline"><span class="qnum">11</span>Team Red scores 7 rounds of 6 points. Team Blue scores 5 rounds of 9 points. How many MORE points does the winning team have?</div>
+<details class="hint"><summary>Show hint</summary><p>Find both totals, then compare them.</p></details>
+<div><input id="in11" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 11"><button class="tbtn" onclick="checkOne(11)">Check</button></div>
+<div class="feedback" id="fb11"></div></div>
+<div class="problem" id="p12"><div class="qline"><span class="qnum">12</span>A giant grid has 10 rows of 10 tiles. 28 tiles are red. How many tiles are NOT red?</div>
+<details class="hint"><summary>Show hint</summary><p>10 groups of 10, then subtract the red tiles.</p></details>
+<div><input id="in12" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 12"><button class="tbtn" onclick="checkOne(12)">Check</button></div>
+<div class="feedback" id="fb12"></div></div>
+<div class="problem" id="p13"><div class="qline"><span class="qnum">13</span>Suvir saves $9 every week for 6 weeks, then spends $25 on a book. How much money does he have left?</div>
+<details class="hint"><summary>Show hint</summary><p>6 groups of 9, then subtract 25.</p></details>
+<div><input id="in13" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 13"><button class="tbtn" onclick="checkOne(13)">Check</button></div>
+<div class="feedback" id="fb13"></div></div>
+<div class="problem" id="p14"><div class="qline"><span class="qnum">14</span>A sticker album holds 8 rows of 7 stickers. Suvir has placed 14 stickers. How many spots are still empty?</div>
+<details class="hint"><summary>Show hint</summary><p>8 groups of 7, then subtract 14.</p></details>
+<div><input id="in14" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 14"><button class="tbtn" onclick="checkOne(14)">Check</button></div>
+<div class="feedback" id="fb14"></div></div>
+<div class="problem" id="p15"><div class="qline"><span class="qnum">15</span>Five packs hold 11 trading cards each, and Suvir gets 9 more cards for his birthday. How many cards does he have now?</div>
+<details class="hint"><summary>Show hint</summary><p>5 groups of 11, then add 9.</p></details>
+<div><input id="in15" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 15"><button class="tbtn" onclick="checkOne(15)">Check</button></div>
+<div class="feedback" id="fb15"></div></div>
+<div class="problem" id="p16"><div class="qline"><span class="qnum">16</span>A 96-page book is split into 8 equal chapters. How many pages are in each chapter?</div>
+<details class="hint"><summary>Show hint</summary><p>Think: 8 times what number makes 96?</p></details>
+<div><input id="in16" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 16"><button class="tbtn" onclick="checkOne(16)">Check</button></div>
+<div class="feedback" id="fb16"></div></div>
+<div class="problem" id="p17"><div class="qline"><span class="qnum">17</span>Seven cartons hold 12 eggs each. A baker uses 30 eggs. How many eggs are left?</div>
+<details class="hint"><summary>Show hint</summary><p>7 groups of 12, then subtract 30.</p></details>
+<div><input id="in17" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 17"><button class="tbtn" onclick="checkOne(17)">Check</button></div>
+<div class="feedback" id="fb17"></div></div>
+<div class="problem" id="p18"><div class="qline"><span class="qnum">18</span>A theater has 9 rows of 9 seats. 65 people are seated. How many seats are still empty?</div>
+<details class="hint"><summary>Show hint</summary><p>9 groups of 9, then subtract 65.</p></details>
+<div><input id="in18" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 18"><button class="tbtn" onclick="checkOne(18)">Check</button></div>
+<div class="feedback" id="fb18"></div></div>
+<div class="problem" id="p19"><div class="qline"><span class="qnum">19</span>Suvir practices piano 15 minutes a day for 4 days, then 25 minutes on Friday. How many minutes does he practice in all?</div>
+<details class="hint"><summary>Show hint</summary><p>4 groups of 15, then add 25.</p></details>
+<div><input id="in19" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 19"><button class="tbtn" onclick="checkOne(19)">Check</button></div>
+<div class="feedback" id="fb19"></div></div>
+<div class="problem" id="p20"><div class="qline"><span class="qnum">20</span>🚀 A school fair needs 100 candies. Suvir packs 12 bags with 6 candies in each bag. How many MORE candies does he need?</div>
+<details class="hint"><summary>Show hint</summary><p>Find 12 groups of 6 first, then see what is missing to reach 100.</p></details>
+<div><input id="in20" type="text" inputmode="numeric" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 20"><button class="tbtn" onclick="checkOne(20)">Check</button></div>
+<div class="feedback" id="fb20"></div></div>
+<div style="text-align:center;margin:18px 0;">
+<button onclick="checkAll()">✅ Check all answers</button>
+<button class="ghost" onclick="resetAnswers()">🧹 Clear my answers</button>
+</div>
+<div class="card" id="scorePanel"></div>
+</main>
+<footer>Made for Suvir with ❤️</footer>
+<script>
+const PROBLEMS=[{n:1,a:'47'},{n:2,a:'57'},{n:3,a:'46'},{n:4,a:'23'},{n:5,a:'4'},{n:6,a:'51'},{n:7,a:'33'},{n:8,a:'17'},{n:9,a:'8'},{n:10,a:'35'},{n:11,a:'3'},{n:12,a:'72'},{n:13,a:'29'},{n:14,a:'42'},{n:15,a:'64'},{n:16,a:'12'},{n:17,a:'54'},{n:18,a:'16'},{n:19,a:'85'},{n:20,a:'28'}];
+const KEY='suvir-word-gym-v1';
+let state={answers:{}};
+try{const raw=localStorage.getItem(KEY); if(raw){const s=JSON.parse(raw); if(s&&s.answers) state=s;}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function norm(s){return String(s).toLowerCase().trim().replace(/[$,\s]/g,'').replace(/\.00$/,'');}
+function checkOne(n){
+  const p=PROBLEMS.find(x=>x.n===n);
+  const inp=document.getElementById('in'+n),fb=document.getElementById('fb'+n),card=document.getElementById('p'+n);
+  const v=norm(inp.value);
+  state.answers[n]=inp.value;
+  if(!v){card.classList.remove('correct','wrong');fb.textContent='';save();return false;}
+  const ok=v===p.a;
+  card.classList.toggle('correct',ok);card.classList.toggle('wrong',!ok);
+  fb.textContent= ok ? '✅ Correct!' : '❌ Not quite. The correct answer is '+p.a+'. You can edit and check again.';
+  save();return ok;
+}
+function checkAll(){
+  let c=0,ans=0;
+  PROBLEMS.forEach(p=>{const inp=document.getElementById('in'+p.n); if(norm(inp.value)!==''){ans++; if(checkOne(p.n)) c++;}});
+  const sp=document.getElementById('scorePanel');
+  sp.style.display='block';
+  sp.innerHTML='<h3>🏆 Score: '+c+' / 20</h3><p>'+ans+' of 20 answered.'+(c===20?' PERFECT GYM SESSION! 🌟':(c>=16?' Great work - fix the red ones!':' Keep going - hints are there if you need them.'))+'</p>';
+}
+function resetAnswers(){
+  PROBLEMS.forEach(p=>{document.getElementById('in'+p.n).value='';document.getElementById('fb'+p.n).textContent='';document.getElementById('p'+p.n).classList.remove('correct','wrong');});
+  state={answers:{}};save();document.getElementById('scorePanel').style.display='none';
+}
+PROBLEMS.forEach(p=>{const inp=document.getElementById('in'+p.n);
+  inp.addEventListener('input',()=>{state.answers[p.n]=inp.value;save();document.getElementById('p'+p.n).classList.remove('correct','wrong');document.getElementById('fb'+p.n).textContent='';});
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkOne(p.n);});
+  if(state.answers[p.n]) inp.value=state.answers[p.n];
+});
+</script>
+</body></html>
