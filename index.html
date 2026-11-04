@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suvir's Brain Quest</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(160deg,#0f2027 0%,#203a43 40%,#2c5364 100%);min-height:100vh;color:#fff;padding-bottom:60px;}
+header{padding:26px 16px 10px;text-align:center;}
+header h1{margin:0;font-size:1.8rem;letter-spacing:.5px;}
+header h1 .star{color:#ffd54a;}
+header p.sub{margin:6px 0 0;color:#bfe3ff;font-size:.9rem;}
+main{max-width:640px;margin:0 auto;padding:14px;}
+.tile{display:block;text-decoration:none;color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:20px;margin:0 0 16px;transition:transform .15s ease;}
+.tile:hover{background:rgba(255,255,255,.12);transform:translateY(-2px);}
+.tile .row{display:flex;align-items:center;gap:16px;}
+.tile .emoji{font-size:2.4rem;}
+.tile h2{margin:0;font-size:1.2rem;}
+.tile p{margin:5px 0 0;color:#cfe8ff;font-size:.9rem;line-height:1.45;}
+.tile .tag{display:inline-block;margin-top:8px;font-size:.75rem;font-weight:800;color:#142536;background:#ffd54a;border-radius:999px;padding:3px 10px;}
+.tile .tag.green{background:#a6ff7e;}
+.tile .status{display:block;margin-top:8px;font-size:.8rem;color:#9fd0ea;}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;margin-bottom:14px;}
+.card h3{margin:0 0 8px;font-size:1.05rem;}
+.card p,.card li{color:#e8f4ff;font-size:.95rem;line-height:1.5;}
+.card a{color:#ffd54a;font-weight:700;}
+footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
+</style></head><body>
+<header><h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+<p class="sub">Pick a section to start!</p></header>
+<main>
+
+<a class="tile" href="week-nov2-6.html">
+  <div class="row"><div class="emoji">📅</div>
+  <div><h2>This Week: Nov 2-6</h2>
+  <p>Explorers &amp; Multiplication Week - daily reading quests, 10 word problems a day, Fact Dash, quizzes, and reward videos.</p>
+  <span class="tag">WEEKLY ADVENTURE</span>
+  <span class="status" id="weekStatus"></span></div></div>
+</a>
+
+<a class="tile" href="noetic/index.html">
+  <div class="row"><div class="emoji">🏆</div>
+  <div><h2>Noetic Contest Practice</h2>
+  <p>Six practice tests, 20 problems each. Print a test, solve it on paper, then enter answers here to check them. Optional 45-minute timer, just like the real day. Contest: Friday, Nov 13!</p>
+  <span class="tag green">PRINTABLE TESTS</span>
+  <span class="status" id="noeticStatus"></span></div></div>
+</a>
+
+<a class="tile" href="extra-practice.html">
+  <div class="row"><div class="emoji">⚡</div>
+  <div><h2>Extra Math Practice</h2>
+  <p>Word Problem Gym - 20 more two-step word problems with hints when you want them. No timer, just practice.</p>
+  <span class="tag">WORD PROBLEMS</span>
+  <span class="status" id="gymStatus"></span></div></div>
+</a>
+
+<section class="card"><h3><span class="emoji">📚</span>Earlier weeks</h3>
+<p><a href="weekend-oct31-nov1.html">Weekend Sprint - Oct 31-Nov 1</a> · <a href="week-oct26-30.html">Week of Oct 26-30</a> · <a href="weekend-oct24-25.html">Weekend Sprint - Oct 24-25</a> · <a href="week-oct19-23.html">Week of Oct 19-23</a> · <a href="enrichment-grade3.html">Grade 3 Enrichment</a></p></section>
+
+</main>
+<footer>Made for Suvir with ❤️ · Nov 2026</footer>
+<script>
+try{
+  var w=JSON.parse(localStorage.getItem('suvir-brain-quest-week-nov2-6-v1')||'null');
+  if(w&&w.done){var n=Object.keys(w.done).filter(function(k){return w.done[k];}).length;
+    if(n>0)document.getElementById('weekStatus').textContent=n+' of 5 days done';}
+  var bests=[];
+  for(var i=1;i<=6;i++){var b=localStorage.getItem('suvir-noetic-test-'+i+'-v1:best');if(b)bests.push('Test '+i+': '+b+'/20');}
+  if(bests.length)document.getElementById('noeticStatus').textContent='Best so far - '+bests.join(' · ');
+  var g=JSON.parse(localStorage.getItem('suvir-word-gym-v1')||'null');
+  if(g&&g.answers){var ga=Object.keys(g.answers).filter(function(k){return String(g.answers[k]).trim()!=='';}).length;
+    if(ga>0)document.getElementById('gymStatus').textContent=ga+' of 20 answered';}
+}catch(e){}
+</script>
+</body></html>
