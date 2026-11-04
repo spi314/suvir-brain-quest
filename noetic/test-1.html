@@ -39,16 +39,30 @@ button.ghost{background:#2a5578;color:#dff1ff;}
 .testlink .status{display:block;font-size:.85rem;color:#bfe3ff;margin-top:4px;}
 footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
 @media(max-width:420px){html{font-size:16px;}header h1{font-size:1.4rem;}main{padding:0 10px 30px;}}
+
+.printonly{display:none;}
+@media print{
+ body{background:#fff;color:#000;}
+ nav.top,#timerBox,#scorePanel,.card,button,input,.feedback,footer{display:none !important;}
+ .problem{background:#fff;border:none;border-bottom:1px solid #bbb;border-radius:0;page-break-inside:avoid;padding:16px 0 8px;margin:0;}
+ .problem .qline{color:#000;}
+ .problem .qnum{background:#000;color:#fff;}
+ .problem::after{content:"Answer: ____________________";display:block;margin-top:52px;color:#555;font-size:.9rem;}
+ header h1{color:#000;}header p{color:#333;}
+ .printonly{display:block !important;color:#000;font-size:1rem;margin:4px 0 8px;line-height:1.8;}
+}
 </style></head><body>
 <header><h1>🏆 Noetic Practice Test 1</h1>
 <p>20 problems &bull; 45 minutes &bull; No calculators &bull; Score = correct answers &times; 5</p></header>
 <nav class="top"><a href="../index.html">🏠 Brain Quest home</a> &bull; <a href="index.html">🏆 All Noetic tests</a></nav>
 <main>
+<div class="printonly"><b>Noetic Practice Test 1</b> &nbsp;&bull;&nbsp; Name: ______________________ &nbsp;&bull;&nbsp; Date: ______________ &nbsp;&bull;&nbsp; Score: ______ / 100<br>20 problems &bull; 45 minutes &bull; no calculator &bull; show your work in the space under each problem.</div>
 <section class="card"><h3>📋 How this works</h3>
 <ul><li>Type an answer for each problem, then tap <b>Check</b> to see if it is right.</li>
 <li>For letter questions, type just the letter (A, B, C, or D).</li>
 <li>Tap <b>Start 45-minute timer</b> when you are ready to practice like the real contest.</li>
-<li>Your answers are saved on this iPad even if you close the page.</li></ul></section>
+<li>Your answers are saved on this iPad even if you close the page.</li><li><b>Paper mode:</b> tap <b>Print this test</b> below, solve on paper, then come back here and type your answers to check them online.</li></ul></section>
+<div class="noprint" style="text-align:center;margin:12px 0;"><button class="tbtn" onclick="window.print()">🖨️ Print this test (paper worksheet)</button></div>
 <div id="timerBox">
 <div id="clock">45:00</div>
 <button class="tbtn" id="startBtn" onclick="startTimer()">▶️ Start 45-minute timer</button>
