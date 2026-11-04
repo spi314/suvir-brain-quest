@@ -89,6 +89,110 @@ footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
 <div class="qline"><span class="qnum">6</span>Ravi uses a balance scale twice with a toy truck and a teddy bear. The results are shown below. Which statement is correct?<br><b>A)</b> The toy truck weighs 50 g. &nbsp; <b>B)</b> The toy truck weighs more than 50 g. &nbsp; <b>C)</b> The toy truck weighs less than 50 g. &nbsp; <b>D)</b> The toy truck weighs more than 60 g.<br>Write A, B, C, or D as your answer.</div>
 <div class="fig"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:flex-start"><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="70" x2="260" y2="70" stroke="#495057" stroke-width="4"/><line x1="40" y1="70" x2="14" y2="104" stroke="#495057" stroke-width="2"/><line x1="40" y1="70" x2="66" y2="104" stroke="#495057" stroke-width="2"/><path d="M8,104 A32,14 0 0 0 72,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><rect x="29.0" y="81.0" width="22.0" height="22.0" rx="4" fill="#4dabf7" stroke="#1864ab" stroke-width="1.5"/><line x1="260" y1="70" x2="234" y2="104" stroke="#495057" stroke-width="2"/><line x1="260" y1="70" x2="286" y2="104" stroke="#495057" stroke-width="2"/><path d="M228,104 A32,14 0 0 0 292,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="260.0" cy="92" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 1 (balanced)</text></svg></div><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="52" x2="260" y2="88" stroke="#495057" stroke-width="4"/><line x1="40" y1="52" x2="14" y2="86" stroke="#495057" stroke-width="2"/><line x1="40" y1="52" x2="66" y2="86" stroke="#495057" stroke-width="2"/><path d="M8,86 A32,14 0 0 0 72,86 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="40.0" cy="74" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><line x1="260" y1="88" x2="234" y2="122" stroke="#495057" stroke-width="2"/><line x1="260" y1="88" x2="286" y2="122" stroke="#495057" stroke-width="2"/><path d="M228,122 A32,14 0 0 0 292,122 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><path d="M247.0,122 L273.0,122 L268.0,100 L252.0,100 Z" fill="#adb5bd" stroke="#495057" stroke-width="1.5"/><text x="260.0" y="118" font-family="Verdana" font-size="10" font-weight="bold" fill="#212529" text-anchor="middle">50g</text><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 2</text></svg></div></div></div>
 <div><input id="in6" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 6"><button class="tbtn" onclick="checkOne(6,true)">Check</button></div>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Noetic Practice Test 2 - Suvir Brain Quest</title>
+<style>
+:root{color-scheme:dark;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:Verdana,'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#0d2b45,#123a5c 55%,#0b2036);color:#eef7ff;min-height:100vh;}
+header{padding:18px 16px 8px;text-align:center;}
+header h1{margin:0 0 4px;font-size:1.7rem;color:#ffd54a;}
+header p{margin:4px 0;color:#cfe8ff;}
+a{color:#ffd54a;}
+nav.top{padding:0 16px 10px;text-align:center;font-size:.95rem;}
+nav.top a{margin:0 10px;}
+main{max-width:760px;margin:0 auto;padding:0 12px 40px;}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px;margin:12px 0;}
+.card h3{margin:0 0 8px;font-size:1.05rem;}
+.card p,.card li{color:#e8f4ff;font-size:.95rem;line-height:1.5;}
+.card ul{margin:8px 0 0;padding-left:20px;}
+#timerBox{text-align:center;position:sticky;top:0;z-index:5;background:linear-gradient(160deg,#12395c,#0d2b45);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px;margin:12px 0;box-shadow:0 4px 18px rgba(0,0,0,.35);}
+#clock{font-size:2.2rem;font-weight:800;color:#a6ff7e;font-variant-numeric:tabular-nums;}
+#clock.warn{color:#ffd54a;}
+#clock.done{color:#ff8a8a;}
+.tbtn{margin:6px 4px 0;}
+button{min-height:44px;padding:11px 18px;border:0;border-radius:10px;font:inherit;font-weight:800;background:#ffd54a;color:#142536;cursor:pointer;}
+button.ghost{background:#2a5578;color:#dff1ff;}
+.problem{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-left:4px solid #ffd54a;border-radius:14px;padding:14px;margin:12px 0;}
+.problem.correct{border-left-color:#42d77d;}
+.problem.wrong{border-left-color:#ff8a8a;}
+.problem .qline{font-size:1rem;line-height:1.55;color:#eef7ff;}
+.problem .qnum{display:inline-block;background:#ffd54a;color:#142536;font-weight:800;border-radius:8px;padding:2px 9px;margin-right:8px;}
+.problem input{width:100%;max-width:280px;min-height:48px;padding:12px;font:inherit;font-size:1.05rem;border:2px solid #b6d1df;border-radius:10px;background:#fff;color:#142536;margin:10px 8px 0 0;}
+.problem .feedback{margin:10px 0 0;font-weight:700;}
+.problem.correct .feedback{color:#a6ff7e;}
+.problem.wrong .feedback{color:#ffb8b8;}
+#scorePanel{text-align:center;font-size:1.1rem;font-weight:700;color:#a6ff7e;display:none;}
+#timeup{display:none;text-align:center;font-weight:800;color:#ff8a8a;margin:10px 0 0;}
+.testlink{display:block;padding:14px;margin:10px 0;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);text-decoration:none;color:#eef7ff;font-size:1.05rem;}
+.testlink:hover{background:rgba(255,255,255,.12);}
+.testlink .status{display:block;font-size:.85rem;color:#bfe3ff;margin-top:4px;}
+footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
+@media(max-width:420px){html{font-size:16px;}header h1{font-size:1.4rem;}main{padding:0 10px 30px;}}
+
+.printonly{display:none;}
+@media print{
+ body{background:#fff;color:#000;}
+ nav.top,#timerBox,#scorePanel,.card,button,input,.feedback,footer{display:none !important;}
+ .problem{background:#fff;border:none;border-bottom:1px solid #bbb;border-radius:0;page-break-inside:avoid;padding:16px 0 8px;margin:0;}
+ .problem .qline{color:#000;}
+ .problem .qnum{background:#000;color:#fff;}
+ .problem::after{content:"Answer: ____________________";display:block;margin-top:52px;color:#555;font-size:.9rem;}
+ header h1{color:#000;}header p{color:#333;}
+ .printonly{display:block !important;color:#000;font-size:1rem;margin:4px 0 8px;line-height:1.8;}
+}
+</style></head><body>
+<header><h1>🏆 Noetic Practice Test 2</h1>
+<p>20 problems &bull; 45 minutes &bull; No calculators &bull; Score = correct answers &times; 5</p></header>
+<nav class="top"><a href="../index.html">🏠 Brain Quest home</a> &bull; <a href="index.html">🏆 All Noetic tests</a></nav>
+<main>
+<div class="printonly"><b>Noetic Practice Test 2</b> &nbsp;&bull;&nbsp; Name: ______________________ &nbsp;&bull;&nbsp; Date: ______________ &nbsp;&bull;&nbsp; Score: ______ / 100<br>20 problems &bull; 45 minutes &bull; no calculator &bull; show your work in the space under each problem.</div>
+<section class="card"><h3>📋 How this works</h3>
+<ul><li>Type an answer for each problem, then tap <b>Check</b> to see if it is right.</li>
+<li>For letter questions, type just the letter (A, B, C, or D).</li>
+<li>Tap <b>Start 45-minute timer</b> when you are ready to practice like the real contest.</li>
+<li>Your answers are saved on this iPad even if you close the page.</li><li><b>Paper mode:</b> tap <b>Print this test</b> below, solve on paper, then come back here and type your answers to check them online.</li></ul></section>
+<div class="noprint" style="text-align:center;margin:12px 0;"><button class="tbtn" onclick="window.print()">🖨️ Print this test (paper worksheet)</button></div>
+<div id="timerBox">
+<div id="clock">45:00</div>
+<button class="tbtn" id="startBtn" onclick="startTimer()">▶️ Start 45-minute timer</button>
+<button class="tbtn ghost" id="resetTimerBtn" style="display:none" onclick="resetTimer()">🔄 Restart timer</button>
+<div id="timeup">⏰ Time's up! You can still finish and check your answers.</div>
+</div>
+<div class="problem" id="p1">
+<div class="qline"><span class="qnum">1</span>25 + 25 = ?</div>
+
+<div><input id="in1" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 1"><button class="tbtn" onclick="checkOne(1,true)">Check</button></div>
+<div class="feedback" id="fb1"></div>
+</div>
+<div class="problem" id="p2">
+<div class="qline"><span class="qnum">2</span>One spider has 8 legs. How many legs do 4 spiders have in all?</div>
+
+<div><input id="in2" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 2"><button class="tbtn" onclick="checkOne(2,true)">Check</button></div>
+<div class="feedback" id="fb2"></div>
+</div>
+<div class="problem" id="p3">
+<div class="qline"><span class="qnum">3</span>How many dots are on the border of the figure below?</div>
+<div class="fig"><svg viewBox="0 0 186 152" width="186" height="152" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="59" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="93" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="25" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="59" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="59" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="93" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="93" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="127" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="127" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="25" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="59" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="93" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/><circle cx="161" cy="127" r="7" fill="#1971c2" stroke="#0b4a80" stroke-width="1.5"/></svg></div>
+<div><input id="in3" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 3"><button class="tbtn" onclick="checkOne(3,true)">Check</button></div>
+<div class="feedback" id="fb3"></div>
+</div>
+<div class="problem" id="p4">
+<div class="qline"><span class="qnum">4</span>Ben has 18 trading cards. Ana has 7 more cards than Ben. How many cards do they have in all?</div>
+
+<div><input id="in4" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 4"><button class="tbtn" onclick="checkOne(4,true)">Check</button></div>
+<div class="feedback" id="fb4"></div>
+</div>
+<div class="problem" id="p5">
+<div class="qline"><span class="qnum">5</span>A swim lesson starts at 2:30 p.m. and ends at 4:00 p.m. How many minutes long is the lesson?</div>
+
+<div><input id="in5" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 5"><button class="tbtn" onclick="checkOne(5,true)">Check</button></div>
+<div class="feedback" id="fb5"></div>
+</div>
+<div class="problem" id="p6">
+<div class="qline"><span class="qnum">6</span>Ravi uses a balance scale twice with a toy truck and a teddy bear. The results are shown below. Which statement is correct?<br><b>A)</b> The toy truck weighs 50 g. &nbsp; <b>B)</b> The toy truck weighs more than 50 g. &nbsp; <b>C)</b> The toy truck weighs less than 50 g. &nbsp; <b>D)</b> The toy truck weighs more than 60 g.<br>Write A, B, C, or D as your answer.</div>
+<div class="fig"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:flex-start"><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="70" x2="260" y2="70" stroke="#495057" stroke-width="4"/><line x1="40" y1="70" x2="14" y2="104" stroke="#495057" stroke-width="2"/><line x1="40" y1="70" x2="66" y2="104" stroke="#495057" stroke-width="2"/><path d="M8,104 A32,14 0 0 0 72,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><rect x="29.0" y="81.0" width="22.0" height="22.0" rx="4" fill="#4dabf7" stroke="#1864ab" stroke-width="1.5"/><line x1="260" y1="70" x2="234" y2="104" stroke="#495057" stroke-width="2"/><line x1="260" y1="70" x2="286" y2="104" stroke="#495057" stroke-width="2"/><path d="M228,104 A32,14 0 0 0 292,104 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="260.0" cy="92" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 1 (balanced)</text></svg></div><div><svg viewBox="0 0 300 180" width="300" height="180" role="img" style="max-width:100%;height:auto;display:block;margin:8px auto;background:#fff;border-radius:12px;" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="300" height="180" fill="#fff"/><polygon points="150,56 136,88 164,88" fill="#868e96" stroke="#495057" stroke-width="1.5"/><line x1="40" y1="52" x2="260" y2="88" stroke="#495057" stroke-width="4"/><line x1="40" y1="52" x2="14" y2="86" stroke="#495057" stroke-width="2"/><line x1="40" y1="52" x2="66" y2="86" stroke="#495057" stroke-width="2"/><path d="M8,86 A32,14 0 0 0 72,86 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><circle cx="40.0" cy="74" r="12.0" fill="#51cf66" stroke="#2b8a3e" stroke-width="1.5"/><line x1="260" y1="88" x2="234" y2="122" stroke="#495057" stroke-width="2"/><line x1="260" y1="88" x2="286" y2="122" stroke="#495057" stroke-width="2"/><path d="M228,122 A32,14 0 0 0 292,122 Z" fill="#dee2e6" stroke="#495057" stroke-width="2"/><path d="M247.0,122 L273.0,122 L268.0,100 L252.0,100 Z" fill="#adb5bd" stroke="#495057" stroke-width="1.5"/><text x="260.0" y="118" font-family="Verdana" font-size="10" font-weight="bold" fill="#212529" text-anchor="middle">50g</text><text x="150" y="18" font-family="Verdana,Arial,sans-serif" font-size="13" fill="#142536" text-anchor="middle">Scale 2</text></svg></div></div></div>
+<div><input id="in6" type="text" autocomplete="off" placeholder="Type your answer" aria-label="Answer for problem 6"><button class="tbtn" onclick="checkOne(6,true)">Check</button></div>
 <div class="feedback" id="fb6"></div>
 </div>
 <div class="problem" id="p7">
