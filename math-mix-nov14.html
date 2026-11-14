@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math Quest: Review Mix - Suvir's Brain Quest</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+
+  .daily-math .problem { padding:12px; margin:10px 0; border-left:4px solid #ffd54a; background:#ffffff0b; border-radius:10px; }
+  .daily-math label { display:block; font-weight:700; margin:5px 0; }
+  .daily-math input,.daily-math textarea { width:100%; margin:5px 0; padding:10px; background:#fff; color:#142536; border:0; border-radius:8px; font:inherit; }
+  .daily-math textarea { min-height:64px; resize:vertical; }
+  .daily-math .choices label { padding:7px; font-weight:500; }
+  .daily-math .choices input { width:auto; margin-right:7px; }
+  .daily-math .checkMath { width:100%; padding:12px; background:#ffd54a; color:#142536; border:0; border-radius:10px; font-weight:800; }
+  .daily-math .answerKey { display:none; line-height:1.5; color:#d5ffc4; margin-top:10px; }
+  .daily-math .checkOne {padding:9px 12px;border:0;border-radius:8px;background:#ffd54a;color:#142536;font:inherit;font-weight:700;margin-top:6px;}
+  .daily-math .mathResult {margin:10px 0 0;font-weight:700;}
+  .daily-math .mathCorrect {border-left-color:#42d77d;}
+  .daily-math .mathCorrect .mathResult {color:#a6ff7e;}
+  .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
+  .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
+  .daily-math .optionalWork {margin-top:8px;}
+  .links-card a { color:#ffd54a; font-weight:700; }
+
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Math Quest: Review Mix · Nov 14</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 20 correct</div>
+</div>
+
+<main id="root">
+  <section class="card"><h3><span class="emoji">📋</span>How it works</h3>
+  <p>20 fresh problems - rounding, adding &amp; subtracting, fractions, and measuring. Type your answer, then tap <b>Check answer</b> beside it, or <b>Check all answers</b> at the bottom. Feedback appears right under each problem, with the correct answer if you miss. Problems marked 🚀 are extra stretchy - work them out on paper. Your work saves on this device.</p></section>
+</main>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Nov 2026</footer>
+
+<script>
+var SECTIONS = [
+  {
+    "emoji": "🔢",
+    "name": "Place Value & Rounding",
+    "problems": [
+      {
+        "q": "In the number 6,384, what is the value of the digit 3?",
+        "answer": "300"
+      },
+      {
+        "q": "Round 648 to the nearest ten.",
+        "answer": "650"
+      },
+      {
+        "q": "Round 2,751 to the nearest hundred.",
+        "answer": "2,800"
+      },
+      {
+        "q": "Which is the largest: 5,309, 5,903, or 5,093? Type the number.",
+        "answer": "5,903"
+      },
+      {
+        "q": "🚀 A mystery number rounds to 700 when rounded to the nearest hundred, and to 740 when rounded to the nearest ten. Its ones digit is 3. What is the number?",
+        "answer": "743"
+      }
+    ]
+  },
+  {
+    "emoji": "➕",
+    "name": "Add & Subtract Challenge",
+    "problems": [
+      {
+        "q": "A caravan carried 486 bolts of silk. Traders sold 219 bolts in one town and 145 bolts in the next town. How many bolts are left?",
+        "answer": "122"
+      },
+      {
+        "q": "What number is missing? 380 + ___ = 1,000",
+        "answer": "620"
+      },
+      {
+        "q": "Suvir scored 468 points in his first game and 377 points in his second game. Riya scored 900 points in all. How many more points did Riya score than Suvir?",
+        "answer": "55"
+      },
+      {
+        "q": "701 - 386 = ?",
+        "answer": "315"
+      },
+      {
+        "q": "🚀 A basket holds 500 dates. Merchants pack 186 into sacks, and 74 are eaten at camp. Then 150 fresh dates are added. How many dates are in the basket now?",
+        "answer": "390"
+      }
+    ]
+  },
+  {
+    "emoji": "🍕",
+    "name": "Fraction Fun",
+    "problems": [
+      {
+        "q": "A loaf of nan bread is cut into 6 equal pieces. Suvir eats 2 pieces. What fraction of the loaf is left? Type it with 6 on the bottom, like 3/6.",
+        "answer": "4/6"
+      },
+      {
+        "q": "Which is greater, 1/2 or 1/4? Type the greater fraction.",
+        "answer": "1/2"
+      },
+      {
+        "q": "A rectangle is split into 8 equal parts, and 5 parts are shaded. What fraction is shaded?",
+        "answer": "5/8"
+      },
+      {
+        "q": "On a number line, the space from 0 to 1 is split into 3 equal parts. What fraction names the first mark after 0?",
+        "answer": "1/3"
+      },
+      {
+        "q": "🚀 Which fraction is closest to 1 whole: 3/4, 7/8, or 2/3? Type the fraction.",
+        "answer": "7/8"
+      }
+    ]
+  },
+  {
+    "emoji": "📐",
+    "name": "Measure, Time & Data",
+    "problems": [
+      {
+        "q": "A garden bed is 7 feet long and 4 feet wide. What is its perimeter in feet?",
+        "answer": "22"
+      },
+      {
+        "q": "A square sticker has sides of 6 cm. What is its area in square cm?",
+        "answer": "36"
+      },
+      {
+        "q": "Suvir starts his math at 10:20 and finishes at 10:55. How many minutes did he work?",
+        "answer": "35"
+      },
+      {
+        "q": "Suvir's class voted on the coolest trade good: silk got 9 votes, spices got 6 votes, and tea got 4 votes. How many MORE votes did silk get than tea?",
+        "answer": "5"
+      },
+      {
+        "q": "🚀 A rectangle has a perimeter of 20 inches. Its length is 7 inches. What is its width in inches?",
+        "answer": "3"
+      }
+    ]
+  }
+];
+
+var LS = "suvir-math-mix-nov14-v1";
+var state = { work: {}, feedback: {} };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+var PROBLEMS = [];
+SECTIONS.forEach(function (sec, si) {
+  sec.problems.forEach(function (p, pi) { PROBLEMS.push({ sec: si, q: p.q, answer: p.answer }); });
+});
+
+// Same answer matcher as the weekly Brain Quest pages.
+function mathTokens(value) {
+  var text=String(value).toLowerCase().replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');
+  return {numbers:(text.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number), words:(text.match(/[a-z]+/g)||[])};
+}
+function mathAnswerMatches(value,expected){
+  var got=mathTokens(value),want=mathTokens(expected);
+  var allowed=['cm','m','mm','l','ml','dollar','dollars','cent','cents','book','books','card','cards','tree','trees','word','words','straw','straws','sheet','sheets','page','pages','leaf','leaves','bus','buses','seat','seats','bookmark','bookmarks','and','budget','remains','remain','left','empty','larger','by','is','the','answer'];
+  if(got.words.some(function(w){return allowed.indexOf(w)<0&&want.words.indexOf(w)<0;}))return false;
+  var units=['cm','m','mm','l','ml'];
+  if(got.words.some(function(w){return units.indexOf(w)>=0&&want.words.indexOf(w)<0;}))return false;
+  if(String(expected).indexOf('+')>=0){got.numbers.sort(function(a,b){return a-b;});want.numbers.sort(function(a,b){return a-b;});}
+  return got.numbers.length===want.numbers.length&&got.numbers.every(function(n,i){return n===want.numbers[i];});
+}
+
+var root = document.getElementById("root");
+SECTIONS.forEach(function (sec, si) {
+  var card = document.createElement("section");
+  card.className = "card";
+  card.innerHTML = '<h3><span class="emoji">' + sec.emoji + '</span>' + sec.name + '</h3><div class="daily-math" data-sec="' + si + '"></div>';
+  root.appendChild(card);
+});
+
+var checkAllBtn = document.createElement("button");
+checkAllBtn.className = "big-btn";
+checkAllBtn.id = "checkAll";
+checkAllBtn.textContent = "Check all answers ✅";
+root.appendChild(checkAllBtn);
+
+var champion = document.createElement("section");
+champion.className = "card";
+champion.id = "championCard";
+champion.style.display = "none";
+champion.innerHTML = '<h3><span class="emoji">🏆</span>MATH CHAMPION!</h3><p>All 20 correct - amazing work, Suvir! ⭐</p></section>';
+root.appendChild(champion);
+
+var links = document.createElement("section");
+links.className = "card links-card";
+links.innerHTML = '<h3><span class="emoji">🏠</span>More quests</h3><p><a href="index.html">Brain Quest home</a> · <a href="extra-practice.html">Word Problem Gym</a> · <a href="noetic/index.html">Noetic practice tests</a></p>';
+root.appendChild(links);
+
+function answerAt(row) { var inp = row.querySelector('input'); return inp ? inp.value.trim() : ''; }
+
+function checkRow(gi) {
+  var row = document.querySelector('.problem[data-gi="' + gi + '"]');
+  var result = row.querySelector('.mathResult');
+  var value = answerAt(row);
+  result.hidden = false;
+  row.classList.remove('mathCorrect', 'mathIncorrect');
+  if (!value) { result.textContent = 'Enter an answer, then check it here.'; return; }
+  var correct = mathAnswerMatches(value, PROBLEMS[gi].answer);
+  row.classList.add(correct ? 'mathCorrect' : 'mathIncorrect');
+  result.textContent = correct ? '✓ Correct!' : '✗ Not quite. Correct answer: ' + PROBLEMS[gi].answer + '. You can edit and check again.';
+  state.feedback[gi] = true;
+  summary(); save();
+}
+
+function summary() {
+  var correct = 0, checked = 0, answered = 0;
+  PROBLEMS.forEach(function (p, gi) {
+    var row = document.querySelector('.problem[data-gi="' + gi + '"]');
+    if (answerAt(row)) answered++;
+    if (state.feedback[gi] && !row.querySelector('.mathResult').hidden) {
+      checked++;
+      if (row.classList.contains('mathCorrect')) correct++;
+    }
+  });
+  document.getElementById('progressFill').style.width = (correct / PROBLEMS.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = correct + ' of ' + PROBLEMS.length + ' correct';
+  if (correct === PROBLEMS.length) {
+    champion.style.display = 'block';
+    var c = document.getElementById('confetti');
+    c.classList.add('show');
+    setTimeout(function () { c.classList.remove('show'); }, 1400);
+  } else {
+    champion.style.display = 'none';
+  }
+}
+
+PROBLEMS.forEach(function (p, gi) {
+  var box = document.querySelector('.daily-math[data-sec="' + p.sec + '"]');
+  var row = document.createElement('div');
+  row.className = 'problem';
+  row.setAttribute('data-gi', gi);
+  var n = gi + 1;
+  row.innerHTML = '<label for="math-' + gi + '">' + n + '. ' + p.q + '</label>' +
+    '<input id="math-' + gi + '" aria-label="Answer for problem ' + n + '" placeholder="Your answer (units optional)" autocomplete="off">' +
+    '<button type="button" class="checkOne">Check answer</button>' +
+    '<p class="mathResult" role="status" aria-live="polite" hidden></p>';
+  box.appendChild(row);
+  var old = state.work[gi] || {};
+  var inp = row.querySelector('input');
+  inp.value = old.answer || '';
+  row.querySelector('.checkOne').addEventListener('click', function () { checkRow(gi); });
+  row.addEventListener('input', function () {
+    row.querySelector('.mathResult').hidden = true;
+    row.classList.remove('mathCorrect', 'mathIncorrect');
+    delete state.feedback[gi];
+    summary(); save();
+  });
+  inp.addEventListener('input', function () {
+    state.work[gi] = { answer: inp.value };
+    save();
+  });
+});
+
+checkAllBtn.addEventListener('click', function () {
+  PROBLEMS.forEach(function (p, gi) { checkRow(gi); });
+});
+
+// Restore prior checked state
+PROBLEMS.forEach(function (p, gi) {
+  if (state.feedback[gi]) checkRow(gi);
+});
+summary();
+</script>
+</body>
+</html>
