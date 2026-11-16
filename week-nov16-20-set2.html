@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weekly Problems: Set 2 - Suvir's Brain Quest</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+
+  .daily-math .problem { padding:12px; margin:10px 0; border-left:4px solid #ffd54a; background:#ffffff0b; border-radius:10px; }
+  .daily-math label { display:block; font-weight:700; margin:5px 0; }
+  .daily-math input,.daily-math textarea { width:100%; margin:5px 0; padding:10px; background:#fff; color:#142536; border:0; border-radius:8px; font:inherit; }
+  .daily-math textarea { min-height:64px; resize:vertical; }
+  .daily-math .choices label { padding:7px; font-weight:500; }
+  .daily-math .choices input { width:auto; margin-right:7px; }
+  .daily-math .checkMath { width:100%; padding:12px; background:#ffd54a; color:#142536; border:0; border-radius:10px; font-weight:800; }
+  .daily-math .answerKey { display:none; line-height:1.5; color:#d5ffc4; margin-top:10px; }
+  .daily-math .checkOne {padding:9px 12px;border:0;border-radius:8px;background:#ffd54a;color:#142536;font:inherit;font-weight:700;margin-top:6px;}
+  .daily-math .mathResult {margin:10px 0 0;font-weight:700;}
+  .daily-math .mathCorrect {border-left-color:#42d77d;}
+  .daily-math .mathCorrect .mathResult {color:#a6ff7e;}
+  .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
+  .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
+  .daily-math .optionalWork {margin-top:8px;}
+  .links-card a { color:#ffd54a; font-weight:700; }
+
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="star">⭐</span> Suvir's Brain Quest <span class="star">⭐</span></h1>
+  <p class="sub">Week of Nov 16-20 · Set 2 · 50 fresh problems</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 50 correct</div>
+</div>
+
+<main id="root">
+  <section class="card"><h3><span class="emoji">📋</span>How it works</h3>
+  <p>50 brand-new problems for the week of Nov 16-20 - none repeat the first set. One card per day: place value, adding &amp; subtracting, multiplying &amp; dividing, time and measurement, and data &amp; logic. Type your answer, then tap <b>Check answer</b> beside it, or <b>Check all answers</b> at the bottom. Feedback appears right under each problem, with the correct answer if you miss. Problems marked 🚀 are extra stretchy - work them out on paper. Your work saves on this device.</p></section>
+</main>
+
+<div class="confetti" id="confetti">🎉 ⭐ 🎉</div>
+<footer>Made for Suvir with ❤️ · Nov 2026</footer>
+
+<script>
+var SECTIONS = [
+  {
+    "emoji": "🧭",
+    "name": "Mon Nov 16 · Place Value Puzzles",
+    "problems": [
+      {
+        "q": "What is 100 more than 3,950?",
+        "answer": "4050"
+      },
+      {
+        "q": "Write the number eight thousand sixty in digits.",
+        "answer": "8060"
+      },
+      {
+        "q": "Which number is 1,000 less than 7,040?",
+        "answer": "6040"
+      },
+      {
+        "q": "Which is the SMALLEST: 4,401, 4,114, or 4,041? Type the number.",
+        "answer": "4041"
+      },
+      {
+        "q": "A number has 6 thousands, 3 tens, and 9 ones (and no hundreds). Write it in digits.",
+        "answer": "6039"
+      },
+      {
+        "q": "2,000 + 400 + 70 + 5 = ? Type the number.",
+        "answer": "2475"
+      },
+      {
+        "q": "What number is missing? 4,386 = 4,000 + ___ + 6",
+        "answer": "380"
+      },
+      {
+        "q": "If you swap the tens digit and the ones digit of 5,283, what number do you get?",
+        "answer": "5238"
+      },
+      {
+        "q": "Which number is closer to 5,000: 4,802 or 5,194? Type the number.",
+        "answer": "5194"
+      },
+      {
+        "q": "🚀 A three-digit number has digits that add to 12. Its hundreds digit is 5 and the number is even. What is the LARGEST possible number?",
+        "answer": "570"
+      }
+    ]
+  },
+  {
+    "emoji": "➕",
+    "name": "Tue Nov 17 · Add & Subtract Detective",
+    "problems": [
+      {
+        "q": "Estimate: 398 + 205 is closest to which hundred? Type the hundred.",
+        "answer": "600"
+      },
+      {
+        "q": "What number is missing? ___ − 245 = 381",
+        "answer": "626"
+      },
+      {
+        "q": "A basket holds 20 apples. One quarter of them are green. How many green apples are there?",
+        "answer": "5"
+      },
+      {
+        "q": "904 − 468 = ?",
+        "answer": "436"
+      },
+      {
+        "q": "A theater has 700 seats and 486 tickets are sold. How many seats are empty?",
+        "answer": "214"
+      },
+      {
+        "q": "Team Red scored 318 points and Team Blue scored 276. How many more points does Blue need to TIE Red?",
+        "answer": "42"
+      },
+      {
+        "q": "Start at 1,000. Subtract 250, then add 75. What do you get?",
+        "answer": "825"
+      },
+      {
+        "q": "Three classes collected cans: 214, 189, and 236. How many cans altogether?",
+        "answer": "639"
+      },
+      {
+        "q": "A school has 845 students. If 389 are boys, how many are girls?",
+        "answer": "456"
+      },
+      {
+        "q": "🚀 Two numbers add to 150. Their difference is 30. What is the BIGGER number?",
+        "answer": "90"
+      }
+    ]
+  },
+  {
+    "emoji": "✖️",
+    "name": "Wed Nov 18 · Multiply & Divide",
+    "problems": [
+      {
+        "q": "7 × 8 = ?",
+        "answer": "56"
+      },
+      {
+        "q": "A spider has 8 legs. How many legs do 6 spiders have?",
+        "answer": "48"
+      },
+      {
+        "q": "56 ÷ 7 = ?",
+        "answer": "8"
+      },
+      {
+        "q": "5 boxes hold 45 crayons, with the same number in each box. How many crayons are in each box?",
+        "answer": "9"
+      },
+      {
+        "q": "Each pack has 6 juice boxes. How many juice boxes are in 7 packs?",
+        "answer": "42"
+      },
+      {
+        "q": "Which number makes this true? 9 × ___ = 63",
+        "answer": "7"
+      },
+      {
+        "q": "34 stickers are shared equally among 4 kids. How many stickers are left over?",
+        "answer": "2"
+      },
+      {
+        "q": "A baker packs 6 muffins into each box. With 50 muffins, how many FULL boxes can he pack?",
+        "answer": "8"
+      },
+      {
+        "q": "A 63 cm ribbon is cut into 9 equal pieces. How long is each piece in centimeters?",
+        "answer": "7"
+      },
+      {
+        "q": "🚀 A farm has 8 chickens and 3 cows. How many legs do all the animals have together?",
+        "answer": "28"
+      }
+    ]
+  },
+  {
+    "emoji": "⏰",
+    "name": "Thu Nov 19 · Time, Money & Measurement",
+    "problems": [
+      {
+        "q": "Lunch starts at 12:10 and lasts 40 minutes. When does it end? Type h:mm.",
+        "answer": "12:50"
+      },
+      {
+        "q": "A movie starts at 3:45 and ends at 5:00. How many minutes long is it?",
+        "answer": "75"
+      },
+      {
+        "q": "How many minutes are in 2 hours?",
+        "answer": "120"
+      },
+      {
+        "q": "You have 3 quarters, 2 dimes, and 1 nickel. How many cents is that?",
+        "answer": "100"
+      },
+      {
+        "q": "A desk is 120 cm long. A bookshelf is 1 meter long. How many centimeters LONGER is the desk?",
+        "answer": "20"
+      },
+      {
+        "q": "A square playground has sides of 20 meters. Suvir runs all the way around it once. How many meters does he run?",
+        "answer": "80"
+      },
+      {
+        "q": "A bottle holds 2 liters. A glass holds 250 mL. How many full glasses can the bottle fill?",
+        "answer": "8"
+      },
+      {
+        "q": "It is 4:35. What time will it be in 50 minutes? Type h:mm.",
+        "answer": "5:25"
+      },
+      {
+        "q": "A ribbon is 1 meter 45 centimeters long. Type its length in centimeters.",
+        "answer": "145"
+      },
+      {
+        "q": "🚀 Buses leave every 15 minutes starting at 8:05. Suvir arrives at the stop at 8:38. How many minutes until the NEXT bus?",
+        "answer": "12"
+      }
+    ]
+  },
+  {
+    "emoji": "📊",
+    "name": "Fri Nov 20 · Data, Shapes & Logic",
+    "problems": [
+      {
+        "q": "A pictograph of ice cream cones sold uses one cone picture for every 5 cones. Monday 3 pictures, Tuesday 2 pictures, Wednesday 4 pictures. How many cones were sold on Wednesday?",
+        "answer": "20"
+      },
+      {
+        "q": "Using the same pictograph, how many MORE cones were sold on Wednesday than on Tuesday?",
+        "answer": "10"
+      },
+      {
+        "q": "Which fraction is SMALLER, 2/3 or 2/5? Type the fraction.",
+        "answer": "2/5"
+      },
+      {
+        "q": "How many sides does a hexagon have?",
+        "answer": "6"
+      },
+      {
+        "q": "A triangle has sides of 5 cm, 12 cm, and 13 cm. What is its perimeter in centimeters?",
+        "answer": "30"
+      },
+      {
+        "q": "How many corners (vertices) does a cube have?",
+        "answer": "8"
+      },
+      {
+        "q": "A rectangle is 10 cm long and 4 cm wide. What is its area in square centimeters?",
+        "answer": "40"
+      },
+      {
+        "q": "Which number is the odd one out: 12, 18, 25, 30? (Three are multiples of 6.) Type the number.",
+        "answer": "25"
+      },
+      {
+        "q": "Continue the pattern: 3, 6, 12, 24, ___",
+        "answer": "48"
+      },
+      {
+        "q": "🚀 Four friends line up. Ana is first. Cora stands right behind Ana. Ben is not last. In which position is Dan? Type 1st, 2nd, 3rd, or 4th.",
+        "answer": "4th"
+      }
+    ]
+  }
+];
+var LS = "suvir-brain-quest-week-nov16-20-set2-v1";
+var state = { work: {}, feedback: {} };
+try { var s = localStorage.getItem(LS); if (s) state = JSON.parse(s); } catch (e) {}
+function save() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} }
+
+var PROBLEMS = [];
+SECTIONS.forEach(function (sec, si) {
+  sec.problems.forEach(function (p, pi) { PROBLEMS.push({ sec: si, q: p.q, answer: p.answer }); });
+});
+
+// Same answer matcher as the weekly Brain Quest pages.
+function mathTokens(value) {
+  var text=String(value).toLowerCase().replace(/(\d),(?=\d{3}(?:\D|$))/g,'$1');
+  return {numbers:(text.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number), words:(text.match(/[a-z]+/g)||[])};
+}
+function mathAnswerMatches(value,expected){
+  var got=mathTokens(value),want=mathTokens(expected);
+  var allowed=['cm','m','mm','l','ml','dollar','dollars','cent','cents','book','books','card','cards','tree','trees','word','words','straw','straws','sheet','sheets','page','pages','leaf','leaves','bus','buses','seat','seats','bookmark','bookmarks','minute','minutes','hour','hours','meter','meters','liter','liters','glass','glasses','picture','pictures','cone','cones','and','budget','remains','remain','left','empty','larger','by','is','the','answer'];
+  if(got.words.some(function(w){return allowed.indexOf(w)<0&&want.words.indexOf(w)<0;}))return false;
+  if(String(expected).indexOf('+')>=0){got.numbers.sort(function(a,b){return a-b;});want.numbers.sort(function(a,b){return a-b;});}
+  return got.numbers.length===want.numbers.length&&got.numbers.every(function(n,i){return n===want.numbers[i];});
+}
+
+var root = document.getElementById("root");
+SECTIONS.forEach(function (sec, si) {
+  var card = document.createElement("section");
+  card.className = "card";
+  card.innerHTML = '<h3><span class="emoji">' + sec.emoji + '</span>' + sec.name + '</h3><div class="daily-math" data-sec="' + si + '"></div>';
+  root.appendChild(card);
+});
+
+var checkAllBtn = document.createElement("button");
+checkAllBtn.className = "big-btn";
+checkAllBtn.id = "checkAll";
+checkAllBtn.textContent = "Check all answers ✅";
+root.appendChild(checkAllBtn);
+
+var champion = document.createElement("section");
+champion.className = "card";
+champion.id = "championCard";
+champion.style.display = "none";
+champion.innerHTML = '<h3><span class="emoji">🏆</span>MATH CHAMPION!</h3><p>All 50 correct - amazing work, Suvir! ⭐</p></section>';
+root.appendChild(champion);
+
+var links = document.createElement("section");
+links.className = "card links-card";
+links.innerHTML = '<h3><span class="emoji">🏠</span>More quests</h3><p><a href="index.html">Brain Quest home</a> · <a href="week-nov16-20.html">This week: first set</a> · <a href="noetic/index.html">Noetic practice tests</a></p>';
+root.appendChild(links);
+
+function answerAt(row) { var inp = row.querySelector('input'); return inp ? inp.value.trim() : ''; }
+
+function checkRow(gi) {
+  var row = document.querySelector('.problem[data-gi="' + gi + '"]');
+  var result = row.querySelector('.mathResult');
+  var value = answerAt(row);
+  result.hidden = false;
+  row.classList.remove('mathCorrect', 'mathIncorrect');
+  if (!value) { result.textContent = 'Enter an answer, then check it here.'; return; }
+  var correct = mathAnswerMatches(value, PROBLEMS[gi].answer);
+  row.classList.add(correct ? 'mathCorrect' : 'mathIncorrect');
+  result.textContent = correct ? '✓ Correct!' : '✗ Not quite. Correct answer: ' + PROBLEMS[gi].answer + '. You can edit and check again.';
+  state.feedback[gi] = true;
+  summary(); save();
+}
+
+function summary() {
+  var correct = 0, checked = 0, answered = 0;
+  PROBLEMS.forEach(function (p, gi) {
+    var row = document.querySelector('.problem[data-gi="' + gi + '"]');
+    if (answerAt(row)) answered++;
+    if (state.feedback[gi] && !row.querySelector('.mathResult').hidden) {
+      checked++;
+      if (row.classList.contains('mathCorrect')) correct++;
+    }
+  });
+  document.getElementById('progressFill').style.width = (correct / PROBLEMS.length * 100) + '%';
+  document.getElementById('progressLabel').textContent = correct + ' of ' + PROBLEMS.length + ' correct';
+  if (correct === PROBLEMS.length) {
+    champion.style.display = 'block';
+    var c = document.getElementById('confetti');
+    c.classList.add('show');
+    setTimeout(function () { c.classList.remove('show'); }, 1400);
+  } else {
+    champion.style.display = 'none';
+  }
+}
+
+PROBLEMS.forEach(function (p, gi) {
+  var box = document.querySelector('.daily-math[data-sec="' + p.sec + '"]');
+  var row = document.createElement('div');
+  row.className = 'problem';
+  row.setAttribute('data-gi', gi);
+  var n = gi + 1;
+  row.innerHTML = '<label for="math-' + gi + '">' + n + '. ' + p.q + '</label>' +
+    '<input id="math-' + gi + '" aria-label="Answer for problem ' + n + '" placeholder="Your answer (units optional)" autocomplete="off">' +
+    '<button type="button" class="checkOne">Check answer</button>' +
+    '<p class="mathResult" role="status" aria-live="polite" hidden></p>';
+  box.appendChild(row);
+  var old = state.work[gi] || {};
+  var inp = row.querySelector('input');
+  inp.value = old.answer || '';
+  row.querySelector('.checkOne').addEventListener('click', function () { checkRow(gi); });
+  row.addEventListener('input', function () {
+    row.querySelector('.mathResult').hidden = true;
+    row.classList.remove('mathCorrect', 'mathIncorrect');
+    delete state.feedback[gi];
+    summary(); save();
+  });
+  inp.addEventListener('input', function () {
+    state.work[gi] = { answer: inp.value };
+    save();
+  });
+});
+
+checkAllBtn.addEventListener('click', function () {
+  PROBLEMS.forEach(function (p, gi) { checkRow(gi); });
+});
+
+// Restore prior checked state
+PROBLEMS.forEach(function (p, gi) {
+  if (state.feedback[gi]) checkRow(gi);
+});
+summary();
+</script>
+</body>
+</html>
+
