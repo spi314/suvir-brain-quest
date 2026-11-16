@@ -39,6 +39,10 @@ footer{text-align:center;color:#bfe3ff;font-size:.85rem;padding:10px 0 26px;}
   <div class="row"><div class="emoji">📅</div><div><h2>This week: Nov 16-20</h2><p>Routes, clear writing &amp; clever reasoning - daily reading, 10 math challenges, 30 mixed facts, science, and quizzes.</p><span class="tag">WEEKLY ADVENTURE</span><span class="status" id="weekStatus"></span></div></div>
 </a>
 
+<a class="tile" href="week-nov16-20-set2.html">
+  <div class="row"><div class="emoji">🧮</div><div><h2>This week: Set 2</h2><p>50 brand-new problems - five fresh days of place value, adding &amp; subtracting, multiplying &amp; dividing, time &amp; measurement, and data &amp; logic. Type and check right on the page; work saves on this device.</p><span class="tag">NEW &middot; SET 2</span><span class="status" id="set2Status"></span></div></div>
+</a>
+
 <a class="tile" href="noetic/index.html">
   <div class="row"><div class="emoji">🏆</div>
   <div><h2>Noetic Contest Practice</h2>
@@ -68,9 +72,13 @@ try{
   var bests=[];
   for(var i=1;i<=10;i++){var b=localStorage.getItem('suvir-noetic-test-'+i+'-v1:best');if(b)bests.push('Test '+i+': '+b+'/20');}
   if(bests.length)document.getElementById('noeticStatus').textContent='Best so far - '+bests.join(' · ');
+  var s2=JSON.parse(localStorage.getItem('suvir-brain-quest-week-nov16-20-set2-v1')||'null');
+  if(s2&&s2.work){var s2n=Object.keys(s2.work).filter(function(k){return s2.work[k]&&String(s2.work[k].answer||'').trim()!=='';}).length;
+    if(s2n>0)document.getElementById('set2Status').textContent=s2n+' of 50 answered';}
   var g=JSON.parse(localStorage.getItem('suvir-word-gym-v1')||'null');
   if(g&&g.answers){var ga=Object.keys(g.answers).filter(function(k){return String(g.answers[k]).trim()!=='';}).length;
     if(ga>0)document.getElementById('gymStatus').textContent=ga+' of 20 answered';}
 }catch(e){}
 </script>
 </body></html>
+
