@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Suvir's Brain Quest - Nov 23-24</title><style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { font-size: 17px; }
+  body {
+    margin: 0; padding: 0 0 90px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(160deg, #0f2027 0%, #203a43 40%, #2c5364 100%);
+    min-height: 100vh; color: #fff;
+  }
+  header { padding: 22px 16px 8px; text-align: center; }
+  header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .5px; }
+  header h1 .star { color: #ffd54a; }
+  header p.sub { margin: 6px 0 0; color: #bfe3ff; font-size: .9rem; }
+  .progress-wrap { max-width: 640px; margin: 14px auto 4px; padding: 0 16px; }
+  .progress-bar { background: rgba(255,255,255,.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg,#42d77d,#a6ff7e); transition: width .5s ease; }
+  .progress-label { font-size: .8rem; color: #cfeeff; margin-top: 5px; text-align: center; }
+
+  nav#tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px;
+    overflow-x: auto; padding: 12px 12px 10px; background: rgba(15,32,39,.92);
+    backdrop-filter: blur(6px); -webkit-overflow-scrolling: touch; }
+  nav#tabs button {
+    flex: 0 0 auto; border: none; border-radius: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.10); color: #eaf6ff; font-size: .85rem; font-weight: 700;
+    cursor: pointer; line-height: 1.25; min-width: 74px;
+  }
+  nav#tabs button .d { display: block; font-size: .68rem; font-weight: 500; color: #9fd0ea; }
+  nav#tabs button.active { background: linear-gradient(135deg,#ff8a3c,#ff5e62); color: #fff; }
+  nav#tabs button.active .d { color: #ffe9d6; }
+  nav#tabs button.done::after { content: " ✅"; }
+
+  main { max-width: 640px; margin: 0 auto; padding: 14px 14px 0; }
+  .day { display: none; animation: pop .25s ease; }
+  .day.active { display: block; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .day-title { font-size: 1.35rem; margin: 4px 2px 2px; }
+  .day-date { color: #9fd0ea; font-size: .85rem; margin: 0 2px 14px; }
+
+  .card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card h3 .emoji { margin-right: 6px; }
+  .card p, .card li { color: #e8f4ff; font-size: .95rem; line-height: 1.5; }
+  .card ul { margin: 8px 0 0; padding-left: 20px; }
+
+  a.link-btn { display: block; text-align: center; text-decoration: none; font-weight: 800;
+    background: linear-gradient(135deg,#3aa0ff,#2f6bff); color: #fff; border-radius: 14px;
+    padding: 13px 14px; margin: 8px 0; font-size: .95rem; }
+  a.link-btn.alt { background: linear-gradient(135deg,#8a5cf6,#c05cff); }
+
+  .quiz-q { margin-bottom: 16px; }
+  .quiz-q .q { font-weight: 700; margin-bottom: 8px; color:#fff; }
+  .opt { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 12px 14px;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06);
+    color: #fff; font-size: .95rem; cursor: pointer; }
+  .opt.correct { background: rgba(66,215,125,.25); border-color: #42d77d; }
+  .opt.wrong { background: rgba(255,90,90,.20); border-color: #ff7a7a; }
+  .opt:disabled { cursor: default; opacity: .9; }
+  .quiz-score { text-align: center; font-weight: 800; font-size: 1.05rem; color: #a6ff7e; margin: 6px 0 0; }
+
+  .big-btn { display: block; width: 100%; border: none; border-radius: 16px; padding: 15px;
+    font-size: 1.05rem; font-weight: 900; cursor: pointer; color: #07321a;
+    background: linear-gradient(135deg,#42d77d,#a6ff7e); margin: 4px 0 20px; }
+  .big-btn:disabled { background: rgba(255,255,255,.15); color: #9fd0ea; }
+
+  #mathFab { position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 30;
+    max-width: 640px; margin: 0 auto; }
+  #mathFab button { width: 100%; border: none; border-radius: 18px; padding: 16px;
+    font-size: 1.05rem; font-weight: 900; color: #2a1500; cursor: pointer;
+    background: linear-gradient(135deg,#ffd54a,#ff9a3c); box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+
+  #mathModal { position: fixed; inset: 0; z-index: 40; display: none;
+    background: rgba(6,15,20,.96); overflow-y: auto; padding: 20px 16px 40px; }
+  #mathModal.open { display: block; }
+  #mathModal .inner { max-width: 640px; margin: 0 auto; }
+  #mathModal h2 { margin: 6px 0 2px; }
+  #mathModal .close { float: right; background: none; border: none; color: #9fd0ea; font-size: 1.6rem; cursor: pointer; }
+  .row { display: flex; gap: 10px; }
+  .row button { flex: 1; border: none; border-radius: 12px; padding: 13px; font-size: 1rem;
+    font-weight: 800; cursor: pointer; background: rgba(255,255,255,.12); color: #fff; }
+  .row button.go { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .seg { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .seg button { flex: 1; border-radius: 10px; border: 2px solid rgba(255,255,255,.2); padding: 9px;
+    background: transparent; color: #cfeeff; font-weight: 700; cursor: pointer; }
+  .seg button.on { background: rgba(58,160,255,.35); border-color: #3aa0ff; color: #fff; }
+  .math-q { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 14px 0 4px; }
+  .math-fb { text-align: center; min-height: 1.6em; font-weight: 800; font-size: 1.1rem; }
+  .math-fb.good { color: #42d77d; } .math-fb.bad { color: #ff8a8a; }
+  .math-score { text-align: center; color: #cfeeff; margin-bottom: 8px; }
+  .math-entry { display: flex; gap: 8px; justify-content: center; margin: 12px 0 4px; }
+  .math-entry input { font-size: 1.6rem; font-weight: 800; width: 170px; text-align: center;
+    border-radius: 12px; border: 2px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    color: #fff; padding: 10px; outline: none; }
+  .math-entry input:focus { border-color: #3aa0ff; }
+  .math-entry .go { padding: 10px 18px; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .keypad button { border: none; border-radius: 12px; padding: 16px 0; font-size: 1.3rem;
+    font-weight: 900; background: rgba(255,255,255,.12); color: #fff; cursor: pointer; }
+  .keypad button.enter { background: linear-gradient(135deg,#42d77d,#a6ff7e); color: #07321a; }
+  .keypad button.del { background: rgba(255,120,120,.25); }
+  .math-answer { text-align: center; font-size: 1.6rem; min-height: 2rem; color: #ffd54a; font-weight: 900; }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; display: none;
+    align-items: center; justify-content: center; font-size: 4rem;
+    background: rgba(0,0,0,.35); }
+  .confetti.show { display: flex; animation: pop .3s ease; }
+  footer { text-align: center; color: #6d97ad; font-size: .75rem; padding: 18px 14px 6px; }
+
+  .daily-math .problem { padding:12px; margin:10px 0; border-left:4px solid #ffd54a; background:#ffffff0b; border-radius:10px; }
+  .daily-math label { display:block; font-weight:700; margin:5px 0; }
+  .daily-math input,.daily-math textarea { width:100%; margin:5px 0; padding:10px; background:#fff; color:#142536; border:0; border-radius:8px; font:inherit; }
+  .daily-math textarea { min-height:64px; resize:vertical; }
+  .daily-math .choices label { padding:7px; font-weight:500; }
+  .daily-math .choices input { width:auto; margin-right:7px; }
+  .daily-math .checkMath { width:100%; padding:12px; background:#ffd54a; color:#142536; border:0; border-radius:10px; font-weight:800; }
+  .daily-math .answerKey { display:none; line-height:1.5; color:#d5ffc4; margin-top:10px; }
+  .daily-math .checkOne {padding:9px 12px;border:0;border-radius:8px;background:#ffd54a;color:#142536;font:inherit;font-weight:700;margin-top:6px;}
+  .daily-math .mathResult {margin:10px 0 0;font-weight:700;}
+  .daily-math .mathCorrect {border-left-color:#42d77d;}
+  .daily-math .mathCorrect .mathResult {color:#a6ff7e;}
+  .daily-math .mathIncorrect {border-left-color:#ff8a8a;}
+  .daily-math .mathIncorrect .mathResult {color:#ffb8b8;}
+  .daily-math .optionalWork {margin-top:8px;}
+  .links-card a { color:#ffd54a; font-weight:700; }
+
+[hidden]{display:none!important}.reading p{line-height:1.7} details{margin:10px 0;color:#cfe8ff}summary{cursor:pointer;font-weight:700}math{font-size:1.12em;color:inherit} .mc-list{font-weight:500;line-height:1.9;margin:8px 0} .daily-math select{font:inherit} .day-facts{border:1px solid #ffd54a55;padding:14px;border-radius:14px;margin:12px 0} .fact-q{font-size:1.6rem;padding:12px 0}.fact-entry{display:flex;gap:8px}.fact-entry input{min-width:0;width:65%;font:inherit;padding:12px;border:0;border-radius:8px}.fact-entry button,.fact-next{padding:12px;background:#ffd54a;border:0;border-radius:8px;font:inherit;font-weight:700}.notice{font-size:.85rem;color:#bfe3ff}.mission-check{display:flex;gap:10px;align-items:flex-start;line-height:1.5}.mission-check input{margin-top:6px}a{overflow-wrap:anywhere} .mathResult{overflow-wrap:anywhere} .opt{width:100%;text-align:left}.fact-result{min-height:1.5em;color:#a6ff7e}.toplinks{text-align:center;padding:8px;font-size:.85rem}.toplinks a{color:#ffd54a}
+</style></head><body><header><h1>⭐ Suvir's Brain Quest ⭐</h1><p class="sub">Nov 23-24 · Small Moments & Growing Ideas</p></header><div class="toplinks"><a href="index.html">Home</a> · <a href="math-mix-nov14.html">Saturday Math Quest</a></div><div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><div class="progress-label" id="progressLabel"></div></div><nav id="tabs"></nav><main id="daysRoot"></main><main><section class="card"><h3>For your grown-up</h3><p>A two-day school-week edition. Reading comes first: inference, antonyms, analogies, and a favorite-month narrative. Ten original enrichment math problems and 30 mixed facts per day. Science explores fair tests and tree care. Videos and World Smarts are optional. Split the work into short sittings.</p><p>Aligned to the Nov 20 Klezmer newsletter. It reports area-model multiplication for the core class, not a confirmed change in Suvir's separate math track. These problems are original home enrichment. No spelling test next week; cursive k was introduced. Noetic scores are still awaited in this newsletter.</p><details><summary>School dates and sources</summary><p>Nov 24: Grandparents' and Special Friends' Day, dismissal 11:15 a.m. Thanksgiving break begins Nov 25. The old Nov 4 date is not treated as upcoming. Explorer presentations were completed; no new deadline is invented. All characters and stories here are original. School planting details come from the newsletter; the imagined tree-care class is not a report of Suvir's class.</p><p>Tree-care background: <a href="https://www.fs.usda.gov/t-d/seedlings/planting/mulching.htm">US Forest Service: mulch and moisture</a>. Root and growth background is in the linked SciShow Kids seed video. No historical anniversary claim is made.</p></details></section></main><div class="confetti" id="confetti">🎉 ⭐ 🎉</div><footer>Made for Suvir with ❤️ · November 2026</footer><script>
+
+const DAYS=[{"tab": "Mon", "date": "Nov 23", "title": "The Month in the Envelope", "read": "<p>At the kitchen table, Nila spread twelve blank cards in a circle. Her assignment sounded easy: write a story about her favorite month. Yet she could not choose. July had swimming. October had crunchy leaves. December had lights.</p><p>Her grandfather placed a small envelope beside the cards. Inside was a photograph of a muddy shoe and a folded paper boat. Nila laughed. She remembered an April afternoon when rain had spoiled their picnic. She had complained until her grandfather asked, \"Could the puddle be useful?\"</p><p>Together they had folded a boat. The first one tipped over. The second floated beside the curb, carrying a tiny leaf. Nila had crouched in the drizzle and cheered as if she were watching a great ship. Her grandfather had kept his umbrella over her, although his own shoulder became wet.</p><p>Now Nila turned over the April card. She wrote three notes: the canceled picnic, the sinking boat, the boat that floated. Then she added a fourth: Grandpa stayed in the rain with me.</p><p>\"April?\" he asked. \"Even with all that rain?\" Nila nodded. Her story would not be a list of things people do in April. It would be about one day when disappointment changed into delight. She began with the sound of rain tapping the picnic basket.</p><p><b>Word builder:</b> disappointment means sadness when something hoped for does not happen. Delight means great pleasure. Find details that show the change without using either word.</p><p><b>Read closely:</b> Retell the beginning, turning point, and ending. Which detail shows Grandfather cared?</p>", "mission": "Plan a true or invented favorite-month narrative: one place, one small problem, three events, and an ending that shows a feeling. Use a transition such as later or finally. <b>🚀 Stretch:</b> write an opening that starts with a sound. Say which clue in Nila's story supports your inference about Grandfather.", "science": "<p><b>Always Science:</b> A boat test should compare one change at a time. If you change both the paper and the shape, you cannot tell which change helped. On paper, plan two boats with the same paper but different shapes. Predict which will float longer. An adult can help test them in a shallow tray; keep water away from your device.</p>", "world": {"kind": "Geography", "title": "Read a pretend park map", "html": "<p>On a made-up park map, north is up. The pond is north of the gate. The oak is east of the pond. Starting at the gate, which direction takes you to the pond? From the pond, which direction takes you to the oak?</p><p><details><summary>Check after trying</summary>North, then east. A map key explains symbols; a direction arrow explains orientation.</details></p>"}, "math": [{"q": "A rectangular array has 6 rows and 24 dots in each row. How many dots are there?", "answer": "144", "type": "number", "units": ""}, {"q": "Which split keeps the value of 34 × 5?<div class=\"mc-list\">A. (30 × 5) + (4 × 5)<br>B. (3 × 5) + (4 × 5)<br>C. 30 + (4 × 5)</div>Type A, B, or C.", "answer": "A", "type": "choice", "units": ""}, {"q": "Sam says 42 × 3 is 126. He changes the first factor to 43. How much GREATER is the new product?", "answer": "3", "type": "number", "units": ""}, {"q": "A grid has 7 rows of 18 squares. A full row is erased. How many squares remain?", "answer": "108", "type": "number", "units": ""}, {"q": "There are 4 shelves with the same number of books. A fifth shelf holds 9 books. There are 105 books altogether. How many books are on EACH of the first four shelves?", "answer": "24", "type": "number", "units": ""}, {"q": "A 3-digit number has a tens digit of 0. Its digits sum to 11, and its hundreds digit is twice its ones digit minus 1. What is the number?", "answer": "704", "type": "number", "units": ""}, {"q": "Two numbers both round to 700 to the nearest hundred. What is the greatest possible DIFFERENCE between them?", "answer": "99", "type": "number", "units": ""}, {"q": "A board has 5 rows of 8 spaces. Exactly one quarter of ALL the spaces are covered. How many spaces are uncovered?", "answer": "30", "type": "number", "units": ""}, {"q": "An array has 96 dots. It has 6 rows. If the SAME dots are rearranged into 8 equal rows, how many dots are in each new row?", "answer": "12", "type": "number", "units": ""}, {"q": "🚀 A rectangle has whole-number side lengths in centimeters and an area of 24 square centimeters. What is the SMALLEST possible perimeter?", "answer": "20", "type": "number", "units": "cm"}], "quiz": [{"q": "Why does Nila choose April?", "opts": ["It never rains in April", "One rainy day became a special memory", "She has no other cards"], "a": 1}, {"q": "Which detail best supports the inference that Grandfather cares?", "opts": ["There are twelve cards", "The leaf is tiny", "He keeps the umbrella over Nila while his shoulder gets wet"], "a": 2}, {"q": "Which word is an antonym of delight?", "opts": ["Misery", "Joy", "Pleasure"], "a": 0}, {"q": "Complete the relationship: boat is to water as kite is to ___.", "opts": ["Soil", "Air", "Shelf"], "a": 1}, {"q": "🚀 Which opening best fits Nila's planned narrative?", "opts": ["April has thirty days", "Tap, tap, tap went the rain on our picnic basket", "My favorite months are all nice"], "a": 1}], "watch": {"url": "https://www.youtube.com/watch?v=11wOd0Wjy98", "label": "Noetic Learning: problem solving with boxes"}, "reward": {"url": "https://www.youtube.com/watch?v=Q-J2FErZHuA", "label": "SciShow Kids: Soil Is Alive!"}}, {"tab": "Tue", "date": "Nov 24", "title": "A Tree Is More Than a Trunk", "read": "<p>The little tree looked too small to need a plan. It was scarcely taller than the students standing beside it. Before the planting team picked a spot, however, their teacher drew two circles on the ground. One showed the trunk today. The other stood for the space the tree might need as it grew.</p><p>\"We need to think beyond what we can see,\" she said. \"Branches grow above the ground, and roots spread below it.\" Roots help hold a tree in place and take up water. A narrow spot beside a path might look convenient now but leave too little room later.</p><p>After planting, the team spread mulch over the soil, leaving space around the trunk. Mulch helps the soil lose water more slowly and limits competing weeds. It is not a substitute for checking whether the soil needs water.</p><p>Ravi wanted to pour another full watering can immediately. The soil was already wet, so the teacher asked him to wait. Caring for a tree did not mean doing the most of everything. It meant noticing what the tree needed.</p><p>At the end, the class sketched the tree and wrote the date. They could compare the drawing with later observations. The tree would change slowly, but a careful record could make those changes easier to see.</p><p><b>Word builder:</b> observation is information gathered by looking, listening, measuring, or using other senses. Predict what might change; then explain how you could observe it.</p><p><b>Read closely:</b> This original nonfiction-style passage describes an imagined class. Retell two reasons that caring for a young tree requires planning.</p>", "mission": "Write the first draft of your favorite-month story from Monday's plan. Read it aloud and revise one unclear part. Practice: \"Grandfather and I folded a boat\" and \"The rain surprised Grandfather and me.\" <b>🚀 Stretch:</b> explain why the pronoun changes. Give a 30-second story retelling with a clear voice and occasional eye contact.", "science": "<p><b>Always Science:</b> Your school newsletter says the class planted a sugar maple and a red oak. Without touching or disturbing a tree, sketch its outline from a safe public spot or use a tree near home. Record the date, visible leaves, and one question. A single observation does not prove how fast the tree grows.</p>", "world": {"kind": "History", "title": "Make a record someone can check", "html": "<p>Imagine two records about the same planting: a drawing made that day with its date and a story written years later from memory. Which record gives stronger evidence of how tall the young tree looked that day? What detail would make the drawing more useful?</p><p><details><summary>Check after trying</summary>The dated drawing is closer to the event. A ruler or a known-size object beside the tree would help readers judge size. Records can be useful and still leave questions.</details></p>"}, "math": [{"q": "A garden has 3 rows of 27 plants. The gardener adds one plant to EACH row. How many plants are there now?", "answer": "84", "type": "number", "units": ""}, {"q": "A shop packs 132 pencils into 6 equal boxes. How many pencils go in each box?", "answer": "22", "type": "number", "units": ""}, {"q": "A 4-row array is split into a block of 20 columns and a block of 7 columns. How many squares are in the WHOLE array?", "answer": "108", "type": "number", "units": ""}, {"q": "Which product is GREATER than 200?<div class=\"mc-list\">A. 39 × 5<br>B. 51 × 4<br>C. 66 × 3</div>Type A, B, or C.", "answer": "B", "type": "choice", "units": ""}, {"q": "There are 5 children at a table. Each child gives one greeting card to every OTHER child. How many cards are given altogether?", "answer": "20", "type": "number", "units": ""}, {"q": "A rope is folded in half, and the folded rope is 38 cm long. A 9 cm piece is then cut off ONE END of the unfolded rope. How many centimeters remain?", "answer": "67", "type": "number", "units": "cm"}, {"q": "A container is one third full. Adding 8 liters makes it full. How many liters does the container hold when full?", "answer": "12", "type": "number", "units": "liters"}, {"q": "An activity ends at 11:15 a.m. It lasts 1 hour 35 minutes. At what time did it start? Type h:mm.", "answer": "9:40", "type": "time", "units": ""}, {"q": "A bag contains only red and blue tiles. For every 2 red tiles there is 1 blue tile. There are 18 tiles altogether. How many are blue?", "answer": "6", "type": "number", "units": ""}, {"q": "🚀 Three different positive whole numbers have a product of 24 and a sum of 9. What is the GREATEST of the three?", "answer": "4", "type": "number", "units": ""}], "quiz": [{"q": "Why does the teacher draw a larger circle?", "opts": ["To show space the tree may need later", "To hide the tree", "To count the watering cans"], "a": 0}, {"q": "What does mulch help do?", "opts": ["Replace all water", "Make trees grow overnight", "Slow water loss from the soil"], "a": 2}, {"q": "Which sentence is correct?", "opts": ["Ravi and me drew the tree", "Ravi and I drew the tree", "Me and Ravi draws the tree"], "a": 1}, {"q": "What could a dated sketch help the class do?", "opts": ["Compare later changes", "Know every future storm", "Stop all weeds forever"], "a": 0}, {"q": "🚀 Why does the teacher ask Ravi to wait?", "opts": ["Young trees never need water", "Care means noticing needs, not always adding more", "Watering cans are forbidden"], "a": 1}], "watch": {"url": "https://www.youtube.com/watch?v=tkFPyue5X3Q", "label": "SciShow Kids: How Does A Seed Become A Plant?"}, "reward": {"url": "https://www.youtube.com/watch?v=WqgVks9NViQ", "label": "SciShow Kids: how seeds travel"}}], WEEKLY=[{"q": "Why does Nila choose April?", "opts": ["It never rains in April", "One rainy day became a special memory", "She has no other cards"], "a": 1}, {"q": "Which detail best supports the inference that Grandfather cares?", "opts": ["There are twelve cards", "The leaf is tiny", "He keeps the umbrella over Nila while his shoulder gets wet"], "a": 2}, {"q": "Which word is an antonym of delight?", "opts": ["Misery", "Joy", "Pleasure"], "a": 0}, {"q": "Complete the relationship: boat is to water as kite is to ___.", "opts": ["Soil", "Air", "Shelf"], "a": 1}, {"q": "What does mulch help do?", "opts": ["Replace all water", "Make trees grow overnight", "Slow water loss from the soil"], "a": 2}, {"q": "Which sentence is correct?", "opts": ["Ravi and me drew the tree", "Ravi and I drew the tree", "Me and Ravi draws the tree"], "a": 1}, {"q": "🚀 Why does the teacher ask Ravi to wait?", "opts": ["Young trees never need water", "Care means noticing needs, not always adding more", "Watering cans are forbidden"], "a": 1}, {"q": "On Monday's pretend map, the oak is in which direction from the pond?", "opts": ["West", "East", "South"], "a": 1}, {"q": "Which record is strongest evidence of a tree's size on planting day?", "opts": ["An undated guess", "A dated measured sketch made that day", "A story about another tree"], "a": 1}, {"q": "A fair boat test changes what?", "opts": ["Everything at once", "Nothing at all", "One feature while keeping others the same"], "a": 2}], FACTS=[[{"q": "8 × 9", "a": 72}, {"q": "21 ÷ 7", "a": 3}, {"q": "36 + 19", "a": 55}, {"q": "54 ÷ 6", "a": 9}, {"q": "12 × 4", "a": 48}, {"q": "54 ÷ 6", "a": 9}, {"q": "59 + 12", "a": 71}, {"q": "10 × 9", "a": 90}, {"q": "6 × 9", "a": 54}, {"q": "7 × 3", "a": 21}, {"q": "10 × 7", "a": 70}, {"q": "96 ÷ 8", "a": 12}, {"q": "64 + 24", "a": 88}, {"q": "22 + 12", "a": 34}, {"q": "49 − 26", "a": 23}, {"q": "99 ÷ 9", "a": 11}, {"q": "76 − 6", "a": 70}, {"q": "78 − 19", "a": 59}, {"q": "60 + 25", "a": 85}, {"q": "44 − 8", "a": 36}, {"q": "13 + 27", "a": 40}, {"q": "55 ÷ 5", "a": 11}, {"q": "42 − 29", "a": 13}, {"q": "41 − 14", "a": 27}, {"q": "4 × 8", "a": 32}, {"q": "69 − 28", "a": 41}, {"q": "53 + 22", "a": 75}, {"q": "17 + 24", "a": 41}, {"q": "55 ÷ 5", "a": 11}, {"q": "89 − 25", "a": 64}], [{"q": "66 − 7", "a": 59}, {"q": "67 − 7", "a": 60}, {"q": "20 + 26", "a": 46}, {"q": "11 × 8", "a": 88}, {"q": "64 + 12", "a": 76}, {"q": "39 + 25", "a": 64}, {"q": "15 ÷ 5", "a": 3}, {"q": "35 − 23", "a": 12}, {"q": "14 + 28", "a": 42}, {"q": "8 × 9", "a": 72}, {"q": "55 + 7", "a": 62}, {"q": "92 − 14", "a": 78}, {"q": "5 × 6", "a": 30}, {"q": "55 ÷ 5", "a": 11}, {"q": "12 ÷ 4", "a": 3}, {"q": "99 ÷ 9", "a": 11}, {"q": "15 ÷ 5", "a": 3}, {"q": "62 + 29", "a": 91}, {"q": "41 + 22", "a": 63}, {"q": "7 × 5", "a": 35}, {"q": "42 − 9", "a": 33}, {"q": "22 + 21", "a": 43}, {"q": "80 − 23", "a": 57}, {"q": "7 × 7", "a": 49}, {"q": "7 × 9", "a": 63}, {"q": "8 × 4", "a": 32}, {"q": "48 ÷ 4", "a": 12}, {"q": "90 ÷ 9", "a": 10}, {"q": "44 − 21", "a": 23}, {"q": "38 − 29", "a": 9}]];
+const LS='suvir-brain-quest-week-nov23-24-v1';
+let state={math:{},checked:{},quiz:{},fact:{},mission:{},done:{}};
+try{let x=JSON.parse(localStorage.getItem(LS)||'null');if(x)state=Object.assign(state,x)}catch(e){}
+const save=()=>{try{localStorage.setItem(LS,JSON.stringify(state))}catch(e){}};
+const root=document.getElementById('daysRoot'),tabs=document.getElementById('tabs');
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const card=(title,body,cls='')=>'<section class="card '+cls+'"><h3>'+title+'</h3>'+body+'</section>';
+function quizHTML(qs,di){return qs.map((q,qi)=>'<div class="quiz-q"><p class="q">'+(qi+1)+'. '+q.q+'</p>'+q.opts.map((o,oi)=>'<button class="opt" data-quiz="'+di+','+qi+','+oi+'">'+o+'</button>').join('')+'<p class="notice" id="qres-'+di+'-'+qi+'" role="status"></p></div>').join('')+'<p class="quiz-score" id="qscore-'+di+'"></p>'}
+DAYS.forEach((d,i)=>{
+ const b=document.createElement('button');b.innerHTML=d.tab+'<span class="d">'+d.date+'</span>';b.onclick=()=>showDay(i);tabs.append(b);
+ const s=document.createElement('section');s.className='day';s.id='day-'+i;
+ s.innerHTML='<h2 class="day-title">'+d.title+'</h2><p class="day-date">'+d.tab+', '+d.date+', 2026</p>'+card('📺 Watch & Learn · optional','<a class="link-btn" target="_blank" rel="noopener" href="'+d.watch.url+'">'+esc(d.watch.label)+'</a><p class="notice">You can start with reading and return to the video later.</p>')+card('📖 Reading Quest',d.read,'reading')+card('🎯 Your Mission','<p>'+d.mission+'</p>'+d.science+'<p>School cursive review: practice lowercase k on paper if it is part of your home routine.</p><label class="mission-check"><input type="checkbox" data-mission="'+i+'">I read the passage, explained my thinking, and tried the mission.</label>')+card('🌍 World Smarts · '+d.world.kind+' · optional','<h4>'+d.world.title+'</h4>'+d.world.html)+card('🧩 Daily Math · 10 original reasoning problems','<p>Type each answer. Check beside the question, or check the set. Paper is welcome; no written-work field or timer. 🚀 means a stretch.</p><div class="daily-math" id="mathbox-'+i+'"></div>'+factHTML(i))+card('🧠 Reading & Thinking Quiz',quizHTML(d.quiz,i))+card('🎁 Reward Video','<div id="reward-'+i+'"></div>')+'<button class="big-btn" data-done="'+i+'">Mark Today Complete 🎉</button><p class="notice" id="done-msg-'+i+'" role="status"></p>';
+ root.append(s);
+});
+const wb=document.createElement('button');wb.innerHTML='🏆 Quiz<span class="d">Whole week</span>';wb.onclick=()=>showDay(2);tabs.append(wb);
+const ws=document.createElement('section');ws.className='day';ws.id='day-2';ws.innerHTML='<h2>🏆 Weekly Brain Quest</h2>'+card('🔒 Finish the two days first','<p>Read, try the missions, check the daily math and 30 facts, and answer each daily quiz to unlock this review.</p>','weekly-lock')+'<div id="weekly-open" hidden>'+card('Whole-week quiz',quizHTML(WEEKLY,2))+'</div>';root.append(ws);
+function showDay(i){[...tabs.children].forEach((b,n)=>b.classList.toggle('active',n===i));[...root.children].forEach((s,n)=>s.classList.toggle('active',n===i));}
+function rational(s){let m=String(s).trim().match(/^(-?\d+)\s*\/\s*(\d+)$/);return m&&+m[2]!==0?[+m[1],+m[2]]:null}
+function matches(v,p){v=v.trim();if(p.type==='fraction'){let a=rational(v),b=rational(p.answer);return !!a&&!!b&&a[0]*b[1]===b[0]*a[1]}
+ if(p.type==='choice'||p.type==='word')return v.toLowerCase()===p.answer.toLowerCase();
+ if(p.type==='time')return v.replace(/\s*(a\.?m\.?)$/i,'').trim()===p.answer;
+ let cleaned=v.replace(/,/g,'').replace(/^\$/,'').trim();
+ if(p.units){const u=p.units.toLowerCase();let low=cleaned.toLowerCase();if(low.endsWith(u))cleaned=cleaned.slice(0,-u.length).trim();}
+ return /^-?\d+(\.\d+)?$/.test(cleaned)&&Number(cleaned)===Number(p.answer);
+}
+DAYS.forEach((d,di)=>{
+ state.math[di]=state.math[di]||{};state.checked[di]=state.checked[di]||{};
+ const box=document.getElementById('mathbox-'+di);
+ d.math.forEach((p,qi)=>{const row=document.createElement('div');row.className='problem';row.id='prob-'+di+'-'+qi;
+ row.innerHTML='<label for="ans-'+di+'-'+qi+'">'+(qi+1)+'. '+p.q+'</label><input id="ans-'+di+'-'+qi+'" autocomplete="off" aria-label="Day '+(di+1)+' answer '+(qi+1)+'" placeholder="'+(p.type==='fraction'?'Fraction, like 2/3':p.type==='choice'?'A, B, or C':'Your answer')+'"><button class="checkOne" data-check="'+di+','+qi+'">Check answer</button><p class="mathResult" role="status" aria-live="polite" hidden></p>';
+ box.append(row);const inp=row.querySelector('input');inp.value=state.math[di][qi]||'';
+ inp.oninput=()=>{state.math[di][qi]=inp.value;delete state.checked[di][qi];row.querySelector('.mathResult').hidden=true;row.classList.remove('mathCorrect','mathIncorrect');save();};
+ inp.onkeydown=e=>{if(e.key==='Enter')check(di,qi)};
+ });
+ const all=document.createElement('button');all.className='checkMath';all.textContent='Check all 10 answers';all.onclick=()=>d.math.forEach((_,qi)=>check(di,qi));box.append(all);
+ d.math.forEach((_,qi)=>{if(state.checked[di][qi])check(di,qi)});
+ document.querySelector('[data-mission="'+di+'"]').checked=!!state.mission[di];
+ document.querySelector('[data-mission="'+di+'"]').onchange=e=>{state.mission[di]=e.target.checked;save()};
+ renderFact(di);
+});
+function check(di,qi){const p=DAYS[di].math[qi],row=document.getElementById('prob-'+di+'-'+qi),v=row.querySelector('input').value.trim(),res=row.querySelector('.mathResult');res.hidden=false;row.classList.remove('mathCorrect','mathIncorrect');if(!v){res.textContent='Enter an answer, then check here.';delete state.checked[di][qi];save();return}
+ let ok=matches(v,p);row.classList.add(ok?'mathCorrect':'mathIncorrect');res.textContent=ok?'✓ Correct!':'✗ Not quite. Correct answer: '+p.answer+(p.units?' '+p.units:'')+'. You can edit and try again.';state.math[di][qi]=v;state.checked[di][qi]=true;save();}
+function factHTML(di){return '<div class="day-facts"><h4>⚡ Daily Fact Dash · 30 mixed facts</h4><p class="notice">Untimed. Aim for a comfortable 5-7 minutes, with breaks if needed. Addition, subtraction, multiplication, and division are mixed together. Your place saves.</p><details><summary>Show strategy reminders</summary><p>Try number bonds, a friendly ten, doubles, or a related multiplication fact. You choose the method.</p></details><p id="fact-count-'+di+'"></p><div class="fact-q" id="fact-q-'+di+'"></div><div class="fact-entry" id="fact-entry-'+di+'"><input inputmode="numeric" aria-label="Fact answer day '+(di+1)+'" id="fact-in-'+di+'" autocomplete="off"><button data-fact="'+di+'">Check fact</button></div><p class="fact-result" id="fact-res-'+di+'" role="status"></p><button class="fact-next" id="fact-next-'+di+'" data-next="'+di+'" hidden>Next fact</button></div>'}
+function renderFact(di){let f=state.fact[di]||{pos:0,score:0,pending:false,value:'',last:''};state.fact[di]=f;const n=f.pos,done=n>=30;
+ document.getElementById('fact-count-'+di).textContent=done?'30 of 30 facts finished · '+f.score+' correct':'Fact '+(n+1)+' of 30 · '+f.score+' correct so far';
+ document.getElementById('fact-q-'+di).innerHTML=done?'Daily facts complete! ⭐':FACTS[di][n].q;
+ document.getElementById('fact-entry-'+di).hidden=done;const inp=document.getElementById('fact-in-'+di);inp.disabled=!!f.pending;inp.value=f.value||'';
+ document.querySelector('[data-fact="'+di+'"]').disabled=!!f.pending;
+ document.getElementById('fact-res-'+di).textContent=f.last||'';document.getElementById('fact-next-'+di).hidden=done||!f.pending;
+ inp.oninput=()=>{f.value=inp.value;save()};inp.onkeydown=e=>{if(e.key==='Enter')factCheck(di)};
+}
+function factCheck(di){let f=state.fact[di];if(f.pos>=30||f.pending)return;let raw=document.getElementById('fact-in-'+di).value.trim();if(!/^-?\d+$/.test(raw)){document.getElementById('fact-res-'+di).textContent='Type a whole number first.';return}
+ let ans=FACTS[di][f.pos].a,ok=Number(raw)===ans;f.value=raw;f.score+=ok?1:0;f.pending=true;f.last=ok?'✓ Correct!':'Not quite. Correct answer: '+ans+'.';save();renderFact(di);}
+function factNext(di){let f=state.fact[di];if(!f.pending)return;f.pos++;f.pending=false;f.value='';f.last='';save();renderFact(di);if(f.pos<30)document.getElementById('fact-in-'+di).focus()}
+function paintQuiz(di){let qs=di===2?WEEKLY:DAYS[di].quiz,stored=state.quiz[di]||{};qs.forEach((q,qi)=>{let picked=stored[qi];document.querySelectorAll('[data-quiz^="'+di+','+qi+',"]').forEach(b=>{let oi=+b.dataset.quiz.split(',')[2];b.disabled=picked!==undefined;b.classList.toggle('correct',picked!==undefined&&oi===q.a);b.classList.toggle('wrong',picked===oi&&oi!==q.a)});document.getElementById('qres-'+di+'-'+qi).textContent=picked===undefined?'':picked===q.a?'✓ Correct!':'Correct answer: '+q.opts[q.a];});let n=Object.keys(stored).length,c=qs.filter((q,qi)=>stored[qi]===q.a).length;document.getElementById('qscore-'+di).textContent=n?c+' correct · '+n+' of '+qs.length+' answered':'';}
+function refresh(){let n=Object.values(state.done).filter(Boolean).length;document.getElementById('progressFill').style.width=n/2*100+'%';document.getElementById('progressLabel').textContent=n+' of 2 days complete';DAYS.forEach((d,i)=>{let done=!!state.done[i];tabs.children[i].classList.toggle('done',done);const b=document.querySelector('[data-done="'+i+'"]');b.textContent=done?'Day Complete ✅':'Mark Today Complete 🎉';b.disabled=done;document.getElementById('reward-'+i).innerHTML=done?'<a class="link-btn" target="_blank" rel="noopener" href="'+d.reward.url+'">'+esc(d.reward.label)+'</a><p class="notice">Watch only. Do not repeat large demonstrations at home.</p>':'<p>🔒 Read, try your mission, check the 10 math answers and 30 facts, and answer the five daily quiz questions. Then mark the day complete.</p>';});document.querySelector('.weekly-lock').hidden=n===2;document.getElementById('weekly-open').hidden=n!==2;}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.check){let [d,q]=b.dataset.check.split(',').map(Number);check(d,q)}
+ if(b.dataset.quiz){let [d,q,o]=b.dataset.quiz.split(',').map(Number);if(d===2&&Object.values(state.done).filter(Boolean).length<2)return;state.quiz[d]=state.quiz[d]||{};if(state.quiz[d][q]!==undefined)return;state.quiz[d][q]=o;save();paintQuiz(d)}
+ if(b.dataset.fact!==undefined)factCheck(+b.dataset.fact);
+ if(b.dataset.next!==undefined)factNext(+b.dataset.next);
+ if(b.dataset.done!==undefined){let d=+b.dataset.done,msg=document.getElementById('done-msg-'+d);let checked=DAYS[d].math.every((_,q)=>state.checked[d][q]&&String(state.math[d][q]||'').trim());let qs=Object.keys(state.quiz[d]||{}).length===5;let fs=state.fact[d]&&state.fact[d].pos===30;
+ if(!state.mission[d]||!checked||!qs||!fs){msg.textContent='Still needed: '+[!state.mission[d]?'reading and mission check':null,!checked?'answer and check all 10 math problems':null,!fs?'finish 30 facts':null,!qs?'five daily quiz answers':null].filter(Boolean).join('; ')+'.';return}
+ state.done[d]=true;save();msg.textContent='Day finished!';refresh();document.getElementById('confetti').classList.add('show');setTimeout(()=>document.getElementById('confetti').classList.remove('show'),1400);}
+});
+for(let d=0;d<3;d++)paintQuiz(d);showDay(0);refresh();
+</script></body></html>
